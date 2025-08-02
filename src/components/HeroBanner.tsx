@@ -11,11 +11,6 @@ const HeroBanner = () => {
     offset: ["start start", "end start"]
   })
 
-  // Get scroll progress for navbar transition
-  const { scrollYProgress: navbarScroll } = useScroll({
-    offset: ["start start", "end start"]
-  })
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
@@ -31,7 +26,6 @@ const HeroBanner = () => {
   // Logo animation - starts large and moves to navbar
   const logoScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.08])
   const logoY = useTransform(scrollYProgress, [0, 0.4], [0, -800])
-  const logoOpacity = useTransform(scrollYProgress, [0.4, 0.6], [1, 1])
 
   return (
     <section ref={ref} className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-white" style={{ overflowX: 'hidden' }}>

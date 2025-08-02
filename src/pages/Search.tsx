@@ -13,7 +13,6 @@ interface Product {
 }
 
 const Search = () => {
-  const [isOpen, setIsOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState<Product[]>([])
   const [allProducts, setAllProducts] = useState<Product[]>([])
@@ -65,13 +64,6 @@ const Search = () => {
       setSearchResults(filtered)
     }
   }, [searchQuery, allProducts, selectedCategory, sortBy])
-
-  const openSearch = () => setIsOpen(true)
-  const closeSearch = () => {
-    setIsOpen(false)
-    setSearchQuery('')
-    setSearchResults([])
-  }
 
   const categories = ['all', 'handbags', 'shoes', 'perfumes', 'lipstick', 'blush', 'compact', 'lip balm', 'wallet', 'fragrance', 'belts', 'face wash', 'backpacks', 'sunglasses', 'shaving kit']
 

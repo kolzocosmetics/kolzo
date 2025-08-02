@@ -194,7 +194,7 @@ const Navbar = () => {
 
                 {/* Mobile Menu Items */}
                 <div className="flex-1 overflow-y-auto py-4">
-                  {navItems.map((item, index) => (
+                  {navItems.map((item) => (
                     <div
                       key={item}
                       className="px-8 py-3"
