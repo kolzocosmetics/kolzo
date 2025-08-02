@@ -177,13 +177,14 @@ section.bg-black button.bg-green-500 {
   background: #9ca3af;
 }
 
-/* Premium image loading */
+/* Fast image loading - no lazy loading */
 img {
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
 }
 
 img[loading] {
-  opacity: 0;
+  opacity: 1;
 }
 
 img.loaded {

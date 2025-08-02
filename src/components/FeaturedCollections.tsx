@@ -89,6 +89,7 @@ const FeaturedCollections = () => {
                   src={collection.image}
                   alt={collection.name}
                   className="absolute inset-0 w-full h-full object-cover"
+                  loading="eager"
                   animate={{ 
                     scale: hoveredItem === collection.id ? 1.05 : 1,
                     filter: hoveredItem === collection.id ? 'brightness(1.02)' : 'brightness(1)'

@@ -152,6 +152,7 @@ const ProductDetail = () => {
                   src={productImages[selectedImage]}
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  loading="eager"
                   whileHover={{ scale: 1.02 }}
                 />
                 
@@ -181,6 +182,7 @@ const ProductDetail = () => {
                       src={image}
                       alt={`${product.name} view ${index + 1}`}
                       className="w-full h-full object-cover"
+                      loading="eager"
                     />
                   </button>
                 ))}
