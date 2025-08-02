@@ -1,34 +1,38 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import womensShoulderBags from '../assets/homepage/womens_shoulder_bags.webp'
+import womensLipstick from '../assets/homepage/womens_lipstick.webp'
+import mensWallet from '../assets/homepage/mens_wallet.webp'
+import mensBracelets from '../assets/homepage/mens_bracelets.webp'
 
 const collections = [
   {
-    id: 'handbags',
+    id: 'womens-shoulder-bags',
     name: "Women's Shoulder Bags",
     subtitle: "Timeless elegance",
-    image: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
+    image: womensShoulderBags,
     link: '/collections/women'
   },
   {
-    id: 'shoes', 
-    name: "Women's Summer Shoes",
-    subtitle: "Effortless style",
-    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    id: 'womens-lipstick', 
+    name: "Women's Lipstick",
+    subtitle: "Bold sophistication",
+    image: womensLipstick,
     link: '/collections/women'
   },
   {
-    id: 'mens-shoes',
-    name: "Men's Summer Shoes",
-    subtitle: "Sophisticated comfort",
-    image: 'https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+    id: 'mens-wallet',
+    name: "Men's Wallet",
+    subtitle: "Refined luxury",
+    image: mensWallet,
     link: '/collections/men'
   },
   {
-    id: 'mens-bags',
-    name: "Men's Bags",
-    subtitle: "Refined luxury",
-    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
+    id: 'mens-bracelets',
+    name: "Men's Bracelets",
+    subtitle: "Sophisticated style",
+    image: mensBracelets,
     link: '/collections/men'
   }
 ]

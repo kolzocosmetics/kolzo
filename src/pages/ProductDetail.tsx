@@ -223,7 +223,7 @@ const ProductDetail = () => {
                         onClick={() => setSelectedColor(color)}
                         className={`px-6 py-3 text-sm font-light tracking-wide border transition-all duration-500 ${
                           selectedColor === color
-                            ? 'bg-black text-white border-black'
+                            ? 'bg-transparent text-black border-gray-400'
                             : 'bg-white text-gray-600 border-gray-300 hover:border-black hover:text-black'
                         }`}
                       >
@@ -243,7 +243,7 @@ const ProductDetail = () => {
                         onClick={() => setSelectedSize(size)}
                         className={`px-6 py-3 text-sm font-light tracking-wide border transition-all duration-500 ${
                           selectedSize === size
-                            ? 'bg-black text-white border-black'
+                            ? 'bg-transparent text-black border-gray-400'
                             : 'bg-white text-gray-600 border-gray-300 hover:border-black hover:text-black'
                         }`}
                       >
@@ -277,7 +277,7 @@ const ProductDetail = () => {
               {/* Actions */}
               <div className="space-y-4 mb-12">
                 <motion.button
-                  className="w-full bg-black text-white py-4 px-8 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-500"
+                  className="w-full bg-transparent text-black border border-gray-400 py-4 px-8 font-light tracking-[0.2em] uppercase hover:bg-gray-100 transition-all duration-500"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >

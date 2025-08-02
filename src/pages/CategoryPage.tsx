@@ -147,7 +147,7 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                   className={`px-6 py-3 text-sm font-light tracking-wide border transition-all duration-500 ${
                     (category === 'All' && filterBy === 'all') || 
                     category.toLowerCase() === filterBy.toLowerCase()
-                      ? 'bg-black text-white border-black'
+                      ? 'bg-transparent text-black border-gray-400'
                       : 'bg-white text-gray-600 border-gray-300 hover:border-gray-600 hover:text-black'
                   }`}
                 >

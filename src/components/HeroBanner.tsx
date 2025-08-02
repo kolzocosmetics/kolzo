@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useRef, useState, useEffect } from 'react'
+import modelWebp from '../assets/homepage/model.webp'
 
 const HeroBanner = () => {
   const ref = useRef(null)
@@ -33,7 +34,7 @@ const HeroBanner = () => {
       <motion.div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: 'url(/model.webp)'
+          backgroundImage: `url(${modelWebp})`
         }}
       />
       

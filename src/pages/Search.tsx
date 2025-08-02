@@ -16,7 +16,7 @@ const Search = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [searchResults, setSearchResults] = useState<Product[]>([])
   const [allProducts, setAllProducts] = useState<Product[]>([])
-  const [selectedCategory, setSelectedCategory] = useState('all')
+
   const [sortBy, setSortBy] = useState('relevance')
 
   useEffect(() => {
@@ -39,12 +39,7 @@ const Search = () => {
         product.description.toLowerCase().includes(searchQuery.toLowerCase())
       )
 
-      // Apply category filter
-      if (selectedCategory !== 'all') {
-        filtered = filtered.filter(product => 
-          product.category.toLowerCase() === selectedCategory.toLowerCase()
-        )
-      }
+
 
       // Apply sorting
       filtered.sort((a, b) => {
@@ -63,9 +58,9 @@ const Search = () => {
 
       setSearchResults(filtered)
     }
-  }, [searchQuery, allProducts, selectedCategory, sortBy])
+  }, [searchQuery, allProducts, sortBy])
 
-  const categories = ['all', 'handbags', 'shoes', 'perfumes', 'lipstick', 'blush', 'compact', 'lip balm', 'wallet', 'fragrance', 'belts', 'face wash', 'backpacks', 'sunglasses', 'shaving kit']
+
 
   const trendingSearches = ['Handbags', 'Lipsticks', 'Perfumes', 'Wallets', 'Fragrances', 'Blush', 'Shoes', 'Accessories']
 

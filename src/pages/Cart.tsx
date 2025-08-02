@@ -132,7 +132,7 @@ const Cart = () => {
               <p className="text-gray-600 mb-8 font-light tracking-wide">Discover our collections and add items to your cart</p>
               <Link
                 to="/"
-                className="inline-block bg-black text-white px-8 py-4 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-500"
+                className="inline-block bg-transparent text-black border border-gray-400 px-8 py-4 font-light tracking-[0.2em] uppercase hover:bg-gray-100 transition-all duration-500"
               >
                 Continue Shopping
               </Link>
@@ -257,7 +257,7 @@ const Cart = () => {
 
                 <div className="space-y-4">
                   <motion.button
-                    className="w-full bg-black text-white py-4 px-8 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-500"
+                    className="w-full bg-transparent text-black border border-gray-400 py-4 px-8 font-light tracking-[0.2em] uppercase hover:bg-gray-100 transition-all duration-500"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >

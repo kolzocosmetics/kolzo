@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import womensCollection from '../assets/homepage/womens_collection.webp'
+import mensCollection from '../assets/homepage/mens_collection.webp'
 
 const GenderButtons = () => {
   return (
@@ -51,7 +53,7 @@ const GenderButtons = () => {
                 {/* Background Image - Women's Luxury Fashion */}
                 <div className="absolute inset-0">
                   <img 
-                    src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    src={womensCollection}
                     alt="Women's luxury collection"
                     className="w-full h-full object-cover object-center transition-transform duration-1000"
                   />
@@ -138,7 +140,7 @@ const GenderButtons = () => {
                 {/* Background Image - Men's Luxury Fashion */}
                 <div className="absolute inset-0">
                   <img 
-                    src="https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    src={mensCollection}
                     alt="Men's luxury collection"
                     className="w-full h-full object-cover object-center transition-transform duration-1000"
                   />
