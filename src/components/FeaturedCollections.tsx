@@ -61,7 +61,7 @@ const FeaturedCollections = () => {
           <div className="w-16 h-px bg-gray-300 ml-6"></div>
         </div>
         <p className="text-gray-500 font-light tracking-wide max-w-2xl mx-auto text-sm">
-          Since 2024, each piece embodies the essence of timeless luxury
+                          Since 2025, each piece embodies the essence of timeless luxury
         </p>
       </motion.div>
 

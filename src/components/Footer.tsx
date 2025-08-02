@@ -53,7 +53,6 @@ const Footer = () => {
   ]
 
   const newsletterLinks = [
-    { name: 'Newsletter', href: '#newsletter' },
     { name: 'Size Guide', href: '/size-guide' },
     { name: 'Care & Repair', href: '/care-repair' }
   ]
@@ -244,12 +243,12 @@ const Footer = () => {
           }}
           viewport={{ once: true }}
         >
-          <Link to="/" className="text-xl font-light tracking-[0.3em] uppercase mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+          <Link to="/" className="text-xl font-light tracking-[0.3em] uppercase mb-4 text-white hover:text-gray-200 transition-all duration-500" style={{ fontFamily: 'Playfair Display, serif' }}>
             KOLZO
           </Link>
           
           <div className="text-gray-400 text-sm font-light tracking-wide text-center">
-            © 2024 Kolzo. All rights reserved.
+            © 2025 Kolzo. All rights reserved.
           </div>
         </motion.div>
       </div>

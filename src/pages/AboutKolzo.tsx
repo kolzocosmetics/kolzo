@@ -29,7 +29,7 @@ const AboutKolzo = () => {
               About Kolzo
             </h1>
             <p className="text-lg font-light tracking-wide max-w-2xl mx-auto">
-              Crafting luxury beauty and fashion since 2024
+                             Crafting luxury beauty and fashion since 2025
             </p>
           </motion.div>
         </div>
@@ -49,7 +49,7 @@ const AboutKolzo = () => {
             </h2>
             <div className="space-y-6 text-gray-600 font-light tracking-wide leading-relaxed">
               <p>
-                Founded in 2024, Kolzo emerged from a vision to create luxury beauty and fashion products that embody timeless elegance and modern sophistication.
+                                 Founded in 2025, Kolzo emerged from a vision to create luxury beauty and fashion products that embody timeless elegance and modern sophistication.
               </p>
               <p>
                 Our commitment to quality craftsmanship, sustainable practices, and innovative design has established Kolzo as a premier destination for those who appreciate the finer things in life.
