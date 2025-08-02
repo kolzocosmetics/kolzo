@@ -151,12 +151,28 @@ const Footer = () => {
             <ul className="space-y-3">
               {newsletterLinks.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-white text-sm font-light tracking-wide hover:text-gray-200 transition-all duration-500 border-b border-transparent hover:border-white/30"
-                  >
-                    {link.name}
-                  </Link>
+                  {link.href.startsWith('#') ? (
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        const element = document.querySelector(link.href)
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' })
+                        }
+                      }}
+                      className="text-white text-sm font-light tracking-wide hover:text-gray-200 transition-all duration-500 border-b border-transparent hover:border-white/30 cursor-pointer"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.href}
+                      className="text-white text-sm font-light tracking-wide hover:text-gray-200 transition-all duration-500 border-b border-transparent hover:border-white/30"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
