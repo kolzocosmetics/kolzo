@@ -35,12 +35,11 @@ const Newsletter = () => {
       <div className="relative z-10 max-w-5xl mx-auto px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ 
             duration: 0.8,
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
-          viewport={{ once: true }}
         >
           {/* Decorative Elements */}
           <div className="flex items-center justify-center mb-12">
@@ -61,13 +60,12 @@ const Newsletter = () => {
           onSubmit={handleSubmit}
           className="max-w-lg mx-auto"
           initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ 
             duration: 0.8, 
             delay: 0.2,
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
-          viewport={{ once: true }}
         >
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <input
@@ -99,13 +97,12 @@ const Newsletter = () => {
         <motion.div
           className="text-white text-sm font-light tracking-wide max-w-2xl mx-auto"
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
           transition={{ 
             duration: 0.8, 
             delay: 0.4,
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
-          viewport={{ once: true }}
         >
           <p className="mb-4 text-white">
             By subscribing, you agree to our{' '}
@@ -126,13 +123,12 @@ const Newsletter = () => {
         <motion.div
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ 
             duration: 0.8, 
             delay: 0.6,
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
-          viewport={{ once: true }}
         >
           <div className="text-center">
             <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center border border-white/20">

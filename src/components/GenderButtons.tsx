@@ -11,12 +11,11 @@ const GenderButtons = () => {
         <motion.div
           className="text-center mb-24"
           initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ 
             duration: 0.8,
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
-          viewport={{ once: true }}
         >
           <div className="flex items-center justify-center mb-8">
             <div className="w-16 h-px bg-gray-300 mr-6"></div>
@@ -34,13 +33,12 @@ const GenderButtons = () => {
           {/* Women's Collection */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ 
               duration: 0.8, 
               delay: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94]
             }}
-            viewport={{ once: true }}
           >
             <Link to="/collections/women">
               <motion.div
@@ -70,13 +68,12 @@ const GenderButtons = () => {
                   <motion.div
                     className="text-center"
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ 
                       duration: 0.8, 
                       delay: 0.4,
                       ease: [0.25, 0.46, 0.45, 0.94]
                     }}
-                    viewport={{ once: true }}
                   >
                     <motion.h3
                       className="text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.4em] uppercase mb-8"
@@ -121,13 +118,12 @@ const GenderButtons = () => {
           {/* Men's Collection */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ 
               duration: 0.8, 
               delay: 0.4,
               ease: [0.25, 0.46, 0.45, 0.94]
             }}
-            viewport={{ once: true }}
           >
             <Link to="/collections/men">
               <motion.div
@@ -157,13 +153,12 @@ const GenderButtons = () => {
                   <motion.div
                     className="text-center"
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ 
                       duration: 0.8, 
                       delay: 0.6,
                       ease: [0.25, 0.46, 0.45, 0.94]
                     }}
-                    viewport={{ once: true }}
                   >
                     <motion.h3
                       className="text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.4em] uppercase mb-8"

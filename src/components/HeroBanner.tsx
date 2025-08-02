@@ -44,17 +44,12 @@ const HeroBanner = () => {
         style={{ opacity: overlayOpacity }}
       />
 
-      {/* Large KOLZO Logo - Moved to Top */}
+      {/* Large KOLZO Logo - Simplified positioning */}
       <motion.div
         className="absolute top-20 left-1/2 transform -translate-x-1/2 z-20"
         style={{
           scale: logoScale,
           y: logoY,
-          position: 'fixed',
-          top: isScrolled ? '20px' : '80px',
-          transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          transform: isScrolled ? 'translateY(-20px) scale(0.9)' : 'translateY(0) scale(1)',
-          opacity: isScrolled ? 0.7 : 1
         }}
       >
         <motion.h1 

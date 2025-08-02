@@ -46,12 +46,11 @@ const FeaturedCollections = () => {
       <motion.div
         className="text-center mb-24"
         initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ 
           duration: 0.8,
           ease: [0.25, 0.46, 0.45, 0.94]
         }}
-        viewport={{ once: true }}
       >
         <div className="flex items-center justify-center mb-8">
           <div className="w-16 h-px bg-gray-300 mr-6"></div>
@@ -72,13 +71,12 @@ const FeaturedCollections = () => {
             key={collection.id}
             className="group cursor-pointer"
             initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ 
               duration: 0.8, 
               delay: index * 0.15,
               ease: [0.25, 0.46, 0.45, 0.94]
             }}
-            viewport={{ once: true }}
             onHoverStart={() => setHoveredItem(collection.id)}
             onHoverEnd={() => setHoveredItem(null)}
           >
@@ -89,7 +87,6 @@ const FeaturedCollections = () => {
                   src={collection.image}
                   alt={collection.name}
                   className="absolute inset-0 w-full h-full object-cover"
-                  loading="eager"
                   animate={{ 
                     scale: hoveredItem === collection.id ? 1.05 : 1,
                     filter: hoveredItem === collection.id ? 'brightness(1.02)' : 'brightness(1)'
