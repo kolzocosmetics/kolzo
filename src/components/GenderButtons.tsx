@@ -51,7 +51,7 @@ const GenderButtons = () => {
                 {/* Background Image - Women's Luxury Fashion */}
                 <div className="absolute inset-0">
                   <img 
-                    src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
                     alt="Women's luxury collection"
                     className="w-full h-full object-cover object-center transition-transform duration-1000"
                   />
@@ -97,16 +97,17 @@ const GenderButtons = () => {
                       }}
                     >
                       <motion.div
-                        className="inline-block border-b border-white/60 pb-2 group-hover:border-white transition-all duration-500"
+                        className="inline-block border-b border-white/60 pb-2 group-hover:border-white transition-all duration-500 relative overflow-hidden"
                         whileHover={{ borderBottomWidth: 2 }}
                         transition={{ 
                           duration: 0.4,
                           ease: [0.25, 0.46, 0.45, 0.94]
                         }}
                       >
-                        <span className="text-sm font-light tracking-[0.3em] uppercase group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-500">
+                        <span className="text-sm font-light tracking-[0.3em] uppercase group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-500 relative z-10">
                           Shop Women
                         </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 transform -skew-x-12 -translate-x-full group-hover:translate-x-full"></div>
                       </motion.div>
                     </motion.div>
                   </motion.div>
@@ -183,16 +184,17 @@ const GenderButtons = () => {
                       }}
                     >
                       <motion.div
-                        className="inline-block border-b border-white/60 pb-2 group-hover:border-white transition-all duration-500"
+                        className="inline-block border-b border-white/60 pb-2 group-hover:border-white transition-all duration-500 relative overflow-hidden"
                         whileHover={{ borderBottomWidth: 2 }}
                         transition={{ 
                           duration: 0.4,
                           ease: [0.25, 0.46, 0.45, 0.94]
                         }}
                       >
-                        <span className="text-sm font-light tracking-[0.3em] uppercase group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-500">
+                        <span className="text-sm font-light tracking-[0.3em] uppercase group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)] transition-all duration-500 relative z-10">
                           Shop Men
                         </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 transform -skew-x-12 -translate-x-full group-hover:translate-x-full"></div>
                       </motion.div>
                     </motion.div>
                   </motion.div>
