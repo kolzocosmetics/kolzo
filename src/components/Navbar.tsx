@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     let ticking = false
@@ -64,6 +65,7 @@ const Navbar = () => {
                 className="p-2 hover:opacity-70 transition-all duration-500"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                onClick={() => navigate('/search')}
               >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -154,6 +156,22 @@ const Navbar = () => {
                 {/* Account and Cart Icons */}
                 <div className="px-8 py-4 border-b border-gray-100">
                   <div className="flex items-center justify-center space-x-8">
+                    {/* Search */}
+                    <motion.button 
+                      className="flex flex-col items-center space-y-2 p-3 hover:bg-gray-50 rounded-lg transition-all duration-300"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        navigate('/search')
+                        setIsMobileMenuOpen(false)
+                      }}
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      <span className="text-xs font-light tracking-wide">Search</span>
+                    </motion.button>
+
                     {/* Account */}
                     <motion.button 
                       className="flex flex-col items-center space-y-2 p-3 hover:bg-gray-50 rounded-lg transition-all duration-300"
