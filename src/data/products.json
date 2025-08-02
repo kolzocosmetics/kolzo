@@ -1,0 +1,168 @@
+{
+  "featured": [
+    {
+      "id": "handbag-001",
+      "name": "Kolzo Signature Shoulder Bag",
+      "price": 3200,
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Handbags",
+      "description": "Crafted with the finest Italian leather, this signature shoulder bag embodies timeless elegance."
+    },
+    {
+      "id": "shoes-001", 
+      "name": "Kolzo Summer Slides",
+      "price": 850,
+      "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "category": "Shoes",
+      "description": "Premium leather slides with hand-stitched details for ultimate comfort and style."
+    },
+    {
+      "id": "wallet-001",
+      "name": "Kolzo Men's Leather Wallet",
+      "price": 650,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Wallets",
+      "description": "Minimalist design with RFID protection and multiple card slots."
+    },
+    {
+      "id": "perfume-001",
+      "name": "Kolzo Essence Eau de Parfum",
+      "price": 420,
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2004&q=80",
+      "category": "Perfumes",
+      "description": "Captivating fragrance with notes of jasmine, sandalwood, and vanilla."
+    }
+  ],
+  "women": [
+    {
+      "id": "handbag-002",
+      "name": "Kolzo Evening Clutch",
+      "price": 1800,
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Handbags",
+      "description": "Perfect for elegant evening occasions with chain strap detail."
+    },
+    {
+      "id": "shoes-002",
+      "name": "Kolzo Summer Mules",
+      "price": 950,
+      "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "category": "Shoes",
+      "description": "Leather mules with handcrafted details and cushioned sole."
+    },
+    {
+      "id": "perfume-002",
+      "name": "Kolzo Bloom Eau de Toilette",
+      "price": 380,
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2004&q=80",
+      "category": "Perfumes",
+      "description": "Fresh floral scent with hints of peony and white musk."
+    },
+    {
+      "id": "lipstick-001",
+      "name": "Kolzo Rouge Velvet Lipstick",
+      "price": 65,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Lipstick",
+      "description": "Velvet-smooth texture in rich crimson with long-lasting wear."
+    },
+    {
+      "id": "blush-001",
+      "name": "Kolzo Natural Glow Blush",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Blush",
+      "description": "Natural-looking flush for radiant skin with buildable coverage."
+    },
+    {
+      "id": "compact-001",
+      "name": "Kolzo Mirror Compact",
+      "price": 120,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Compact",
+      "description": "Elegant compact with mirror and refillable powder pan."
+    },
+    {
+      "id": "lipbalm-001",
+      "name": "Kolzo Hydrating Lip Balm",
+      "price": 45,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Lip Balm",
+      "description": "Nourishing lip balm with shea butter and vitamin E."
+    },
+    {
+      "id": "wallet-002",
+      "name": "Kolzo Women's Card Holder",
+      "price": 320,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Wallet",
+      "description": "Slim card holder with RFID protection and coin pocket."
+    }
+  ],
+  "men": [
+    {
+      "id": "fragrance-001",
+      "name": "Kolzo Noir Eau de Parfum",
+      "price": 580,
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2004&q=80",
+      "category": "Fragrance",
+      "description": "Bold and sophisticated masculine scent with notes of leather and tobacco."
+    },
+    {
+      "id": "wallet-003",
+      "name": "Kolzo Men's Bifold Wallet",
+      "price": 450,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Wallet",
+      "description": "Sleek leather design with multiple compartments and RFID protection."
+    },
+    {
+      "id": "belt-001",
+      "name": "Kolzo Leather Belt",
+      "price": 380,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Belts",
+      "description": "Premium leather with polished buckle and adjustable fit."
+    },
+    {
+      "id": "facewash-001",
+      "name": "Kolzo Refresh Face Wash",
+      "price": 85,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Face Wash",
+      "description": "Gentle cleansing for daily use with natural ingredients."
+    },
+    {
+      "id": "backpack-001",
+      "name": "Kolzo Leather Backpack",
+      "price": 1200,
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Backpacks",
+      "description": "Premium leather backpack with laptop compartment and organization."
+    },
+    {
+      "id": "shoes-003",
+      "name": "Kolzo Men's Loafers",
+      "price": 890,
+      "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "category": "Shoes",
+      "description": "Handcrafted leather loafers with cushioned insole."
+    },
+    {
+      "id": "sunglasses-001",
+      "name": "Kolzo Aviator Sunglasses",
+      "price": 420,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Sunglasses",
+      "description": "Classic aviator design with UV400 protection and gold-tone frame."
+    },
+    {
+      "id": "shaving-001",
+      "name": "Kolzo Shaving Kit",
+      "price": 280,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Shaving Kit",
+      "description": "Complete shaving set with razor, brush, and premium shaving cream."
+    }
+  ]
+}

@@ -1,0 +1,247 @@
+@import "tailwindcss";
+
+:root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  font-weight: 300;
+  color: #000000;
+  background-color: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  width: 100%;
+  background-color: transparent;
+  color: #000000;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Ultra-smooth animations */
+* {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Premium button styling */
+button {
+  border-radius: 0;
+  border: 1px solid transparent;
+  padding: 0.8em 1.6em;
+  font-size: 0.875rem;
+  font-weight: 400;
+  font-family: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+/* Premium link styling */
+a {
+  font-weight: 400;
+  color: #000000;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:hover {
+  color: #666666;
+}
+
+/* Override for newsletter section to allow custom text colors */
+section.bg-black a,
+section.bg-black p,
+section.bg-black div {
+  color: inherit !important;
+}
+
+section.bg-black a:hover {
+  color: inherit !important;
+}
+
+/* Specific override for newsletter text colors */
+.text-blue-300,
+.text-blue-400 {
+  color: rgb(147 197 253) !important;
+}
+
+.text-blue-400 {
+  color: rgb(96 165 250) !important;
+}
+
+.text-blue-200 {
+  color: rgb(191 219 254) !important;
+}
+
+/* Force newsletter section text colors */
+section.bg-black .text-blue-300,
+section.bg-black .text-blue-400,
+section.bg-black .text-blue-200 {
+  color: rgb(147 197 253) !important;
+}
+
+section.bg-black .text-blue-400 {
+  color: rgb(96 165 250) !important;
+}
+
+section.bg-black .text-blue-200 {
+  color: rgb(191 219 254) !important;
+}
+
+/* Direct newsletter component override */
+section.bg-black a.text-white {
+  color: rgb(255 255 255) !important;
+}
+
+section.bg-black a.text-white:hover {
+  color: rgb(229 231 235) !important;
+}
+
+section.bg-black p.text-white {
+  color: rgb(255 255 255) !important;
+}
+
+section.bg-black p.text-gray-300 {
+  color: rgb(209 213 219) !important;
+}
+
+/* Footer text color overrides */
+footer.bg-black a.text-white {
+  color: rgb(255 255 255) !important;
+  text-shadow: 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+footer.bg-black a.text-white:hover {
+  color: rgb(229 231 235) !important;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Newsletter button text color overrides */
+section.bg-black button.bg-transparent {
+  color: rgb(255 255 255) !important;
+}
+
+section.bg-black button.bg-transparent:hover {
+  color: rgb(255 255 255) !important;
+}
+
+section.bg-black button.bg-green-500 {
+  color: rgb(255 255 255) !important;
+}
+
+/* Custom scrollbar for premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f8f8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Premium image loading */
+img {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+img[loading] {
+  opacity: 0;
+}
+
+img.loaded {
+  opacity: 1;
+}
+
+/* Ultra-smooth focus states */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: 2px solid #000000;
+  outline-offset: 2px;
+}
+
+/* Premium selection */
+::selection {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Premium hover effects */
+.hover-lift {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Ultra-smooth page transitions */
+.page-transition {
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Premium text rendering */
+.premium-text {
+  font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Luxury spacing */
+.luxury-spacing {
+  letter-spacing: 0.15em;
+}
+
+/* Premium shadows */
+.premium-shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.premium-shadow-hover:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
