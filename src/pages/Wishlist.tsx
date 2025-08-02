@@ -11,28 +11,49 @@ interface WishlistItem {
 }
 
 const Wishlist = () => {
-  // Placeholder wishlist items
+  // Enhanced wishlist items with better images
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([
     {
-      id: 'wish-1',
+      id: 'perfume-001',
       name: 'Kolzo Essence Eau de Parfum',
       price: 420,
       image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2004&q=80',
       category: 'Perfumes'
     },
     {
-      id: 'wish-2',
+      id: 'handbag-002',
       name: 'Kolzo Evening Clutch',
       price: 1800,
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
+      image: 'https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
       category: 'Handbags'
     },
     {
-      id: 'wish-3',
+      id: 'blush-001',
       name: 'Kolzo Natural Glow Blush',
       price: 75,
       image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80',
       category: 'Blush'
+    },
+    {
+      id: 'shoes-001',
+      name: 'Kolzo Summer Slides',
+      price: 850,
+      image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
+      category: 'Shoes'
+    },
+    {
+      id: 'lipstick-001',
+      name: 'Kolzo Rouge Velvet Lipstick',
+      price: 65,
+      image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80',
+      category: 'Lipstick'
+    },
+    {
+      id: 'wallet-001',
+      name: 'Kolzo Men\'s Leather Wallet',
+      price: 650,
+      image: 'https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
+      category: 'Wallets'
     }
   ])
 
@@ -42,9 +63,44 @@ const Wishlist = () => {
 
   return (
     <div className="min-h-screen bg-white pt-24">
+      {/* Hero Section */}
+      <motion.section
+        className="relative h-[40vh] overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+            alt="Luxury wishlist"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+        
+        {/* Hero Content */}
+        <div className="relative z-10 h-full flex items-center justify-center text-white">
+          <motion.div
+            className="text-center px-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-[0.2em] uppercase mb-6">
+              Your Wishlist
+            </h1>
+            <p className="text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto">
+              Curated items you love, saved for later
+            </p>
+          </motion.div>
+        </div>
+      </motion.section>
+
       <div className="max-w-7xl mx-auto px-6 py-16">
         
-        {/* Header */}
+        {/* Wishlist Status */}
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -54,10 +110,7 @@ const Wishlist = () => {
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
         >
-          <h1 className="text-3xl md:text-4xl font-light tracking-[0.2em] uppercase mb-6">
-            Your Wishlist
-          </h1>
-          <p className="text-gray-600 mt-4 font-light tracking-wide">
+          <p className="text-gray-600 font-light tracking-wide">
             {wishlistItems.length} {wishlistItems.length === 1 ? 'item' : 'items'} saved for later
           </p>
         </motion.div>
@@ -112,7 +165,7 @@ const Wishlist = () => {
                 <div className="relative">
                   {/* Product Image */}
                   <Link to={`/product/${item.id}`}>
-                    <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative cursor-pointer">
+                    <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative cursor-pointer rounded-lg">
                       <img 
                         src={item.image}
                         alt={item.name}
@@ -143,6 +196,7 @@ const Wishlist = () => {
                     <h3 className="text-sm font-light tracking-wide mb-2 group-hover:text-gray-600 transition-colors duration-500">
                       {item.name}
                     </h3>
+                    <p className="text-sm text-gray-500 mb-2 font-light tracking-wide">{item.category}</p>
                     <p className="text-lg font-medium mb-6">${item.price.toLocaleString()}</p>
                   </Link>
                   

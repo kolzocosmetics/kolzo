@@ -1,6 +1,16 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
+import productsData from '../data/products.json'
+
+interface Product {
+  id: string
+  name: string
+  price: number
+  image: string
+  category: string
+  description: string
+}
 
 const ProductDetail = () => {
   const { id } = useParams()
@@ -9,31 +19,61 @@ const ProductDetail = () => {
   const [selectedColor, setSelectedColor] = useState('Black')
   const [selectedSize, setSelectedSize] = useState('Medium')
   const [selectedImage, setSelectedImage] = useState(0)
+  const [product, setProduct] = useState<Product | null>(null)
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
 
-  // Placeholder product data - in real app would fetch based on id
-  const product = {
-    id: id || 'sample-001',
-    name: 'Kolzo Signature Shoulder Bag',
-    price: 3200,
-    description: 'Crafted with the finest Italian leather, this signature shoulder bag embodies timeless elegance. Each piece is handcrafted by master artisans using traditional techniques passed down through generations.',
-    images: [
-      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
-      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
-      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80'
-    ],
-    variants: {
-      colors: ['Black', 'Brown', 'Beige'],
-      sizes: ['Small', 'Medium', 'Large']
-    },
-    details: 'Premium Italian leather with hand-stitched details. Features a removable shoulder strap, interior zip pocket, and protective feet. Dimensions: 30cm x 20cm x 10cm.',
-    shipping: 'Free shipping on orders over $200. Standard delivery in 3-5 business days. Express shipping available for an additional fee.',
-    returns: '30-day return policy. Items must be in original condition with all tags attached. Return shipping is free for orders over $200.'
+  useEffect(() => {
+    // Find the product by ID from all categories
+    const allProducts = [
+      ...productsData.featured,
+      ...productsData.women,
+      ...productsData.men
+    ]
+    const foundProduct = allProducts.find(p => p.id === id)
+    setProduct(foundProduct || null)
+
+    // Get related products from the same category
+    if (foundProduct) {
+      const related = allProducts
+        .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
+        .slice(0, 4)
+      setRelatedProducts(related)
+    }
+  }, [id])
+
+  if (!product) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-light tracking-[0.1em] mb-4">Product Not Found</h2>
+          <Link to="/" className="text-gray-600 hover:text-black transition-all duration-300">
+            Return to Home
+          </Link>
+        </div>
+      </div>
+    )
   }
 
+  // Generate multiple images for the product
+  const productImages = [
+    product.image,
+    product.image, // In a real app, these would be different angles
+    product.image
+  ]
+
+  const variants = {
+    colors: ['Black', 'Brown', 'Beige'],
+    sizes: ['Small', 'Medium', 'Large']
+  }
+
+  const details = `Premium ${product.category.toLowerCase()} crafted with the finest materials. ${product.description} Each piece is handcrafted by master artisans using traditional techniques passed down through generations.`
+  const shipping = 'Free shipping on orders over $200. Standard delivery in 3-5 business days. Express shipping available for an additional fee.'
+  const returns = '30-day return policy. Items must be in original condition with all tags attached. Return shipping is free for orders over $200.'
+
   const tabs = [
-    { id: 'details', label: 'Details', content: product.details },
-    { id: 'shipping', label: 'Shipping', content: product.shipping },
-    { id: 'returns', label: 'Returns', content: product.returns }
+    { id: 'details', label: 'Details', content: details },
+    { id: 'shipping', label: 'Shipping', content: shipping },
+    { id: 'returns', label: 'Returns', content: returns }
   ]
 
   return (
@@ -64,7 +104,7 @@ const ProductDetail = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-[0.2em] uppercase mb-4">
-              Product Details
+              {product.category}
             </h1>
             <p className="text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto">
               Discover the craftsmanship behind each piece
@@ -107,17 +147,29 @@ const ProductDetail = () => {
           >
             <div className="space-y-6">
               {/* Main Image */}
-              <div className="aspect-square bg-gray-50 overflow-hidden">
-                <img 
-                  src={product.images[selectedImage]}
+              <div className="aspect-square bg-gray-50 overflow-hidden group">
+                <motion.img 
+                  src={productImages[selectedImage]}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  whileHover={{ scale: 1.02 }}
                 />
+                
+                {/* Wishlist button */}
+                <motion.button 
+                  className="absolute top-4 right-4 p-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </motion.button>
               </div>
               
               {/* Thumbnail Images */}
               <div className="grid grid-cols-3 gap-4">
-                {product.images.map((image, index) => (
+                {productImages.map((image, index) => (
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
@@ -165,7 +217,7 @@ const ProductDetail = () => {
                 <div>
                   <h3 className="text-sm font-light tracking-[0.1em] uppercase mb-4">Color</h3>
                   <div className="flex space-x-4">
-                    {product.variants.colors.map((color) => (
+                    {variants.colors.map((color) => (
                       <button
                         key={color}
                         onClick={() => setSelectedColor(color)}
@@ -185,7 +237,7 @@ const ProductDetail = () => {
                 <div>
                   <h3 className="text-sm font-light tracking-[0.1em] uppercase mb-4">Size</h3>
                   <div className="flex space-x-4">
-                    {product.variants.sizes.map((size) => (
+                    {variants.sizes.map((size) => (
                       <button
                         key={size}
                         onClick={() => setSelectedSize(size)}
@@ -265,6 +317,70 @@ const ProductDetail = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Related Products */}
+        {relatedProducts.length > 0 && (
+          <motion.section
+            className="mt-24"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.8,
+              delay: 0.4,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }}
+          >
+            <h2 className="text-2xl font-light tracking-[0.1em] uppercase mb-12 text-center">
+              You May Also Like
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {relatedProducts.map((relatedProduct, index) => (
+                <motion.div
+                  key={relatedProduct.id}
+                  className="group cursor-pointer"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: 0.5 + (index * 0.1),
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
+                >
+                  <Link to={`/product/${relatedProduct.id}`}>
+                    <div className="aspect-square bg-gray-50 mb-4 overflow-hidden relative">
+                      <img 
+                        src={relatedProduct.image}
+                        alt={relatedProduct.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      
+                      {/* Hover overlay */}
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-500" />
+                      
+                      {/* Wishlist button */}
+                      <motion.button 
+                        className="absolute top-4 right-4 p-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                      </motion.button>
+                    </div>
+                    
+                    <div className="text-center">
+                      <h3 className="text-sm font-light tracking-wide mb-2 group-hover:text-gray-600 transition-colors duration-500">
+                        {relatedProduct.name}
+                      </h3>
+                      <p className="text-lg font-medium">${relatedProduct.price.toLocaleString()}</p>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          </motion.section>
+        )}
       </div>
     </div>
   )

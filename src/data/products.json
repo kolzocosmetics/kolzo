@@ -31,6 +31,22 @@
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Captivating fragrance with notes of jasmine, sandalwood, and vanilla."
+    },
+    {
+      "id": "lipstick-002",
+      "name": "Kolzo Velvet Matte Lipstick",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Lipstick",
+      "description": "Long-lasting matte finish in sophisticated nude tones."
+    },
+    {
+      "id": "sunglasses-002",
+      "name": "Kolzo Aviator Sunglasses",
+      "price": 580,
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "category": "Sunglasses",
+      "description": "Classic aviator design with premium lenses and gold-tone frame."
     }
   ],
   "women": [
@@ -38,7 +54,7 @@
       "id": "handbag-002",
       "name": "Kolzo Evening Clutch",
       "price": 1800,
-      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Perfect for elegant evening occasions with chain strap detail."
     },
@@ -46,7 +62,7 @@
       "id": "shoes-002",
       "name": "Kolzo Summer Mules",
       "price": 950,
-      "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
       "category": "Shoes",
       "description": "Leather mules with handcrafted details and cushioned sole."
     },
@@ -97,6 +113,70 @@
       "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
       "category": "Wallet",
       "description": "Slim card holder with RFID protection and coin pocket."
+    },
+    {
+      "id": "handbag-003",
+      "name": "Kolzo Tote Bag",
+      "price": 2800,
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Handbags",
+      "description": "Spacious tote with leather handles and interior organization."
+    },
+    {
+      "id": "shoes-003",
+      "name": "Kolzo Ballet Flats",
+      "price": 780,
+      "image": "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "category": "Shoes",
+      "description": "Classic ballet flats with cushioned insole and leather upper."
+    },
+    {
+      "id": "perfume-003",
+      "name": "Kolzo Rose Garden Eau de Parfum",
+      "price": 450,
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2004&q=80",
+      "category": "Perfumes",
+      "description": "Romantic rose fragrance with hints of vanilla and musk."
+    },
+    {
+      "id": "lipstick-003",
+      "name": "Kolzo Nude Matte Lipstick",
+      "price": 70,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Lipstick",
+      "description": "Perfect nude shade with matte finish for everyday wear."
+    },
+    {
+      "id": "blush-002",
+      "name": "Kolzo Coral Glow Blush",
+      "price": 80,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Blush",
+      "description": "Coral-toned blush for a warm, sun-kissed glow."
+    },
+    {
+      "id": "compact-002",
+      "name": "Kolzo Powder Compact",
+      "price": 95,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Compact",
+      "description": "Silk-finish powder compact with built-in applicator."
+    },
+    {
+      "id": "lipbalm-002",
+      "name": "Kolzo Tinted Lip Balm",
+      "price": 55,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80",
+      "category": "Lip Balm",
+      "description": "Tinted lip balm with SPF protection and natural color."
+    },
+    {
+      "id": "wallet-003",
+      "name": "Kolzo Women's Bifold Wallet",
+      "price": 420,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Wallet",
+      "description": "Classic bifold design with multiple card slots and coin pocket."
     }
   ],
   "men": [
@@ -152,7 +232,7 @@
       "id": "sunglasses-001",
       "name": "Kolzo Aviator Sunglasses",
       "price": 420,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
       "category": "Sunglasses",
       "description": "Classic aviator design with UV400 protection and gold-tone frame."
     },
@@ -163,6 +243,70 @@
       "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
       "category": "Shaving Kit",
       "description": "Complete shaving set with razor, brush, and premium shaving cream."
+    },
+    {
+      "id": "fragrance-002",
+      "name": "Kolzo Cedar Eau de Cologne",
+      "price": 520,
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2004&q=80",
+      "category": "Fragrance",
+      "description": "Fresh cedar scent with citrus notes for a modern masculine fragrance."
+    },
+    {
+      "id": "wallet-004",
+      "name": "Kolzo Men's Card Holder",
+      "price": 320,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Wallet",
+      "description": "Minimalist card holder with RFID protection and leather construction."
+    },
+    {
+      "id": "belt-002",
+      "name": "Kolzo Reversible Belt",
+      "price": 450,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Belts",
+      "description": "Reversible belt with brown and black sides for versatility."
+    },
+    {
+      "id": "facewash-002",
+      "name": "Kolzo Deep Clean Face Wash",
+      "price": 95,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Face Wash",
+      "description": "Deep cleansing formula with activated charcoal for oily skin."
+    },
+    {
+      "id": "backpack-002",
+      "name": "Kolzo Canvas Backpack",
+      "price": 850,
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Backpacks",
+      "description": "Durable canvas backpack with leather accents and laptop sleeve."
+    },
+    {
+      "id": "shoes-004",
+      "name": "Kolzo Men's Sneakers",
+      "price": 720,
+      "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "category": "Shoes",
+      "description": "Premium leather sneakers with cushioned sole and classic design."
+    },
+    {
+      "id": "sunglasses-002",
+      "name": "Kolzo Wayfarer Sunglasses",
+      "price": 380,
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "category": "Sunglasses",
+      "description": "Timeless wayfarer design with polarized lenses and acetate frame."
+    },
+    {
+      "id": "shaving-002",
+      "name": "Kolzo Electric Razor",
+      "price": 450,
+      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+      "category": "Shaving Kit",
+      "description": "Precision electric razor with multiple settings and travel case."
     }
   ]
 }

@@ -154,59 +154,51 @@ const Navbar = () => {
                 </div>
 
                 {/* Account and Cart Icons */}
-                <div className="px-8 py-4 border-b border-gray-100">
-                  <div className="flex items-center justify-center space-x-8">
+                <div className="px-6 py-3 border-b border-gray-100">
+                  <div className="flex items-center justify-center space-x-1">
                     {/* Search */}
-                    <motion.button 
-                      className="flex flex-col items-center space-y-2 p-3 hover:bg-gray-50 rounded-lg transition-all duration-300"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                    <button 
+                      className="flex flex-col items-center space-y-1 text-black hover:text-gray-600 transition-all duration-300"
                       onClick={() => {
                         navigate('/search')
                         setIsMobileMenuOpen(false)
                       }}
                     >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                       </svg>
                       <span className="text-xs font-light tracking-wide">Search</span>
-                    </motion.button>
+                    </button>
 
                     {/* Account */}
-                    <motion.button 
-                      className="flex flex-col items-center space-y-2 p-3 hover:bg-gray-50 rounded-lg transition-all duration-300"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                    <button 
+                      className="flex flex-col items-center space-y-1 text-black hover:text-gray-600 transition-all duration-300"
                     >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                       </svg>
                       <span className="text-xs font-light tracking-wide">Account</span>
-                    </motion.button>
+                    </button>
 
                     {/* Wishlist */}
-                    <motion.button 
-                      className="flex flex-col items-center space-y-2 p-3 hover:bg-gray-50 rounded-lg transition-all duration-300"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                    <button 
+                      className="flex flex-col items-center space-y-1 text-black hover:text-gray-600 transition-all duration-300"
                     >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                       </svg>
                       <span className="text-xs font-light tracking-wide">Wishlist</span>
-                    </motion.button>
+                    </button>
 
                     {/* Cart */}
-                    <motion.button 
-                      className="flex flex-col items-center space-y-2 p-3 hover:bg-gray-50 rounded-lg transition-all duration-300"
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
+                    <button 
+                      className="flex flex-col items-center space-y-1 text-black hover:text-gray-600 transition-all duration-300"
                     >
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.993z" />
                       </svg>
                       <span className="text-xs font-light tracking-wide">Cart</span>
-                    </motion.button>
+                    </button>
                   </div>
                 </div>
 
