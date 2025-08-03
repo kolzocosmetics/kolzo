@@ -9,6 +9,7 @@ import { useCartStore } from '../store/cartStore'
 import { useWishlistStore } from '../store/wishlistStore'
 import { luxuryAnimations } from '../utils/luxuryAnimations'
 import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
+import SEOHead from '../components/SEOHead'
 
 interface Product {
   id: string
@@ -168,8 +169,27 @@ const ProductDetail = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-6 py-20">
+    <>
+      {product && (
+        <SEOHead 
+          title={`${product.name} - KOLZO Luxury Fashion`}
+          description={`Shop ${product.name} from KOLZO's luxury collection. ${product.description}. Premium quality, free shipping on orders over $200.`}
+          keywords={`${product.name}, ${product.category}, luxury fashion, kolzo, designer ${product.category.toLowerCase()}, premium accessories`}
+          image={product.image}
+          type="product"
+          productData={{
+            name: product.name,
+            price: product.price,
+            currency: "USD",
+            availability: "InStock",
+            brand: "KOLZO",
+            category: product.category,
+            images: productImages
+          }}
+        />
+      )}
+      <div className="min-h-screen bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-20">
         
         {/* Breadcrumb */}
         <motion.nav
@@ -603,8 +623,9 @@ const ProductDetail = () => {
             )}
           </motion.section>
         )}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

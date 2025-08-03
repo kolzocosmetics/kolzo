@@ -8,6 +8,7 @@ import { luxuryAnimations } from '../utils/luxuryAnimations'
 import { useCartStore } from '../store/cartStore'
 import { useWishlistStore } from '../store/wishlistStore'
 import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
+import SEOHead from '../components/SEOHead'
 
 interface CategoryPageProps {
   gender: 'women' | 'men'
@@ -218,9 +219,23 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
     ? 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
     : 'https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
 
+  const categoryParam = searchParams.get('category')
+  const categoryTitle = categoryParam ? `${categoryParam} - ${gender.charAt(0).toUpperCase() + gender.slice(1)}'s Collection` : `${gender.charAt(0).toUpperCase() + gender.slice(1)}'s Collection`
+  const categoryDescription = categoryParam 
+    ? `Shop luxury ${categoryParam.toLowerCase()} from KOLZO's ${gender}'s collection. Premium quality, designer ${categoryParam.toLowerCase()}, free shipping on orders over $200.`
+    : `Discover KOLZO's luxury ${gender}'s collection. Shop designer handbags, premium accessories, luxury makeup, and sophisticated lifestyle products.`
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section with Model */}
+    <>
+      <SEOHead 
+        title={`${categoryTitle} - KOLZO Luxury Fashion`}
+        description={categoryDescription}
+        keywords={`${gender}'s fashion, luxury ${gender}'s collection, designer ${gender}'s accessories, kolzo ${gender}, premium ${gender}'s fashion, luxury brands`}
+        image="https://kolzo.in/assets/kolzo_logo.png"
+        type="category"
+      />
+      <div className="min-h-screen bg-white">
+        {/* Hero Section with Model */}
       <motion.section
         className="relative h-[60vh] md:h-[70vh] overflow-hidden"
         initial={{ opacity: 0 }}
@@ -697,7 +712,8 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
           setQuickViewProduct(null)
         }}
       />
-    </div>
+      </div>
+    </>
   )
 }
 

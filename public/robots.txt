@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kolzo.in/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+# Allow important pages
+Allow: /collections/
+Allow: /product/
+Allow: /search
+Allow: /cart
+Allow: /wishlist
+
+# Crawl delay (optional)
+Crawl-delay: 1 
