@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import productsDataF from '../data/products-f.json'
 import productsDataM from '../data/products-m.json'
+import { formatPrice } from '../utils/priceFormatter'
 
 interface Product {
   id: string
@@ -544,7 +545,7 @@ const Search = () => {
                           <p className="text-xs text-gray-400 mb-2 font-light tracking-wide">
                             {highlightSearchTerm(product.category, searchQuery)}
                           </p>
-                          <p className="font-light">${product.price.toLocaleString()}</p>
+                          <p className="font-light">{formatPrice(product.price)}</p>
                         </Link>
                       </motion.div>
                     ))}
@@ -635,7 +636,7 @@ const Search = () => {
                               <h3 className="text-sm font-light tracking-wide mb-3 group-hover:text-gray-600 transition-colors duration-500">
                                 {product.name}
                               </h3>
-                              <p className="text-lg font-light tracking-[0.1em]">${product.price.toLocaleString()}</p>
+                              <p className="text-lg font-light tracking-[0.1em]">{formatPrice(product.price)}</p>
                             </div>
                           </Link>
                         </motion.div>

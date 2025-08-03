@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import { formatPrice } from '../utils/priceFormatter'
 
 const OrderSuccess = () => {
   useEffect(() => {
@@ -80,7 +81,7 @@ const OrderSuccess = () => {
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">Total Amount:</span>
-                    <span className="font-medium">$3,330.00</span>
+                    <span className="font-medium">{formatPrice(276390)}</span>
                   </div>
                 </div>
               </div>

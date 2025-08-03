@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { luxuryAnimations } from '../utils/luxuryAnimations'
+import { formatPrice } from '../utils/priceFormatter'
 
 interface CartItem {
   id: string
@@ -61,7 +62,7 @@ const LuxuryCartSummary = ({ cartItems, onUpdateQuantity, onRemoveItem }: Luxury
                   {item.size && `${item.size}`}
                 </p>
                 <p className="text-sm font-medium">
-                  ${item.price.toLocaleString()}
+                  {formatPrice(item.price)}
                 </p>
               </div>
               

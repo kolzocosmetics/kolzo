@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import { formatPrice } from '../utils/priceFormatter'
 
 interface Order {
   id: string
@@ -355,7 +356,7 @@ const MyOrder = () => {
                               <p className="text-sm font-light tracking-wide">{item.name}</p>
                               <p className="text-xs text-gray-600">Qty: {item.quantity}</p>
                             </div>
-                            <p className="text-sm font-medium">${(item.price * item.quantity).toLocaleString()}</p>
+                            <p className="text-sm font-medium">{formatPrice(item.price * item.quantity)}</p>
                           </div>
                         ))}
                       </div>

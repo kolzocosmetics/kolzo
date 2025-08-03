@@ -3,7 +3,7 @@
     {
       "id": "hb-001",
       "name": "Kolzo Signature Shoulder Bag",
-      "price": 3200,
+      "price": 265600,
       "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Crafted with the finest Italian leather, this signature shoulder bag embodies timeless elegance."
@@ -11,7 +11,7 @@
     {
       "id": "hb-002",
       "name": "Kolzo Evening Clutch",
-      "price": 1800,
+      "price": 149400,
       "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Perfect for elegant evening occasions with chain strap detail."
@@ -19,7 +19,7 @@
     {
       "id": "hb-003",
       "name": "Kolzo Tote Bag",
-      "price": 2800,
+      "price": 232400,
       "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Spacious tote with leather handles and interior organization."
@@ -27,7 +27,7 @@
     {
       "id": "hb-004",
       "name": "Kolzo Crossbody Bag",
-      "price": 2200,
+      "price": 182600,
       "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Versatile crossbody with adjustable strap and multiple compartments."
@@ -35,7 +35,7 @@
     {
       "id": "hb-005",
       "name": "Kolzo Hobo Bag",
-      "price": 2600,
+      "price": 215800,
       "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Soft leather hobo with comfortable shoulder strap and roomy interior."
@@ -43,7 +43,7 @@
     {
       "id": "hb-006",
       "name": "Kolzo Satchel Bag",
-      "price": 2400,
+      "price": 199200,
       "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Structured satchel with top handles and magnetic closure."
@@ -51,7 +51,7 @@
     {
       "id": "hb-007",
       "name": "Kolzo Bucket Bag",
-      "price": 1900,
+      "price": 157700,
       "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Casual bucket bag with drawstring closure and leather trim."
@@ -59,7 +59,7 @@
     {
       "id": "hb-008",
       "name": "Kolzo Wristlet",
-      "price": 1200,
+      "price": 99600,
       "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Compact wristlet perfect for essentials and evening wear."
@@ -69,7 +69,7 @@
     {
       "id": "lp-001",
       "name": "Kolzo Velvet Matte Lipstick",
-      "price": 75,
+      "price": 516675,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lipstick",
       "description": "Long-lasting matte finish in sophisticated nude tones."
@@ -77,7 +77,7 @@
     {
       "id": "lp-002",
       "name": "Kolzo Rouge Velvet Lipstick",
-      "price": 65,
+      "price": 447785,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lipstick",
       "description": "Velvet-smooth texture in rich crimson with long-lasting wear."
@@ -85,7 +85,7 @@
     {
       "id": "lp-003",
       "name": "Kolzo Nude Matte Lipstick",
-      "price": 70,
+      "price": 482230,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lipstick",
       "description": "Perfect nude shade with matte finish for everyday wear."
@@ -93,7 +93,7 @@
     {
       "id": "lp-004",
       "name": "Kolzo Berry Gloss Lipstick",
-      "price": 60,
+      "price": 413340,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lipstick",
       "description": "Glossy berry shade with hydrating formula and shine finish."
@@ -101,7 +101,7 @@
     {
       "id": "lp-005",
       "name": "Kolzo Coral Satin Lipstick",
-      "price": 68,
+      "price": 5644,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lipstick",
       "description": "Satin finish coral with buildable coverage and smooth application."
@@ -109,7 +109,7 @@
     {
       "id": "lp-006",
       "name": "Kolzo Plum Matte Lipstick",
-      "price": 72,
+      "price": 5976,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lipstick",
       "description": "Deep plum matte with intense color payoff and long wear."
@@ -117,7 +117,7 @@
     {
       "id": "lp-007",
       "name": "Kolzo Pink Gloss Lipstick",
-      "price": 58,
+      "price": 4814,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lipstick",
       "description": "Soft pink gloss with subtle shimmer and moisturizing formula."
@@ -125,7 +125,7 @@
     {
       "id": "lp-008",
       "name": "Kolzo Red Velvet Lipstick",
-      "price": 80,
+      "price": 6640,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lipstick",
       "description": "Classic red velvet with iconic color and luxurious finish."
@@ -135,7 +135,7 @@
     {
       "id": "sc-001",
       "name": "Kolzo Silk Scarf",
-      "price": 280,
+      "price": 23240,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Scarf",
       "description": "Premium silk scarf with hand-rolled edges and elegant floral pattern."
@@ -143,7 +143,7 @@
     {
       "id": "sc-002",
       "name": "Kolzo Cashmere Blend Scarf",
-      "price": 420,
+      "price": 34860,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Scarf",
       "description": "Luxurious cashmere blend scarf with soft texture and warm insulation."
@@ -151,7 +151,7 @@
     {
       "id": "sc-003",
       "name": "Kolzo Geometric Print Scarf",
-      "price": 320,
+      "price": 26560,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Scarf",
       "description": "Modern geometric print scarf with bold colors and contemporary design."
@@ -159,7 +159,7 @@
     {
       "id": "sc-004",
       "name": "Kolzo Wool Blend Scarf",
-      "price": 380,
+      "price": 31540,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Scarf",
       "description": "Warm wool blend scarf with classic plaid pattern and fringe detail."
@@ -167,7 +167,7 @@
     {
       "id": "sc-005",
       "name": "Kolzo Paisley Print Scarf",
-      "price": 260,
+      "price": 21580,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Scarf",
       "description": "Traditional paisley print scarf with rich colors and intricate detail."
@@ -175,7 +175,7 @@
     {
       "id": "sc-006",
       "name": "Kolzo Solid Color Scarf",
-      "price": 240,
+      "price": 19920,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Scarf",
       "description": "Minimalist solid color scarf with clean lines and versatile styling."
@@ -183,7 +183,7 @@
     {
       "id": "sc-007",
       "name": "Kolzo Striped Scarf",
-      "price": 300,
+      "price": 24900,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Scarf",
       "description": "Classic striped scarf with alternating colors and timeless appeal."
@@ -191,7 +191,7 @@
     {
       "id": "sc-008",
       "name": "Kolzo Embroidered Scarf",
-      "price": 450,
+      "price": 37350,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Scarf",
       "description": "Hand-embroidered scarf with delicate floral motifs and premium finish."
@@ -201,7 +201,7 @@
     {
       "id": "bl-001",
       "name": "Kolzo Natural Glow Blush",
-      "price": 75,
+      "price": 6225,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Blush",
       "description": "Natural-looking flush for radiant skin with buildable coverage."
@@ -209,7 +209,7 @@
     {
       "id": "bl-002",
       "name": "Kolzo Coral Glow Blush",
-      "price": 80,
+      "price": 6640,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Blush",
       "description": "Coral-toned blush for a warm, sun-kissed glow."
@@ -217,7 +217,7 @@
     {
       "id": "bl-003",
       "name": "Kolzo Rose Blush",
-      "price": 78,
+      "price": 6474,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Blush",
       "description": "Soft rose blush with silky texture and natural finish."
@@ -225,7 +225,7 @@
     {
       "id": "bl-004",
       "name": "Kolzo Peach Blush",
-      "price": 72,
+      "price": 5976,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Blush",
       "description": "Peach blush with golden undertones for a luminous effect."
@@ -233,7 +233,7 @@
     {
       "id": "bl-005",
       "name": "Kolzo Berry Blush",
-      "price": 85,
+      "price": 7055,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Blush",
       "description": "Rich berry blush with intense color and long-lasting wear."
@@ -241,7 +241,7 @@
     {
       "id": "bl-006",
       "name": "Kolzo Pink Blush",
-      "price": 70,
+      "price": 5810,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Blush",
       "description": "Classic pink blush with soft, buildable coverage."
@@ -249,7 +249,7 @@
     {
       "id": "bl-007",
       "name": "Kolzo Mauve Blush",
-      "price": 82,
+      "price": 6806,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Blush",
       "description": "Sophisticated mauve blush with cool undertones."
@@ -257,7 +257,7 @@
     {
       "id": "bl-008",
       "name": "Kolzo Bronze Blush",
-      "price": 88,
+      "price": 7304,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Blush",
       "description": "Warm bronze blush for a sun-kissed, contoured look."
@@ -267,7 +267,7 @@
     {
       "id": "lb-001",
       "name": "Kolzo Hydrating Lip Balm",
-      "price": 45,
+      "price": 3735,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lip Balm",
       "description": "Nourishing lip balm with shea butter and vitamin E."
@@ -275,7 +275,7 @@
     {
       "id": "lb-002",
       "name": "Kolzo Tinted Lip Balm",
-      "price": 55,
+      "price": 4565,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lip Balm",
       "description": "Tinted lip balm with SPF protection and natural color."
@@ -283,7 +283,7 @@
     {
       "id": "lb-003",
       "name": "Kolzo Berry Lip Balm",
-      "price": 48,
+      "price": 3984,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lip Balm",
       "description": "Berry-scented lip balm with antioxidant protection."
@@ -291,7 +291,7 @@
     {
       "id": "lb-004",
       "name": "Kolzo Mint Lip Balm",
-      "price": 42,
+      "price": 3486,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lip Balm",
       "description": "Refreshing mint lip balm with cooling sensation."
@@ -299,7 +299,7 @@
     {
       "id": "lb-005",
       "name": "Kolzo Vanilla Lip Balm",
-      "price": 50,
+      "price": 4150,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lip Balm",
       "description": "Sweet vanilla lip balm with moisturizing formula."
@@ -307,7 +307,7 @@
     {
       "id": "lb-006",
       "name": "Kolzo Coconut Lip Balm",
-      "price": 46,
+      "price": 3818,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lip Balm",
       "description": "Tropical coconut lip balm with natural oils."
@@ -315,7 +315,7 @@
     {
       "id": "lb-007",
       "name": "Kolzo Rose Lip Balm",
-      "price": 52,
+      "price": 4316,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lip Balm",
       "description": "Elegant rose lip balm with subtle fragrance."
@@ -323,7 +323,7 @@
     {
       "id": "lb-008",
       "name": "Kolzo Honey Lip Balm",
-      "price": 44,
+      "price": 3652,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Lip Balm",
       "description": "Natural honey lip balm with antibacterial properties."
@@ -333,7 +333,7 @@
     {
       "id": "pf-001",
       "name": "Kolzo Essence Eau de Parfum",
-      "price": 420,
+      "price": 34860,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Captivating fragrance with notes of jasmine, sandalwood, and vanilla."
@@ -341,7 +341,7 @@
     {
       "id": "pf-002",
       "name": "Kolzo Bloom Eau de Toilette",
-      "price": 380,
+      "price": 31540,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Fresh floral scent with hints of peony and white musk."
@@ -349,7 +349,7 @@
     {
       "id": "pf-003",
       "name": "Kolzo Rose Garden Eau de Parfum",
-      "price": 450,
+      "price": 37350,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Romantic rose fragrance with hints of vanilla and musk."
@@ -357,7 +357,7 @@
     {
       "id": "pf-004",
       "name": "Kolzo Citrus Burst Eau de Cologne",
-      "price": 360,
+      "price": 29880,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Fresh citrus blend with lemon, bergamot, and grapefruit notes."
@@ -365,7 +365,7 @@
     {
       "id": "pf-005",
       "name": "Kolzo Lavender Fields Eau de Toilette",
-      "price": 390,
+      "price": 32370,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Calming lavender with herbal undertones and clean finish."
@@ -373,7 +373,7 @@
     {
       "id": "pf-006",
       "name": "Kolzo Vanilla Dreams Eau de Parfum",
-      "price": 410,
+      "price": 34030,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Warm vanilla with caramel and tonka bean notes."
@@ -381,7 +381,7 @@
     {
       "id": "pf-007",
       "name": "Kolzo Ocean Breeze Eau de Cologne",
-      "price": 340,
+      "price": 28220,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Fresh ocean scent with sea salt and marine notes."
@@ -389,7 +389,7 @@
     {
       "id": "pf-008",
       "name": "Kolzo Amber Nights Eau de Parfum",
-      "price": 480,
+      "price": 39840,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Perfumes",
       "description": "Rich amber with oriental spices and warm base notes."
@@ -399,7 +399,7 @@
     {
       "id": "el-001",
       "name": "Kolzo Liquid Eyeliner",
-      "price": 65,
+      "price": 5395,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Eye Liner",
       "description": "Precision liquid eyeliner with ultra-fine tip for perfect wings."
@@ -407,7 +407,7 @@
     {
       "id": "el-002",
       "name": "Kolzo Gel Eyeliner",
-      "price": 58,
+      "price": 4814,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Eye Liner",
       "description": "Smooth gel eyeliner with creamy texture and long-lasting wear."
@@ -415,7 +415,7 @@
     {
       "id": "el-003",
       "name": "Kolzo Pencil Eyeliner",
-      "price": 45,
+      "price": 3735,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Eye Liner",
       "description": "Soft pencil eyeliner for smudged, smoky eye looks."
@@ -423,7 +423,7 @@
     {
       "id": "el-004",
       "name": "Kolzo Waterproof Eyeliner",
-      "price": 72,
+      "price": 5976,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Eye Liner",
       "description": "Waterproof eyeliner that stays put through tears and humidity."
@@ -431,7 +431,7 @@
     {
       "id": "el-005",
       "name": "Kolzo Kohl Eyeliner",
-      "price": 52,
+      "price": 4316,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Eye Liner",
       "description": "Traditional kohl eyeliner for intense, dramatic eye definition."
@@ -439,7 +439,7 @@
     {
       "id": "el-006",
       "name": "Kolzo Felt Tip Eyeliner",
-      "price": 68,
+      "price": 5644,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Eye Liner",
       "description": "Felt tip eyeliner for precise application and clean lines."
@@ -447,7 +447,7 @@
     {
       "id": "el-007",
       "name": "Kolzo Dual Eyeliner",
-      "price": 75,
+      "price": 6225,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Eye Liner",
       "description": "Dual-ended eyeliner with liquid and pencil for versatile looks."
@@ -455,7 +455,7 @@
     {
       "id": "el-008",
       "name": "Kolzo Glitter Eyeliner",
-      "price": 82,
+      "price": 6806,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Eye Liner",
       "description": "Sparkling glitter eyeliner for glamorous evening looks."
@@ -465,7 +465,7 @@
     {
       "id": "cp-001",
       "name": "Kolzo Mirror Compact",
-      "price": 120,
+      "price": 9960,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Compact",
       "description": "Elegant compact with mirror and refillable powder pan."
@@ -473,7 +473,7 @@
     {
       "id": "cp-002",
       "name": "Kolzo Powder Compact",
-      "price": 95,
+      "price": 7885,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Compact",
       "description": "Silk-finish powder compact with built-in applicator."
@@ -481,7 +481,7 @@
     {
       "id": "cp-003",
       "name": "Kolzo Blush Compact",
-      "price": 88,
+      "price": 7304,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Compact",
       "description": "Compact with blush and mirror for on-the-go touch-ups."
@@ -489,7 +489,7 @@
     {
       "id": "cp-004",
       "name": "Kolzo Highlighter Compact",
-      "price": 105,
+      "price": 8715,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Compact",
       "description": "Illuminating compact with shimmer highlighter and mirror."
@@ -497,7 +497,7 @@
     {
       "id": "cp-005",
       "name": "Kolzo Bronzer Compact",
-      "price": 92,
+      "price": 7636,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Compact",
       "description": "Warm bronzer compact for sun-kissed glow and contouring."
@@ -505,7 +505,7 @@
     {
       "id": "cp-006",
       "name": "Kolzo Eyeshadow Compact",
-      "price": 115,
+      "price": 9545,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Compact",
       "description": "Multi-shade eyeshadow compact with mirror and applicator."
@@ -513,7 +513,7 @@
     {
       "id": "cp-007",
       "name": "Kolzo Foundation Compact",
-      "price": 135,
+      "price": 11205,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Compact",
       "description": "Foundation compact with coverage and mirror for touch-ups."
@@ -521,7 +521,7 @@
     {
       "id": "cp-008",
       "name": "Kolzo Setting Powder Compact",
-      "price": 98,
+      "price": 8134,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Compact",
       "description": "Translucent setting powder compact to lock makeup in place."
@@ -531,7 +531,7 @@
     {
       "id": "wf-001",
       "name": "Kolzo Classic Women's Watch",
-      "price": 850,
+      "price": 70550,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Elegant classic watch with leather strap and minimalist dial design."
@@ -539,7 +539,7 @@
     {
       "id": "wf-002",
       "name": "Kolzo Rose Gold Watch",
-      "price": 1200,
+      "price": 99600,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Sophisticated rose gold watch with crystal accents and mesh bracelet."
@@ -547,7 +547,7 @@
     {
       "id": "wf-003",
       "name": "Kolzo Diamond Watch",
-      "price": 1800,
+      "price": 149400,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Luxury diamond-encrusted watch with premium leather strap."
@@ -555,7 +555,7 @@
     {
       "id": "wf-004",
       "name": "Kolzo Minimalist Watch",
-      "price": 650,
+      "price": 53950,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Ultra-minimalist design with clean dial and comfortable strap."
@@ -563,7 +563,7 @@
     {
       "id": "wf-005",
       "name": "Kolzo Pearl Watch",
-      "price": 950,
+      "price": 78850,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Elegant pearl-embellished watch with mother-of-pearl dial."
@@ -571,7 +571,7 @@
     {
       "id": "wf-006",
       "name": "Kolzo Crystal Watch",
-      "price": 1100,
+      "price": 91300,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Sparkling crystal watch with Swarovski elements and gold plating."
@@ -579,7 +579,7 @@
     {
       "id": "wf-007",
       "name": "Kolzo Vintage Watch",
-      "price": 1350,
+      "price": 112050,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Vintage-inspired watch with retro dial and leather strap."
@@ -587,10 +587,10 @@
     {
       "id": "wf-008",
       "name": "Kolzo Smart Watch",
-      "price": 1600,
+      "price": 132800,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Premium smartwatch with health tracking and luxury design."
     }
   ]
-} 
+}

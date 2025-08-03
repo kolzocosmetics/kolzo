@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import LuxuryCartSummary from '../components/LuxuryCartSummary'
 import { useCartStore } from '../store/cartStore'
 import { trackRemoveFromCart } from '../utils/analytics'
+import { formatPrice } from '../utils/priceFormatter'
 
 
 
@@ -144,7 +145,7 @@ const Cart = () => {
                       <div className="text-sm text-gray-600 space-y-1 font-light tracking-wide">
                         {item.color && <p>Color: {item.color}</p>}
                         {item.size && <p>Size: {item.size}</p>}
-                        <p className="font-medium text-lg">${item.price.toLocaleString()}</p>
+                        <p className="font-medium text-lg">{formatPrice(item.price)}</p>
                       </div>
                     </div>
 
@@ -171,7 +172,7 @@ const Cart = () => {
 
                     {/* Item Total & Remove */}
                     <div className="text-right">
-                      <p className="text-lg font-medium mb-3">${(item.price * item.quantity).toLocaleString()}</p>
+                      <p className="text-lg font-medium mb-3">{formatPrice(item.price * item.quantity)}</p>
                       <motion.button
                         onClick={() => handleRemoveItem(item.id)}
                         className="text-sm text-gray-500 hover:text-red-500 transition-all duration-300 font-light tracking-wide"

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useWishlistStore } from '../store/wishlistStore'
 import { luxuryAnimations } from '../utils/luxuryAnimations'
+import { formatPrice } from '../utils/priceFormatter'
 import { trackWishlistRemove } from '../utils/analytics'
 
 const Wishlist = () => {
@@ -142,7 +143,7 @@ const Wishlist = () => {
                   <h3 className="text-sm font-light tracking-wide mb-3 group-hover:text-gray-600 transition-colors duration-500">
                     {item.name}
                   </h3>
-                  <p className="text-lg font-light tracking-[0.1em]">${item.price.toLocaleString()}</p>
+                  <p className="text-lg font-light tracking-[0.1em]">{formatPrice(item.price)}</p>
                 </div>
               </Link>
             </motion.div>

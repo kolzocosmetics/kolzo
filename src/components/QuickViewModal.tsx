@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useWishlistStore } from '../store/wishlistStore'
 import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
+import { formatPrice } from '../utils/priceFormatter'
 
 interface Product {
   id: string
@@ -178,7 +179,7 @@ const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps) => {
                       {product.name}
                     </h3>
                     <p className="text-3xl font-light">
-                      ${product.price.toLocaleString()}
+                      {formatPrice(product.price)}
                     </p>
                     <p className="text-sm text-gray-500 font-light tracking-wide">
                       {product.category}

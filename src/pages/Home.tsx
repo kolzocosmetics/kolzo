@@ -9,7 +9,7 @@ const Home = () => {
     <>
       <SEOHead 
         title="KOLZO - Luxury Fashion & Lifestyle | Premium Designer Clothing & Accessories"
-        description="Discover KOLZO's exclusive luxury fashion collection. Shop designer handbags, premium accessories, luxury makeup, and sophisticated lifestyle products. Free shipping on orders over $200. Authentic luxury fashion."
+        description="Discover KOLZO's exclusive luxury fashion collection. Shop designer handbags, premium accessories, luxury makeup, and sophisticated lifestyle products. Free shipping on orders over ₹16,600. Authentic luxury fashion."
         keywords="luxury fashion, designer handbags, premium accessories, luxury makeup, kolzo, designer clothing, luxury lifestyle, premium fashion, designer accessories, luxury brands, online shopping"
         image="https://kolzo.in/assets/kolzo_logo.png"
         type="website"

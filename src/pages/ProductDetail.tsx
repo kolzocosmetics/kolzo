@@ -10,6 +10,7 @@ import { useWishlistStore } from '../store/wishlistStore'
 import { luxuryAnimations } from '../utils/luxuryAnimations'
 import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
 import SEOHead from '../components/SEOHead'
+import { formatPrice } from '../utils/priceFormatter'
 
 interface Product {
   id: string
@@ -160,7 +161,7 @@ const ProductDetail = () => {
   
   const shipping = 'Complimentary shipping on all orders. Standard delivery in 3-5 business days. Express shipping available for an additional fee. International shipping available to select countries.'
   
-  const returns = '30-day return policy for unworn items in original condition with all tags attached. Return shipping is complimentary for orders over $500. Exchanges available for different sizes or colors.'
+      const returns = '30-day return policy for unworn items in original condition with all tags attached. Return shipping is complimentary for orders over ₹41,500. Exchanges available for different sizes or colors.'
 
   const tabs = [
     { id: 'details', label: 'Details', content: details },
@@ -173,7 +174,7 @@ const ProductDetail = () => {
       {product && (
         <SEOHead 
           title={`${product.name} - KOLZO Luxury Fashion`}
-          description={`Shop ${product.name} from KOLZO's luxury collection. ${product.description}. Premium quality, free shipping on orders over $200.`}
+          description={`Shop ${product.name} from KOLZO's luxury collection. ${product.description}. Premium quality, free shipping on orders over ₹16,600.`}
           keywords={`${product.name}, ${product.category}, luxury fashion, kolzo, designer ${product.category.toLowerCase()}, premium accessories`}
           image={product.image}
           type="product"
@@ -278,7 +279,7 @@ const ProductDetail = () => {
                 <h1 className="text-heading font-display font-light tracking-[0.15em] mb-8 leading-tight">
                   {product.name}
                 </h1>
-                <p className="text-3xl font-light tracking-[0.2em] mb-12">${product.price.toLocaleString()}</p>
+                <p className="text-3xl font-light tracking-[0.2em] mb-12">{formatPrice(product.price)}</p>
                 <p className="text-gray-600 font-light tracking-wide leading-relaxed text-lg">
                   {product.description}
                 </p>
@@ -525,7 +526,7 @@ const ProductDetail = () => {
                       <h3 className="text-sm font-light tracking-wide mb-3 group-hover:text-gray-600 transition-colors duration-500">
                         {relatedProduct.name}
                       </h3>
-                      <p className="text-lg font-light tracking-[0.1em]">${relatedProduct.price.toLocaleString()}</p>
+                                                  <p className="text-lg font-light tracking-[0.1em]">{formatPrice(relatedProduct.price)}</p>
                     </div>
                   </Link>
                 </motion.div>
@@ -612,7 +613,7 @@ const ProductDetail = () => {
                               <h3 className="text-sm font-light tracking-wide mb-3 group-hover:text-gray-600 transition-colors duration-500">
                                 {recommendedProduct.name}
                               </h3>
-                              <p className="text-lg font-light tracking-[0.1em]">${recommendedProduct.price.toLocaleString()}</p>
+                              <p className="text-lg font-light tracking-[0.1em]">{formatPrice(recommendedProduct.price)}</p>
                             </div>
                           </Link>
                         </motion.div>

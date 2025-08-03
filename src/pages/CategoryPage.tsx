@@ -9,6 +9,7 @@ import { useCartStore } from '../store/cartStore'
 import { useWishlistStore } from '../store/wishlistStore'
 import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
 import SEOHead from '../components/SEOHead'
+import { formatPrice } from '../utils/priceFormatter'
 
 interface CategoryPageProps {
   gender: 'women' | 'men'
@@ -222,7 +223,7 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
   const categoryParam = searchParams.get('category')
   const categoryTitle = categoryParam ? `${categoryParam} - ${gender.charAt(0).toUpperCase() + gender.slice(1)}'s Collection` : `${gender.charAt(0).toUpperCase() + gender.slice(1)}'s Collection`
   const categoryDescription = categoryParam 
-    ? `Shop luxury ${categoryParam.toLowerCase()} from KOLZO's ${gender}'s collection. Premium quality, designer ${categoryParam.toLowerCase()}, free shipping on orders over $200.`
+    ? `Shop luxury ${categoryParam.toLowerCase()} from KOLZO's ${gender}'s collection. Premium quality, designer ${categoryParam.toLowerCase()}, free shipping on orders over ₹16,600.`
     : `Discover KOLZO's luxury ${gender}'s collection. Shop designer handbags, premium accessories, luxury makeup, and sophisticated lifestyle products.`
 
   return (
@@ -630,7 +631,7 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                       <h3 className="text-sm font-light tracking-wide mb-2 group-hover:text-gray-600 transition-colors duration-500">
                         {searchQuery ? highlightSearchTerm(product.name, searchQuery) : product.name}
                       </h3>
-                      <p className="text-lg font-medium mb-2">${product.price.toLocaleString()}</p>
+                                                  <p className="text-lg font-medium mb-2">{formatPrice(product.price)}</p>
                       <p className="text-xs text-gray-500 font-light tracking-wide mb-3">
                         {searchQuery ? highlightSearchTerm(product.category, searchQuery) : product.category}
                       </p>
