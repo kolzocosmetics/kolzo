@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import scrollCache from '../utils/scrollCache'
+import kolzoLogo from '../assets/kolzo_logo.png'
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -268,7 +269,7 @@ const Navbar = () => {
               <div className="flex flex-col h-full">
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                                     <img src="/src/assets/kolzo_logo.png" alt="Kolzo" className="h-16 w-auto ml-4 mt-2" />
+                                     <img src={kolzoLogo} alt="Kolzo" className="h-16 w-auto ml-4 mt-2" />
                   <motion.button
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-all duration-300 text-gray-700"

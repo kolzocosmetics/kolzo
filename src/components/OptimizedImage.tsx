@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import kolzoLogo from '../assets/kolzo_logo.png'
 
 interface OptimizedImageProps {
   src: string
@@ -18,7 +19,7 @@ const OptimizedImage = ({
   width, 
   height, 
   priority = false,
-  fallback = '/src/assets/kolzo_logo.png'
+  fallback = kolzoLogo
 }: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
