@@ -54,7 +54,7 @@ const FeaturedCollections = () => {
       >
         <div className="flex items-center justify-center mb-8">
           <div className="w-16 h-px bg-gray-300 mr-6"></div>
-          <h2 className="text-4xl md:text-5xl font-light tracking-[0.4em] uppercase" style={{ fontFamily: 'Playfair Display, serif' }}>
+          <h2 className="text-display font-display font-light tracking-[0.4em] uppercase">
             Curated by the House
           </h2>
           <div className="w-16 h-px bg-gray-300 ml-6"></div>

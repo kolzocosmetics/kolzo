@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import LuxuryLoadingSpinner from '../components/LuxuryLoadingSpinner'
+import LuxuryCartSummary from '../components/LuxuryCartSummary'
+import { useCartStore } from '../store/cartStore'
+import { trackRemoveFromCart } from '../utils/analytics'
 
 interface CartItem {
   id: string
@@ -13,47 +17,11 @@ interface CartItem {
 }
 
 const Cart = () => {
-  // Enhanced cart items with better images
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      id: 'handbag-001',
-      name: 'Kolzo Signature Shoulder Bag',
-      price: 3200,
-      image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80',
-      quantity: 1,
-      color: 'Black',
-      size: 'Medium'
-    },
-    {
-      id: 'lipstick-001', 
-      name: 'Kolzo Rouge Velvet Lipstick',
-      price: 65,
-      image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2915&q=80',
-      quantity: 2,
-      color: 'Crimson'
-    },
-    {
-      id: 'perfume-001',
-      name: 'Kolzo Essence Eau de Parfum',
-      price: 420,
-      image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2004&q=80',
-      quantity: 1,
-      color: 'Classic'
-    }
-  ])
+  const { items: cartItems, updateQuantity, removeItem } = useCartStore()
 
-  const updateQuantity = (id: string, newQuantity: number) => {
-    if (newQuantity === 0) {
-      setCartItems(cartItems.filter(item => item.id !== id))
-    } else {
-      setCartItems(cartItems.map(item => 
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      ))
-    }
-  }
-
-  const removeItem = (id: string) => {
-    setCartItems(cartItems.filter(item => item.id !== id))
+  const handleRemoveItem = (item: CartItem) => {
+    trackRemoveFromCart(item.id, item.name, item.price, item.quantity)
+    removeItem(item.id)
   }
 
   const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
@@ -213,7 +181,7 @@ const Cart = () => {
                     <div className="text-right">
                       <p className="text-lg font-medium mb-3">${(item.price * item.quantity).toLocaleString()}</p>
                       <motion.button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => handleRemoveItem(item)}
                         className="text-sm text-gray-500 hover:text-red-500 transition-all duration-300 font-light tracking-wide"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -237,46 +205,11 @@ const Cart = () => {
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
-              <div className="bg-gray-50 p-8 rounded-lg">
-                <h3 className="text-xl font-light tracking-[0.1em] uppercase mb-8">Order Summary</h3>
-                
-                <div className="space-y-6 mb-8">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 font-light tracking-wide">Subtotal</span>
-                    <span className="font-medium">${subtotal.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 font-light tracking-wide">Shipping</span>
-                    <span className="font-medium">{shipping === 0 ? 'Free' : `$${shipping}`}</span>
-                  </div>
-                  {shipping === 0 && (
-                    <p className="text-sm text-green-600 font-light tracking-wide">Free shipping on orders over $200!</p>
-                  )}
-                  <div className="border-t border-gray-200 pt-6">
-                    <div className="flex justify-between font-medium text-lg">
-                      <span>Total</span>
-                      <span>${total.toLocaleString()}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <motion.button
-                    className="w-full bg-transparent text-black border border-gray-400 py-4 px-8 font-light tracking-[0.2em] uppercase hover:bg-gray-100 transition-all duration-500"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Proceed to Checkout
-                  </motion.button>
-                  
-                  <Link
-                    to="/"
-                    className="block text-center text-gray-600 font-light tracking-wide hover:text-black transition-all duration-300"
-                  >
-                    Continue Shopping
-                  </Link>
-                </div>
-              </div>
+              <LuxuryCartSummary
+                cartItems={cartItems}
+                onUpdateQuantity={updateQuantity}
+                onRemoveItem={handleRemoveItem}
+              />
             </motion.div>
           </div>
         )}

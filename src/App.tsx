@@ -3,6 +3,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import scrollCache from './utils/scrollCache'
+import { NotificationProvider } from './components/NotificationSystem'
 
 // Lazy load all pages
 const Home = lazy(() => import('./pages/Home'))
@@ -17,15 +18,14 @@ const AboutKolzo = lazy(() => import('./pages/AboutKolzo'))
 const Sustainability = lazy(() => import('./pages/Sustainability'))
 const SizeGuide = lazy(() => import('./pages/SizeGuide'))
 const CareRepair = lazy(() => import('./pages/CareRepair'))
+const Checkout = lazy(() => import('./pages/Checkout'))
+const OrderSuccess = lazy(() => import('./pages/OrderSuccess'))
+
+import LuxuryLoadingSpinner from './components/LuxuryLoadingSpinner'
 
 // Loading component
 const LoadingSpinner = () => (
-  <div className="min-h-screen bg-white flex items-center justify-center">
-    <div className="text-center">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
-      <p className="text-sm font-light tracking-wide">Loading...</p>
-    </div>
-  </div>
+  <LuxuryLoadingSpinner size="large" text="Loading Kolzo..." />
 )
 
 // Scroll position manager component
@@ -36,6 +36,19 @@ const ScrollManager = () => {
     // Update current path and restore scroll position
     scrollCache.setCurrentPath(location.pathname)
     scrollCache.restoreScrollPosition(location.pathname)
+    
+    // Track page view for analytics
+    try {
+      import('./utils/analytics').then(({ trackPageView }) => {
+        trackPageView(location.pathname)
+      }).catch(() => {
+        // Silently fail if analytics module is not available
+        console.log('Analytics module not available')
+      })
+    } catch (error) {
+      // Silently fail if analytics fails to load
+      console.log('Analytics error:', error)
+    }
   }, [location.pathname])
 
   return null
@@ -61,35 +74,39 @@ const NotFound = () => {
 
 function App() {
   return (
-    <Router>
-      <ScrollManager />
-      <div className="min-h-screen w-full bg-white text-black">
-        <Navbar />
-        <main className="w-full">
-          <Suspense fallback={<LoadingSpinner />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/collections/women" element={<CategoryPage gender="women" />} />
-              <Route path="/collections/men" element={<CategoryPage gender="men" />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/wishlist" element={<Wishlist />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/my-order" element={<MyOrder />} />
-              <Route path="/faqs" element={<FAQs />} />
-              <Route path="/about-kolzo" element={<AboutKolzo />} />
-              <Route path="/sustainability" element={<Sustainability />} />
-              <Route path="/size-guide" element={<SizeGuide />} />
-              <Route path="/care-repair" element={<CareRepair />} />
-              
-              {/* 404 Catch-all route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <NotificationProvider>
+      <Router>
+        <ScrollManager />
+        <div className="min-h-screen w-full bg-white text-black">
+          <Navbar />
+          <main className="w-full">
+            <Suspense fallback={<LoadingSpinner />}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/collections/women" element={<CategoryPage gender="women" />} />
+                <Route path="/collections/men" element={<CategoryPage gender="men" />} />
+                <Route path="/product/:id" element={<ProductDetail />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/wishlist" element={<Wishlist />} />
+                <Route path="/search" element={<Search />} />
+                <Route path="/my-order" element={<MyOrder />} />
+                <Route path="/faqs" element={<FAQs />} />
+                <Route path="/about-kolzo" element={<AboutKolzo />} />
+                <Route path="/sustainability" element={<Sustainability />} />
+                <Route path="/size-guide" element={<SizeGuide />} />
+                <Route path="/care-repair" element={<CareRepair />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order-success" element={<OrderSuccess />} />
+                
+                {/* 404 Catch-all route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </NotificationProvider>
   )
 }
 

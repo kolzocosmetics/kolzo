@@ -46,10 +46,7 @@ const HeroBanner = () => {
         }}
       >
         <h1 
-          className="text-6xl md:text-8xl lg:text-9xl font-light tracking-[0.3em] cursor-pointer text-center whitespace-nowrap text-white"
-          style={{ 
-            fontFamily: 'Playfair Display, serif'
-          }}
+          className="text-hero font-display font-light tracking-[0.3em] cursor-pointer text-center whitespace-nowrap text-white"
         >
           KOLZO
         </h1>
@@ -64,7 +61,7 @@ const HeroBanner = () => {
       >
         <div className="space-y-8">
           {/* Product Category */}
-          <h2 className="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase text-white">
+          <h2 className="text-display font-display font-light tracking-[0.3em] uppercase text-white">
             Handbags
           </h2>
           

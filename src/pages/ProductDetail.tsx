@@ -4,6 +4,11 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import productsData from '../data/products.json'
 import productsFData from '../data/products-f.json'
 import productsMData from '../data/products-m.json'
+import LuxuryLoadingSpinner from '../components/LuxuryLoadingSpinner'
+import { useCartStore } from '../store/cartStore'
+import { useWishlistStore } from '../store/wishlistStore'
+import { luxuryAnimations } from '../utils/luxuryAnimations'
+import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
 
 interface Product {
   id: string
@@ -17,6 +22,8 @@ interface Product {
 const ProductDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { addItem } = useCartStore()
+  const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlistStore()
   const [selectedTab, setSelectedTab] = useState('details')
   const [quantity, setQuantity] = useState(1)
   const [selectedColor, setSelectedColor] = useState('Black')
@@ -25,6 +32,7 @@ const ProductDetail = () => {
   const [product, setProduct] = useState<Product | null>(null)
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isAddingToCart, setIsAddingToCart] = useState(false)
 
   useEffect(() => {
     setIsLoading(true)
@@ -69,14 +77,7 @@ const ProductDetail = () => {
   }, [id])
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto mb-4"></div>
-          <p className="text-gray-600 font-light tracking-wide">Loading...</p>
-        </div>
-      </div>
-    )
+    return <LuxuryLoadingSpinner size="large" text="Loading Product..." />
   }
 
   if (!product) {
@@ -101,6 +102,30 @@ const ProductDetail = () => {
     product.image, // In a real app, these would be different angles
     product.image
   ]
+
+  const handleAddToCart = () => {
+    if (!product) return
+    
+    console.log('Add to cart clicked!', product.name)
+    setIsAddingToCart(true)
+    
+    // Add item to cart
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image,
+      size: selectedSize,
+      color: selectedColor
+    })
+    
+    // Show success feedback
+    setTimeout(() => {
+      setIsAddingToCart(false)
+      // Show success message
+      alert(`${product.name} added to cart!`) // Simple feedback for now
+    }, 1000)
+  }
 
   const variants = {
     colors: ['Black', 'Brown', 'Beige', 'Red'],
@@ -244,7 +269,7 @@ const ProductDetail = () => {
               
               {/* Product Title & Price */}
               <div className="mb-16">
-                <h1 className="text-4xl md:text-5xl font-light tracking-[0.15em] mb-8 leading-tight">
+                <h1 className="text-heading font-display font-light tracking-[0.15em] mb-8 leading-tight">
                   {product.name}
                 </h1>
                 <p className="text-3xl font-light tracking-[0.2em] mb-12">${product.price.toLocaleString()}</p>
@@ -265,9 +290,14 @@ const ProductDetail = () => {
                         onClick={() => setSelectedColor(color)}
                         className={`px-8 py-4 text-sm font-light tracking-[0.15em] border-2 transition-all duration-500 ${
                           selectedColor === color
-                            ? 'bg-black text-white border-black'
-                            : 'bg-white text-black border-gray-300 hover:border-black'
+                            ? 'bg-black text-white border-black shadow-lg'
+                            : 'bg-white text-black border-gray-300 hover:border-black hover:bg-gray-50'
                         }`}
+                        style={{
+                          backgroundColor: selectedColor === color ? '#000000' : '#FFFFFF',
+                          color: selectedColor === color ? '#FFFFFF' : '#000000',
+                          borderColor: selectedColor === color ? '#000000' : '#D1D5DB'
+                        }}
                       >
                         {color}
                       </button>
@@ -285,9 +315,14 @@ const ProductDetail = () => {
                         onClick={() => setSelectedSize(size)}
                         className={`px-8 py-4 text-sm font-light tracking-[0.15em] border-2 transition-all duration-500 ${
                           selectedSize === size
-                            ? 'bg-black text-white border-black'
-                            : 'bg-white text-black border-gray-300 hover:border-black'
+                            ? 'bg-black text-white border-black shadow-lg'
+                            : 'bg-white text-black border-gray-300 hover:border-black hover:bg-gray-50'
                         }`}
+                        style={{
+                          backgroundColor: selectedSize === size ? '#000000' : '#FFFFFF',
+                          color: selectedSize === size ? '#FFFFFF' : '#000000',
+                          borderColor: selectedSize === size ? '#000000' : '#D1D5DB'
+                        }}
                       >
                         {size}
                       </button>
@@ -317,21 +352,71 @@ const ProductDetail = () => {
               </div>
 
               {/* Actions */}
-              <div className="space-y-6 mb-16">
+              <div className="space-y-6 mb-16 relative z-10">
+                
                 <motion.button
-                  className="w-full bg-black text-white py-6 px-8 font-light tracking-[0.3em] uppercase hover:bg-gray-800 transition-all duration-500 text-lg"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  onClick={handleAddToCart}
+                  disabled={isAddingToCart}
+                  className={`w-full py-6 px-8 font-light tracking-[0.3em] uppercase text-lg transition-all duration-500 shadow-lg relative z-20 !important ${
+                    isAddingToCart 
+                      ? 'bg-gray-400 cursor-not-allowed text-gray-600' 
+                      : 'bg-black text-white hover:bg-gray-800 hover:shadow-xl border-2 border-black'
+                  }`}
+                  whileHover={isAddingToCart ? {} : luxuryAnimations.button.hover}
+                  whileTap={isAddingToCart ? {} : luxuryAnimations.button.tap}
+                  animate={!isAddingToCart ? { 
+                    boxShadow: ["0 10px 15px -3px rgba(0, 0, 0, 0.1)", "0 20px 25px -5px rgba(0, 0, 0, 0.1)", "0 10px 15px -3px rgba(0, 0, 0, 0.1)"]
+                  } : {}}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  style={{ 
+                    position: 'relative',
+                    zIndex: 20,
+                    display: 'block',
+                    visibility: 'visible',
+                    opacity: 1,
+                    backgroundColor: isAddingToCart ? '#9CA3AF' : '#000000',
+                    color: '#FFFFFF',
+                    border: '2px solid #000000'
+                  }}
                 >
-                  Add to Cart
+                  <div className="flex items-center justify-center space-x-3">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.993z" />
+                    </svg>
+                    <span>{isAddingToCart ? 'Adding to Cart...' : 'Add to Cart'}</span>
+                  </div>
                 </motion.button>
                 
-                <button className="w-full border-2 border-black py-6 px-8 font-light tracking-[0.3em] uppercase hover:bg-black hover:text-white transition-all duration-500 flex items-center justify-center text-lg">
-                  <svg className="w-6 h-6 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                <motion.button 
+                  onClick={() => {
+                    if (isInWishlist(product.id)) {
+                      removeFromWishlist(product.id)
+                      trackWishlistRemove(product.id, product.name)
+                      alert('Removed from wishlist!')
+                    } else {
+                      addToWishlist(product)
+                      trackWishlistAdd(product.id, product.name)
+                      alert('Added to wishlist!')
+                    }
+                  }}
+                  className={`w-full border-2 py-6 px-8 font-light tracking-[0.3em] uppercase transition-all duration-500 flex items-center justify-center text-lg shadow-lg ${
+                    isInWishlist(product.id)
+                      ? 'border-red-500 bg-red-50 text-red-600 hover:bg-red-100'
+                      : 'border-black hover:bg-black hover:text-white'
+                  }`}
+                  whileHover={luxuryAnimations.button.hover}
+                  whileTap={luxuryAnimations.button.tap}
+                  style={{
+                    backgroundColor: isInWishlist(product.id) ? '#FEF2F2' : '#FFFFFF',
+                    color: isInWishlist(product.id) ? '#DC2626' : '#000000',
+                    borderColor: isInWishlist(product.id) ? '#EF4444' : '#000000'
+                  }}
+                >
+                  <svg className={`w-6 h-6 mr-4 ${isInWishlist(product.id) ? 'fill-current' : 'fill-none'}`} stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                   </svg>
-                  Add to Wishlist
-                </button>
+                  {isInWishlist(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                </motion.button>
               </div>
 
               {/* Product Tabs */}

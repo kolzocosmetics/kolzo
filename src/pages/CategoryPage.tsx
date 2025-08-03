@@ -3,6 +3,11 @@ import { useEffect, useState, useMemo, useCallback } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import productsDataF from '../data/products-f.json'
 import productsDataM from '../data/products-m.json'
+import QuickViewModal from '../components/QuickViewModal'
+import { luxuryAnimations, luxuryHover, luxuryTap } from '../utils/luxuryAnimations'
+import { useCartStore } from '../store/cartStore'
+import { useWishlistStore } from '../store/wishlistStore'
+import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
 
 interface CategoryPageProps {
   gender: 'women' | 'men'
@@ -19,6 +24,8 @@ interface Product {
 
 const CategoryPage = ({ gender }: CategoryPageProps) => {
   const [searchParams] = useSearchParams()
+  const { addItem } = useCartStore()
+  const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlistStore()
   const [products, setProducts] = useState<Product[]>([])
   const [sortBy, setSortBy] = useState('newest')
   const [filterBy, setFilterBy] = useState('')
@@ -28,6 +35,10 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
   const [searchHistory, setSearchHistory] = useState<string[]>([])
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1)
   const [didYouMean, setDidYouMean] = useState<string>('')
+  
+  // Quick view modal state
+  const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null)
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false)
 
   // Memoize categories to prevent unnecessary re-renders
   const categories = useMemo(() => 
@@ -183,6 +194,22 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
     return () => clearTimeout(timeoutId)
   }, [searchQuery, generateSearchSuggestions])
 
+  // Quick add to cart function
+  const handleQuickAddToCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.image
+    })
+    
+    // Show success feedback
+    alert(`${product.name} added to cart!`) // Simple feedback for now
+  }
+
 
 
 
@@ -308,8 +335,8 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                       setShowSuggestions(false)
                     }}
                     className="absolute right-4 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-all duration-300"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={luxuryAnimations.icon.hover}
+                    whileTap={luxuryAnimations.icon.tap}
                   >
                     <svg className="w-4 h-4 text-gray-400 hover:text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
@@ -339,7 +366,7 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                             setShowSuggestions(false)
                           }}
                           className="block w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors duration-200"
-                          whileHover={{ x: 5 }}
+                          whileHover={{ x: 8, transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] } }}
                         >
                           <div className="flex items-center">
                             <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -373,7 +400,7 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                               ? 'bg-gray-100 text-black' 
                               : 'hover:bg-gray-50'
                           }`}
-                          whileHover={{ x: 5 }}
+                          whileHover={{ x: 8, transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] } }}
                         >
                           <div className="flex items-center">
                             <svg className="w-4 h-4 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -451,13 +478,13 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                 <motion.button
                   key={category}
                   onClick={() => setFilterBy(category)}
-                  className={`px-4 lg:px-6 py-3 text-sm font-light tracking-wide border transition-all duration-500 hover:scale-105 ${
+                  className={`px-4 lg:px-6 py-3 text-sm font-light tracking-wide border transition-all duration-500 ${
                     category.toLowerCase() === filterBy.toLowerCase()
                       ? 'bg-gray-100 text-black border-gray-400 shadow-sm font-medium'
                       : 'bg-white text-gray-600 border-gray-300 hover:border-gray-600 hover:text-black hover:bg-gray-50'
                   }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={luxuryAnimations.button.hover}
+                  whileTap={luxuryAnimations.button.tap}
                 >
                   {category}
                 </motion.button>
@@ -529,40 +556,88 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                   delay: index * 0.1,
                   ease: [0.25, 0.46, 0.45, 0.94]
                 }}
-                whileHover={{ y: -5 }}
+                whileHover={luxuryAnimations.productCard.hover}
+                whileTap={luxuryAnimations.productCard.tap}
               >
-                <Link to={`/product/${product.id}`}>
-                  <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative border border-gray-100">
-                    {/* Product Image */}
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
+                <div className="relative">
+                  <Link to={`/product/${product.id}`}>
+                    <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative border border-gray-100">
+                      {/* Product Image */}
+                      <motion.img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                        whileHover={luxuryAnimations.image.hover}
+                      />
+                      
+                      {/* Wishlist button */}
+                      <motion.button 
+                        onClick={(e) => {
+                          e.preventDefault()
+                          e.stopPropagation()
+                          if (isInWishlist(product.id)) {
+                            removeFromWishlist(product.id)
+                            trackWishlistRemove(product.id, product.name)
+                            alert('Removed from wishlist!')
+                          } else {
+                            addToWishlist(product)
+                            trackWishlistAdd(product.id, product.name)
+                            alert('Added to wishlist!')
+                          }
+                        }}
+                        className={`absolute top-4 right-4 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 shadow-lg ${
+                          isInWishlist(product.id)
+                            ? 'bg-red-50 hover:bg-red-100'
+                            : 'bg-white/90 backdrop-blur-sm hover:bg-gray-100'
+                        }`}
+                        whileHover={luxuryAnimations.icon.hover}
+                        whileTap={luxuryAnimations.icon.tap}
+                      >
+                        <svg className={`w-4 h-4 ${isInWishlist(product.id) ? 'text-red-500 fill-current' : 'text-gray-700 fill-none'}`} stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                      </motion.button>
+
+                      {/* Quick Add to Cart button */}
+                      <motion.button 
+                        onClick={(e) => handleQuickAddToCart(e, product)}
+                        className="absolute top-4 left-4 p-3 bg-black rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-gray-800 shadow-lg border-2 border-white"
+                        whileHover={luxuryAnimations.icon.hover}
+                        whileTap={luxuryAnimations.icon.tap}
+                      >
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.993z" />
+                        </svg>
+                      </motion.button>
+                    </div>
                     
-                    {/* Wishlist button - simplified */}
-                    <motion.button 
-                      className="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-white hover:scale-110 shadow-lg"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                      </svg>
-                    </motion.button>
-                  </div>
+                    <div className="text-center">
+                      <h3 className="text-sm font-light tracking-wide mb-2 group-hover:text-gray-600 transition-colors duration-500">
+                        {searchQuery ? highlightSearchTerm(product.name, searchQuery) : product.name}
+                      </h3>
+                      <p className="text-lg font-medium mb-2">${product.price.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500 font-light tracking-wide mb-3">
+                        {searchQuery ? highlightSearchTerm(product.category, searchQuery) : product.category}
+                      </p>
+                      <div className="w-8 h-px bg-gray-300 mx-auto opacity-50"></div>
+                    </div>
+                  </Link>
                   
-                  <div className="text-center">
-                    <h3 className="text-sm font-light tracking-wide mb-2 group-hover:text-gray-600 transition-colors duration-500">
-                      {searchQuery ? highlightSearchTerm(product.name, searchQuery) : product.name}
-                    </h3>
-                    <p className="text-lg font-medium mb-2">${product.price.toLocaleString()}</p>
-                    <p className="text-xs text-gray-500 font-light tracking-wide mb-3">
-                      {searchQuery ? highlightSearchTerm(product.category, searchQuery) : product.category}
-                    </p>
-                    <div className="w-8 h-px bg-gray-300 mx-auto opacity-50"></div>
-                  </div>
-                </Link>
+                  {/* Quick View Button */}
+                  <motion.button
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      setQuickViewProduct(product)
+                      setIsQuickViewOpen(true)
+                    }}
+                    className="absolute bottom-4 left-1/2 transform -translate-x-1/2 px-6 py-2 bg-black text-white text-xs font-light tracking-[0.2em] uppercase opacity-0 group-hover:opacity-100 transition-all duration-500 hover:bg-gray-800"
+                    whileHover={luxuryAnimations.button.hover}
+                    whileTap={luxuryAnimations.button.tap}
+                  >
+                    Quick View
+                  </motion.button>
+                </div>
               </motion.div>
             ))
           ) : (
@@ -590,8 +665,8 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                     <motion.button
                       onClick={() => setSearchQuery('')}
                       className="px-6 py-3 text-sm font-light tracking-wide border border-gray-300 hover:border-black transition-all duration-500"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={luxuryAnimations.button.hover}
+                      whileTap={luxuryAnimations.button.tap}
                     >
                       Clear Search
                     </motion.button>
@@ -600,8 +675,8 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
                     <motion.button
                       onClick={() => setFilterBy('')}
                       className="px-6 py-3 text-sm font-light tracking-wide border border-gray-300 hover:border-black transition-all duration-500"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={luxuryAnimations.button.hover}
+                      whileTap={luxuryAnimations.button.tap}
                     >
                       Clear Filters
                     </motion.button>
@@ -612,6 +687,16 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
           )}
         </motion.div>
       </div>
+      
+      {/* Quick View Modal */}
+      <QuickViewModal
+        product={quickViewProduct}
+        isOpen={isQuickViewOpen}
+        onClose={() => {
+          setIsQuickViewOpen(false)
+          setQuickViewProduct(null)
+        }}
+      />
     </div>
   )
 }

@@ -3,10 +3,20 @@ import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import scrollCache from '../utils/scrollCache'
 import kolzoLogo from '../assets/kolzo_logo.png'
+import { useAuthStore } from '../store/authStore'
+import { useCartStore } from '../store/cartStore'
+import { useWishlistStore } from '../store/wishlistStore'
+import AuthModal from './AuthModal'
+import { luxuryAnimations } from '../utils/luxuryAnimations'
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const navigate = useNavigate()
+  
+  const { user, isAuthenticated, login, signup, logout } = useAuthStore()
+  const { getItemCount } = useCartStore()
+  const { getItemCount: getWishlistCount } = useWishlistStore()
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -63,25 +73,26 @@ const Navbar = () => {
   const navItems = [
     { name: 'Home', path: '/' },
     { name: 'Women', path: '/collections/women' },
-    { name: 'Handbags', path: '/collections/women?category=Handbags' },
+    { name: 'Women Handbags', path: '/collections/women?category=Handbags' },
     { name: 'Lipstick', path: '/collections/women?category=Lipstick' },
     { name: 'Scarf', path: '/collections/women?category=Scarf' },
     { name: 'Blush', path: '/collections/women?category=Blush' },
     { name: 'Lip Balm', path: '/collections/women?category=Lip Balm' },
-    { name: 'Perfumes', path: '/collections/women?category=Perfumes' },
+    { name: 'Women Perfumes', path: '/collections/women?category=Perfumes' },
     { name: 'Eye Liner', path: '/collections/women?category=Eye Liner' },
     { name: 'Compact', path: '/collections/women?category=Compact' },
-    { name: 'Watches', path: '/collections/women?category=Watches' },
+    { name: 'Women Watches', path: '/collections/women?category=Watches' },
     { name: 'Men', path: '/collections/men' },
     { name: 'Wallet', path: '/collections/men?category=Wallet' },
     { name: 'Bracelets', path: '/collections/men?category=Bracelets' },
-    { name: 'Perfumes', path: '/collections/men?category=Perfumes' },
-    { name: 'Handbags', path: '/collections/men?category=Handbags' },
-    { name: 'Watches', path: '/collections/men?category=Watches' },
+    { name: 'Men Perfumes', path: '/collections/men?category=Perfumes' },
+    { name: 'Men Handbags', path: '/collections/men?category=Handbags' },
+    { name: 'Men Watches', path: '/collections/men?category=Watches' },
     { name: 'Moisturiser', path: '/collections/men?category=Moisturiser' },
     { name: 'Face Wash', path: '/collections/men?category=Face Wash' },
     { name: 'Sunscreen', path: '/collections/men?category=Sunscreen' },
-    { name: 'Shaving Kit', path: '/collections/men?category=Shaving Kit' }
+    { name: 'Shaving Kit', path: '/collections/men?category=Shaving Kit' },
+    { name: 'Wishlist', path: '/wishlist' }
   ]
 
   return (
@@ -112,43 +123,63 @@ const Navbar = () => {
           className="absolute inset-0 bg-gradient-to-r from-white/5 via-white/10 to-white/5"
         />
 
-        <nav className="w-full px-6 lg:px-8 relative">
-          <div className="flex items-center justify-between h-20">
-                         {/* Left side - Search only */}
-             <div className="flex items-center justify-start w-1/3 flex-shrink-0">
-               {/* Search Icon with sophisticated animation - ALWAYS VISIBLE */}
-               <motion.button 
+        <nav className="w-full px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-3 items-center h-20">
+            {/* Left side - Search and Instagram */}
+            <div className="flex items-center justify-start space-x-2">
+              {/* Search Icon with sophisticated animation - ALWAYS VISIBLE */}
+                             <motion.button 
                  className="p-2 hover:opacity-70 transition-all duration-700 text-gray-700 hover:text-black group"
-                 whileHover={{ 
-                   scale: 1.1,
-                   rotate: 5,
-                   transition: { duration: 0.3 }
-                 }}
-                 whileTap={{ scale: 0.95 }}
+                 whileHover={luxuryAnimations.icon.hover}
+                 whileTap={luxuryAnimations.icon.tap}
                  onClick={() => navigate('/search')}
                >
-                 <motion.div
-                   className="relative"
-                   whileHover={{ rotate: 360 }}
-                   transition={{ duration: 0.6, ease: "easeInOut" }}
-                 >
-                   <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                   </svg>
-                   <motion.div
-                     className="absolute inset-0 bg-black/5 rounded-full"
-                     initial={{ scale: 0 }}
-                     whileHover={{ scale: 1.5 }}
-                     transition={{ duration: 0.3 }}
-                   />
-                 </motion.div>
-               </motion.button>
-             </div>
+                <motion.div
+                  className="relative"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                  <motion.div
+                    className="absolute inset-0 bg-black/5 rounded-full"
+                    initial={{ scale: 0 }}
+                    whileHover={{ scale: 1.5 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              </motion.button>
 
-            {/* Logo space - will be filled by transitioning hero logo */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center pointer-events-none">
+              {/* Instagram Icon */}
+              <motion.button 
+                className="p-2 hover:opacity-70 transition-all duration-700 text-gray-700 hover:text-black group"
+                whileHover={luxuryAnimations.icon.hover}
+                whileTap={luxuryAnimations.icon.tap}
+                onClick={() => window.open('https://instagram.com/kolzo', '_blank')}
+              >
+                <motion.div
+                  className="relative"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                >
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                  <motion.div
+                    className="absolute inset-0 bg-black/5 rounded-full"
+                    initial={{ scale: 0 }}
+                    whileHover={{ scale: 1.5 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.div>
+              </motion.button>
+            </div>
+
+            {/* Center - Logo */}
+            <div className="flex items-center justify-center">
               <motion.h1 
-                className="text-xl sm:text-2xl font-light tracking-[0.3em] text-gray-800 cursor-pointer whitespace-nowrap pointer-events-auto"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl font-light tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.15em] text-gray-800 cursor-pointer whitespace-nowrap"
                 style={{ 
                   fontFamily: 'Playfair Display, serif',
                   opacity: logoOpacity,
@@ -172,27 +203,34 @@ const Navbar = () => {
               </motion.h1>
             </div>
 
-                         {/* Right side - Instagram and Menu */}
-             <div className="flex items-center justify-end w-1/3 flex-shrink-0 space-x-2">
-               {/* Instagram Icon */}
+            {/* Right side - Account and Menu */}
+            <div className="flex items-center justify-end space-x-0.5 sm:space-x-4 md:space-x-6">
+               {/* Cart Icon */}
                <motion.button 
-                 className="p-2 hover:opacity-70 transition-all duration-700 text-gray-700 hover:text-black group"
-                 whileHover={{ 
-                   scale: 1.1,
-                   rotate: 5,
-                   transition: { duration: 0.3 }
-                 }}
-                 whileTap={{ scale: 0.95 }}
-                 onClick={() => window.open('https://instagram.com/kolzo', '_blank')}
+                 className="p-2 hover:opacity-70 transition-all duration-700 text-gray-700 hover:text-black group relative"
+                 whileHover={luxuryAnimations.icon.hover}
+                 whileTap={luxuryAnimations.icon.tap}
+                 onClick={() => navigate('/cart')}
                >
                  <motion.div
                    className="relative"
                    whileHover={{ rotate: 360 }}
                    transition={{ duration: 0.6, ease: "easeInOut" }}
                  >
-                   <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
-                     <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                   <svg className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.993z" />
                    </svg>
+                   {/* Cart count badge */}
+                   {getItemCount() > 0 && (
+                     <motion.div
+                       className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                       initial={{ scale: 0 }}
+                       animate={{ scale: 1 }}
+                       transition={{ duration: 0.3, ease: "easeOut" }}
+                     >
+                       {getItemCount()}
+                     </motion.div>
+                   )}
                    <motion.div
                      className="absolute inset-0 bg-black/5 rounded-full"
                      initial={{ scale: 0 }}
@@ -202,23 +240,21 @@ const Navbar = () => {
                  </motion.div>
                </motion.button>
 
+
+
                {/* Mobile Menu Button with sophisticated animation - ALWAYS VISIBLE */}
                <motion.button
                  className="p-2 transition-all duration-700 text-gray-700 hover:text-black group"
                  onClick={() => setIsMobileMenuOpen(true)}
-                 whileHover={{ 
-                   scale: 1.1,
-                   rotate: -5,
-                   transition: { duration: 0.3 }
-                 }}
-                 whileTap={{ scale: 0.95 }}
+                 whileHover={luxuryAnimations.icon.hover}
+                 whileTap={luxuryAnimations.icon.tap}
                >
                  <motion.div
                    className="relative"
                    whileHover={{ rotate: 180 }}
                    transition={{ duration: 0.6, ease: "easeInOut" }}
                  >
-                   <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                   <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                    </svg>
                    <motion.div
@@ -297,20 +333,32 @@ const Navbar = () => {
                 {/* Quick Actions */}
                 <div className="px-6 py-4 border-b border-gray-100">
                   <div className="flex items-center justify-center space-x-6">
-                    {/* Search */}
+                    {/* Account */}
                     <motion.button 
                       className="flex flex-col items-center space-y-1 text-gray-700 hover:text-black transition-all duration-300"
                       onClick={() => {
-                        navigate('/search')
+                        if (isAuthenticated) {
+                          logout()
+                        } else {
+                          setIsAuthModalOpen(true)
+                        }
                         setIsMobileMenuOpen(false)
                       }}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={luxuryAnimations.button.hover}
+                      whileTap={luxuryAnimations.button.tap}
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                      </svg>
-                      <span className="text-xs font-light tracking-wide">Search</span>
+                      {isAuthenticated ? (
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      )}
+                      <span className="text-xs font-light tracking-wide">
+                        {isAuthenticated ? 'Logout' : 'Account'}
+                      </span>
                     </motion.button>
 
                     {/* Cart */}
@@ -320,13 +368,29 @@ const Navbar = () => {
                         navigate('/cart')
                         setIsMobileMenuOpen(false)
                       }}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={luxuryAnimations.button.hover}
+                      whileTap={luxuryAnimations.button.tap}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.993z" />
                       </svg>
                       <span className="text-xs font-light tracking-wide">Cart</span>
+                    </motion.button>
+
+                    {/* Wishlist */}
+                    <motion.button 
+                      className="flex flex-col items-center space-y-1 text-gray-700 hover:text-black transition-all duration-300"
+                      onClick={() => {
+                        navigate('/wishlist')
+                        setIsMobileMenuOpen(false)
+                      }}
+                      whileHover={luxuryAnimations.button.hover}
+                      whileTap={luxuryAnimations.button.tap}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                      </svg>
+                      <span className="text-xs font-light tracking-wide">Wishlist</span>
                     </motion.button>
                   </div>
                 </div>
@@ -370,13 +434,18 @@ const Navbar = () => {
                                </svg>
                              )}
                              {/* Category icons */}
-                             {(item.name === 'Handbags' || item.name === 'Lipstick' || item.name === 'Scarf' || 
-                               item.name === 'Blush' || item.name === 'Lip Balm' || item.name === 'Perfumes' || 
-                               item.name === 'Eye Liner' || item.name === 'Compact' || item.name === 'Watches' ||
+                             {(item.name.includes('Handbags') || item.name === 'Lipstick' || item.name === 'Scarf' || 
+                               item.name === 'Blush' || item.name === 'Lip Balm' || item.name.includes('Perfumes') || 
+                               item.name === 'Eye Liner' || item.name === 'Compact' || item.name.includes('Watches') ||
                                item.name === 'Wallet' || item.name === 'Bracelets' || item.name === 'Moisturiser' ||
                                item.name === 'Face Wash' || item.name === 'Sunscreen' || item.name === 'Shaving Kit') && (
                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                               </svg>
+                             )}
+                             {item.name === 'Wishlist' && (
+                               <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                                </svg>
                              )}
                            </div>
@@ -394,12 +463,20 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </>
-  )
+                      </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+
+    {/* Auth Modal */}
+    <AuthModal
+      isOpen={isAuthModalOpen}
+      onClose={() => setIsAuthModalOpen(false)}
+      onLogin={login}
+      onSignup={signup}
+    />
+  </>
+)
 }
 
 export default Navbar
