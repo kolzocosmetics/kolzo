@@ -1,28 +1,22 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const navigate = useNavigate()
 
-  useEffect(() => {
-    let ticking = false
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 100)
-          ticking = false
-        })
-        ticking = true
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  // Use framer-motion's scroll utilities for smooth transitions
+  const { scrollY } = useScroll()
+  
+  // Create smooth transforms based on scroll position
+  const navbarOpacity = useTransform(scrollY, [0, 100], [0, 0.75])
+  const navbarBlur = useTransform(scrollY, [0, 100], [0, 20])
+  const navbarBorderOpacity = useTransform(scrollY, [0, 100], [0, 0.2])
+  const navbarShadowOpacity = useTransform(scrollY, [0, 100], [0, 0.1])
+  
+  // For logo visibility - show when scrolled past 50px
+  const logoOpacity = useTransform(scrollY, [50, 100], [0, 1])
 
   const navItems = [
     'New In',
@@ -41,21 +35,32 @@ const Navbar = () => {
     <>
       {/* Main Navbar */}
       <motion.header
-        className="fixed top-0 w-full z-50 supports-backdrop-blur:bg-white/80"
+        className="fixed top-0 w-full z-50"
         initial={{ y: -100, opacity: 0 }}
         animate={{ 
           y: 0, 
           opacity: 1,
-          backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.75)' : 'rgba(255, 255, 255, 0)',
-          backdropFilter: isScrolled ? 'blur(20px) saturate(180%)' : 'blur(0px)',
-          borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid transparent',
-          boxShadow: isScrolled ? '0 4px 32px rgba(0, 0, 0, 0.1)' : 'none',
         }}
         transition={{ 
           duration: 0.8,
           ease: [0.25, 0.46, 0.45, 0.94]
         }}
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0)",
+          backdropFilter: "blur(0px) saturate(180%)",
+          borderBottom: "1px solid transparent",
+          boxShadow: "none",
+        }}
       >
+        <motion.div
+          style={{
+            backgroundColor: navbarOpacity,
+            backdropFilter: navbarBlur,
+            borderBottom: navbarBorderOpacity,
+            boxShadow: navbarShadowOpacity,
+          }}
+          className="absolute inset-0"
+        />
         <nav className="w-full px-6 lg:px-8 relative">
           <div className="flex items-center justify-between h-20">
             {/* Left side - Fixed width container */}
@@ -75,17 +80,15 @@ const Navbar = () => {
 
             {/* Logo space - will be filled by transitioning hero logo */}
             <div className="absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-center pointer-events-none">
-              {isScrolled && (
-                <motion.h1 
-                  className="text-xl sm:text-2xl font-light tracking-[0.3em] text-black cursor-pointer whitespace-nowrap pointer-events-auto"
-                  style={{ fontFamily: 'Playfair Display, serif' }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  KOLZO
-                </motion.h1>
-              )}
+              <motion.h1 
+                className="text-xl sm:text-2xl font-light tracking-[0.3em] text-black cursor-pointer whitespace-nowrap pointer-events-auto"
+                style={{ 
+                  fontFamily: 'Playfair Display, serif',
+                  opacity: logoOpacity
+                }}
+              >
+                KOLZO
+              </motion.h1>
             </div>
 
             {/* Right side - Only mobile menu button */}

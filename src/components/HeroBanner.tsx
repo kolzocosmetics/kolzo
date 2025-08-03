@@ -100,12 +100,12 @@ const HeroBanner = () => {
             fontFamily: 'Playfair Display, serif',
             color: isScrolled ? '#000000' : '#ffffff'
           }}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ 
-            duration: 1.2, 
+            duration: 0.8, 
             delay: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94]
+            ease: "easeOut"
           }}
           whileHover={{ opacity: 0.8 }}
         >
@@ -122,24 +122,24 @@ const HeroBanner = () => {
           position: 'absolute',
           zIndex: 10
         }}
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{ 
-          duration: 1.2, 
+          duration: 0.8, 
           delay: 0.8,
-          ease: [0.25, 0.46, 0.45, 0.94]
+          ease: "easeOut"
         }}
       >
         <div className="space-y-8">
           {/* Product Category */}
           <motion.h2
             className="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ 
-              duration: 0.8, 
-              delay: 1.2,
-              ease: [0.25, 0.46, 0.45, 0.94]
+              duration: 0.6, 
+              delay: 1.0,
+              ease: "easeOut"
             }}
           >
             Handbags
@@ -147,12 +147,12 @@ const HeroBanner = () => {
           
           {/* CTA Button */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ 
-              duration: 0.8, 
-              delay: 1.4,
-              ease: [0.25, 0.46, 0.45, 0.94]
+              duration: 0.6, 
+              delay: 1.2,
+              ease: "easeOut"
             }}
           >
             <Link
