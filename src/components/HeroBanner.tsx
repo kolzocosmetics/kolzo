@@ -30,18 +30,34 @@ const HeroBanner = () => {
 
   return (
     <section ref={ref} className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-white" style={{ overflowX: 'hidden' }}>
-      {/* Background Image - Beautiful luxury model */}
+      {/* Background Image - Beautiful luxury model - Fixed position */}
       <motion.div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: `url(${modelWebp})`
+          backgroundImage: `url(${modelWebp})`,
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 0
         }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 1 }}
       />
       
       {/* Elegant overlay */}
       <motion.div 
-        className="absolute inset-0 bg-black"
-        style={{ opacity: overlayOpacity }}
+        className="fixed inset-0 bg-black"
+        style={{ 
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 1,
+          opacity: overlayOpacity
+        }}
       />
 
       {/* Large KOLZO Logo - Simplified positioning */}
@@ -50,6 +66,8 @@ const HeroBanner = () => {
         style={{
           scale: logoScale,
           y: logoY,
+          position: 'absolute',
+          zIndex: 20
         }}
       >
         <motion.h1 
@@ -76,7 +94,9 @@ const HeroBanner = () => {
         className="absolute left-1/2 transform -translate-x-1/2 z-10 text-center text-white px-6 w-full max-w-6xl"
         style={{
           bottom: isScrolled ? '32px' : '120px',
-          transition: 'bottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+          transition: 'bottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          position: 'absolute',
+          zIndex: 10
         }}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
