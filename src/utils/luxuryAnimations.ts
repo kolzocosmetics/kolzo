@@ -1,3 +1,5 @@
+import { easeInOut } from 'framer-motion'
+
 // Luxury animation system for Kolzo - inspired by high-end fashion brands
 export const luxuryAnimations = {
   // Smooth hover animations for product cards
@@ -8,14 +10,14 @@ export const luxuryAnimations = {
       y: -8,
       transition: {
         duration: 0.6,
-        ease: [0.25, 0.46, 0.45, 0.94] // Custom easing for luxury feel
+        ease: easeInOut
       }
     },
     tap: { 
       scale: 0.98,
       transition: {
         duration: 0.2,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     }
   },
@@ -28,14 +30,14 @@ export const luxuryAnimations = {
       y: -2,
       transition: {
         duration: 0.4,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     },
     tap: { 
       scale: 0.98,
       transition: {
         duration: 0.2,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     }
   },
@@ -48,14 +50,14 @@ export const luxuryAnimations = {
       rotate: 5,
       transition: {
         duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     },
     tap: { 
       scale: 0.95,
       transition: {
         duration: 0.1,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     }
   },
@@ -67,7 +69,7 @@ export const luxuryAnimations = {
       scale: 1.08,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     }
   },
@@ -81,7 +83,7 @@ export const luxuryAnimations = {
       y: 0,
       transition: {
         duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     },
     exit: { 
@@ -90,7 +92,7 @@ export const luxuryAnimations = {
       y: 20,
       transition: {
         duration: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     }
   },
@@ -103,7 +105,7 @@ export const luxuryAnimations = {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     },
     exit: { 
@@ -111,7 +113,7 @@ export const luxuryAnimations = {
       y: -30,
       transition: {
         duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        ease: easeInOut
       }
     }
   },
@@ -133,14 +135,14 @@ export const luxuryAnimations = {
         y: 0,
         transition: {
           duration: 0.6,
-          ease: [0.25, 0.46, 0.45, 0.94]
+          ease: easeInOut
         }
       }
     }
   },
 
   // Luxury easing curve
-  easing: [0.25, 0.46, 0.45, 0.94],
+  easing: easeInOut,
 
   // Common transition durations
   durations: {
@@ -157,7 +159,7 @@ export const luxuryHover = {
   y: -4,
   transition: {
     duration: 0.5,
-    ease: [0.25, 0.46, 0.45, 0.94]
+    ease: easeInOut
   }
 }
 
@@ -165,7 +167,7 @@ export const luxuryTap = {
   scale: 0.98,
   transition: {
     duration: 0.2,
-    ease: [0.25, 0.46, 0.45, 0.94]
+    ease: easeInOut
   }
 }
 
@@ -173,6 +175,6 @@ export const luxuryImageHover = {
   scale: 1.06,
   transition: {
     duration: 0.7,
-    ease: [0.25, 0.46, 0.45, 0.94]
+    ease: easeInOut
   }
 } 

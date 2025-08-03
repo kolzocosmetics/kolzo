@@ -36,7 +36,7 @@ const mockUsers: { [email: string]: { password: string; user: User } } = {
 
 export const useAuthStore = create<AuthState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       user: null,
       isAuthenticated: false,
       isLoading: false,

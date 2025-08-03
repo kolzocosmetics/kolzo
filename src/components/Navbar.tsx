@@ -5,7 +5,7 @@ import scrollCache from '../utils/scrollCache'
 import kolzoLogo from '../assets/kolzo_logo.png'
 import { useAuthStore } from '../store/authStore'
 import { useCartStore } from '../store/cartStore'
-import { useWishlistStore } from '../store/wishlistStore'
+
 import AuthModal from './AuthModal'
 import { luxuryAnimations } from '../utils/luxuryAnimations'
 
@@ -14,9 +14,9 @@ const Navbar = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
   const navigate = useNavigate()
   
-  const { user, isAuthenticated, login, signup, logout } = useAuthStore()
-  const { getItemCount } = useCartStore()
-  const { getItemCount: getWishlistCount } = useWishlistStore()
+  const { isAuthenticated, login, signup, logout } = useAuthStore()
+  const { getItemCount: getCartCount } = useCartStore()
+
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -221,14 +221,14 @@ const Navbar = () => {
                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119.993z" />
                    </svg>
                    {/* Cart count badge */}
-                   {getItemCount() > 0 && (
+                   {getCartCount() > 0 && (
                      <motion.div
                        className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
                        initial={{ scale: 0 }}
                        animate={{ scale: 1 }}
                        transition={{ duration: 0.3, ease: "easeOut" }}
                      >
-                       {getItemCount()}
+                       {getCartCount()}
                      </motion.div>
                    )}
                    <motion.div

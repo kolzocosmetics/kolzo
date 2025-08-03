@@ -47,7 +47,7 @@ class Analytics {
     this.sendToAnalyticsService(analyticsEvent)
   }
 
-  private async sendToAnalyticsService(event: AnalyticsEvent) {
+  private async sendToAnalyticsService(_event: AnalyticsEvent) {
     try {
       // Simulate API call to analytics service
       await new Promise(resolve => setTimeout(resolve, 100))

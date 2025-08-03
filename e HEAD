@@ -1,0 +1,5 @@
+[33mfd21497[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m feat: Complete wishlist system implementation and UI optimizations - Added full wishlist functionality with Zustand store and persistence - Integrated wishlist buttons across all product pages - Fixed color selection visibility issues in product detail pages - Enhanced button styling and hover animations - Added wishlist navigation to mobile menu - Optimized cart and checkout button visibility - Removed test buttons and cleaned up code - Updated navbar layout and mobile menu organization
+[33m501a362[m Fix logo display in mobile menu with debugging and improved favicon
+[33m6ee8ed0[m Fix logo path for production - use proper import instead of direct path
+[33m8b98893[m Update production build with PNG logo
+[33me5c541e[m Update logo references from SVG to PNG format

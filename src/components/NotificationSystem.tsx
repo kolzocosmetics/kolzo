@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useEffect, createContext, useContext, ReactNode } from 'react'
+import { useState, createContext, useContext, type ReactNode } from 'react'
 
 export interface Notification {
   id: string

@@ -1,32 +1,24 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import LuxuryLoadingSpinner from '../components/LuxuryLoadingSpinner'
+import { useEffect } from 'react'
 import LuxuryCartSummary from '../components/LuxuryCartSummary'
 import { useCartStore } from '../store/cartStore'
 import { trackRemoveFromCart } from '../utils/analytics'
 
-interface CartItem {
-  id: string
-  name: string
-  price: number
-  image: string
-  quantity: number
-  size?: string
-  color?: string
-}
+
 
 const Cart = () => {
   const { items: cartItems, updateQuantity, removeItem } = useCartStore()
 
-  const handleRemoveItem = (item: CartItem) => {
-    trackRemoveFromCart(item.id, item.name, item.price, item.quantity)
-    removeItem(item.id)
+  const handleRemoveItem = (id: string) => {
+    const item = cartItems.find(item => item.id === id)
+    if (item) {
+      trackRemoveFromCart(item.id, item.name, item.price, item.quantity)
+    }
+    removeItem(id)
   }
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-  const shipping = subtotal > 200 ? 0 : 25
-  const total = subtotal + shipping
+
 
   // Scroll to top when component mounts
   useEffect(() => {
@@ -181,7 +173,7 @@ const Cart = () => {
                     <div className="text-right">
                       <p className="text-lg font-medium mb-3">${(item.price * item.quantity).toLocaleString()}</p>
                       <motion.button
-                        onClick={() => handleRemoveItem(item)}
+                        onClick={() => handleRemoveItem(item.id)}
                         className="text-sm text-gray-500 hover:text-red-500 transition-all duration-300 font-light tracking-wide"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
