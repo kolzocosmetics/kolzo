@@ -18,7 +18,7 @@ const OptimizedImage = ({
   width, 
   height, 
   priority = false,
-  fallback = '/src/assets/kolzo_logo.svg'
+  fallback = '/src/assets/kolzo_logo.png'
 }: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [hasError, setHasError] = useState(false)
