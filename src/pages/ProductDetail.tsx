@@ -31,6 +31,8 @@ const ProductDetail = () => {
   const [selectedImage, setSelectedImage] = useState(0)
   const [product, setProduct] = useState<Product | null>(null)
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([])
+  const [allCategoryProducts, setAllCategoryProducts] = useState<Product[]>([])
+  const [showAllRecommendations, setShowAllRecommendations] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isAddingToCart, setIsAddingToCart] = useState(false)
 
@@ -63,12 +65,33 @@ const ProductDetail = () => {
     const foundProduct = allProducts.find(p => p.id === id)
     setProduct(foundProduct || null)
 
-    // Get related products from the same category
+    // Get related products using recommendation engine
     if (foundProduct) {
-      const related = allProducts
-        .filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
-        .slice(0, 4)
-      setRelatedProducts(related)
+      const categoryProducts = allProducts.filter(p => p.category === foundProduct.category && p.id !== foundProduct.id)
+      setAllCategoryProducts(categoryProducts)
+      
+      // Recommendation engine: prioritize by price range, then randomize
+      const priceRange = foundProduct.price * 0.3 // 30% price range
+      const minPrice = foundProduct.price - priceRange
+      const maxPrice = foundProduct.price + priceRange
+      
+      // Get products in similar price range first
+      const similarPriceProducts = categoryProducts.filter(p => 
+        p.price >= minPrice && p.price <= maxPrice
+      )
+      
+      // Get remaining products
+      const otherProducts = categoryProducts.filter(p => 
+        p.price < minPrice || p.price > maxPrice
+      )
+      
+      // Combine and shuffle for variety
+      const recommendedProducts = [
+        ...similarPriceProducts.sort(() => Math.random() - 0.5),
+        ...otherProducts.sort(() => Math.random() - 0.5)
+      ].slice(0, 4)
+      
+      setRelatedProducts(recommendedProducts)
     }
     
     setIsLoading(false)
@@ -146,43 +169,6 @@ const ProductDetail = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Luxury Hero Section */}
-      <motion.section
-        className="relative h-[60vh] md:h-[70vh] overflow-hidden bg-black"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}></div>
-        </div>
-        
-        {/* Hero Content */}
-        <div className="relative z-10 h-full flex items-center justify-center text-white">
-          <motion.div
-            className="text-center px-6 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3 }}
-          >
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-[0.3em] uppercase mb-6">
-              {product.name}
-            </h1>
-            <p className="text-lg md:text-xl font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
-              Discover the artistry behind each meticulously crafted piece
-            </p>
-            <div className="mt-8">
-              <span className="text-3xl font-light tracking-[0.2em]">
-                ${product.price.toLocaleString()}
-              </span>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
-
       <div className="max-w-7xl mx-auto px-6 py-20">
         
         {/* Breadcrumb */}
@@ -453,9 +439,26 @@ const ProductDetail = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
           >
-            <h2 className="text-3xl font-light tracking-[0.2em] uppercase mb-16 text-center">
-              You May Also Like
-            </h2>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-20">
+              <div className="text-center sm:text-left mb-6 sm:mb-0">
+                <h2 className="text-4xl sm:text-5xl font-light tracking-[0.3em] uppercase mb-4 text-gray-900">
+                  You May Also Like
+                </h2>
+                <p className="text-sm font-light tracking-[0.2em] uppercase text-gray-600 max-w-md">
+                  Discover more curated pieces from our collection
+                </p>
+              </div>
+              {allCategoryProducts.length > 4 && (
+                <motion.button
+                  onClick={() => setShowAllRecommendations(!showAllRecommendations)}
+                  className="text-xs font-light tracking-[0.3em] uppercase border-b border-gray-400 hover:border-black transition-all duration-500 self-start sm:self-auto hidden sm:block px-0 pb-1"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {showAllRecommendations ? 'Show Less' : `View All (${allCategoryProducts.length} items)`}
+                </motion.button>
+              )}
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {relatedProducts.map((relatedProduct, index) => (
                 <motion.div
@@ -508,6 +511,96 @@ const ProductDetail = () => {
                 </motion.div>
               ))}
             </div>
+            
+            {/* Mobile View All Button */}
+            {allCategoryProducts.length > 4 && (
+              <div className="flex justify-center mt-12 mb-12 sm:hidden">
+                <motion.button
+                  onClick={() => setShowAllRecommendations(!showAllRecommendations)}
+                  className="text-xs font-light tracking-[0.3em] uppercase border-b border-gray-400 hover:border-black transition-all duration-500 px-0 pb-1"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {showAllRecommendations ? 'Show Less' : `View All (${allCategoryProducts.length} items)`}
+                </motion.button>
+              </div>
+            )}
+            
+            {/* Expanded Recommendations Section */}
+            {showAllRecommendations && allCategoryProducts.length > 4 && (
+              <motion.div
+                className="mt-16"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <div className="border-t border-gray-200 pt-20">
+                  <div className="text-center mb-16">
+                    <h3 className="text-3xl sm:text-4xl font-light tracking-[0.3em] uppercase mb-4 text-gray-900">
+                      Curated Recommendations
+                    </h3>
+                    <p className="text-sm font-light tracking-[0.2em] uppercase text-gray-600 max-w-lg mx-auto">
+                      Handpicked selections for your refined taste
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    {allCategoryProducts
+                      .filter(p => !relatedProducts.find(rp => rp.id === p.id)) // Exclude already shown products
+                      .map((recommendedProduct, index) => (
+                        <motion.div
+                          key={recommendedProduct.id}
+                          className="group cursor-pointer"
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.8, delay: 0.1 + (index * 0.05) }}
+                        >
+                          <Link to={`/product/${recommendedProduct.id}`}>
+                            <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative" style={{ backgroundColor: '#f9fafb' }}>
+                              <img 
+                                src={recommendedProduct.image}
+                                alt={recommendedProduct.name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                onError={(e) => {
+                                  console.error('Image failed to load:', recommendedProduct.image);
+                                  e.currentTarget.src = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80';
+                                }}
+                                onLoad={() => {
+                                  console.log('Image loaded successfully:', recommendedProduct.image);
+                                }}
+                                style={{
+                                  minHeight: '100%',
+                                  minWidth: '100%',
+                                  objectFit: 'cover',
+                                  display: 'block'
+                                }}
+                              />
+                              
+                              {/* Wishlist button */}
+                              <motion.button 
+                                className="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110 shadow-lg"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                              </motion.button>
+                            </div>
+                            
+                            <div className="text-center">
+                              <h3 className="text-sm font-light tracking-wide mb-3 group-hover:text-gray-600 transition-colors duration-500">
+                                {recommendedProduct.name}
+                              </h3>
+                              <p className="text-lg font-light tracking-[0.1em]">${recommendedProduct.price.toLocaleString()}</p>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </motion.section>
         )}
       </div>
