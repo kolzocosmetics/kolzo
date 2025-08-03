@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import scrollCache from '../utils/scrollCache'
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -157,6 +158,13 @@ const Navbar = () => {
                   scale: 1.05,
                   textShadow: '0 4px 12px rgba(0,0,0,0.15)',
                   transition: { duration: 0.3 }
+                }}
+                onClick={() => {
+                  // Clear homepage scroll cache when navigating from other pages
+                  if (window.location.pathname !== '/') {
+                    scrollCache.clearPageCache('/')
+                  }
+                  navigate('/')
                 }}
               >
                 KOLZO

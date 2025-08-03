@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import productsDataF from '../data/products-f.json'
 import productsDataM from '../data/products-m.json'
@@ -29,6 +29,14 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
   const [selectedSuggestionIndex, setSelectedSuggestionIndex] = useState(-1)
   const [didYouMean, setDidYouMean] = useState<string>('')
 
+  // Memoize categories to prevent unnecessary re-renders
+  const categories = useMemo(() => 
+    gender === 'women' 
+      ? ['Handbags', 'Lipstick', 'Scarf', 'Blush', 'Lip Balm', 'Perfumes', 'Eye Liner', 'Compact', 'Watches']
+      : ['Wallet', 'Bracelets', 'Perfumes', 'Handbags', 'Watches', 'Moisturiser', 'Face Wash', 'Sunscreen', 'Shaving Kit'],
+    [gender]
+  )
+
   useEffect(() => {
     const productsData = gender === 'women' ? productsDataF : productsDataM
     const allProducts = Object.values(productsData).flat()
@@ -49,28 +57,8 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
     setSelectedSuggestionIndex(-1)
   }, [searchQuery])
 
-  // Highlight search terms in text
-  const highlightSearchTerm = (text: string, query: string) => {
-    if (!query) return text
-    
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
-    const parts = text.split(regex)
-    
-    return parts.map((part, index) => 
-      regex.test(part) ? (
-        <span key={index} className="bg-yellow-100 font-medium">
-          {part}
-        </span>
-      ) : part
-    )
-  }
-
-  const categories = gender === 'women' 
-    ? ['Handbags', 'Lipstick', 'Scarf', 'Blush', 'Lip Balm', 'Perfumes', 'Eye Liner', 'Compact', 'Watches']
-    : ['Wallet', 'Bracelets', 'Perfumes', 'Handbags', 'Watches', 'Moisturiser', 'Face Wash', 'Sunscreen', 'Shaving Kit']
-
-  // Fuzzy search function with typo tolerance
-  const fuzzySearch = (text: string, query: string): boolean => {
+  // Memoize the fuzzy search function
+  const fuzzySearch = useCallback((text: string, query: string): boolean => {
     const normalizedText = text.toLowerCase().replace(/[^a-z0-9]/g, '')
     const normalizedQuery = query.toLowerCase().replace(/[^a-z0-9]/g, '')
     
@@ -101,10 +89,60 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
     }
     
     return queryIndex === normalizedQuery.length
-  }
+  }, [])
 
-  // Generate sophisticated search suggestions
-  const generateSearchSuggestions = (query: string) => {
+  // Memoize the highlight search term function
+  const highlightSearchTerm = useCallback((text: string, query: string) => {
+    if (!query) return text
+    
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi')
+    const parts = text.split(regex)
+    
+    return parts.map((part, index) => 
+      regex.test(part) ? (
+        <span key={index} className="bg-yellow-100 font-medium">
+          {part}
+        </span>
+      ) : part
+    )
+  }, [])
+
+  // Memoize filtered and sorted products
+  const filteredAndSortedProducts = useMemo(() => {
+    let filtered = products
+
+    // Apply category filter
+    if (filterBy) {
+      filtered = filtered.filter(product => product.category === filterBy)
+    }
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(product => 
+        product.name.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query) ||
+        fuzzySearch(product.name, searchQuery) ||
+        fuzzySearch(product.description, searchQuery)
+      )
+    }
+
+    // Apply sorting
+    switch (sortBy) {
+      case 'price-low':
+        return [...filtered].sort((a, b) => a.price - b.price)
+      case 'price-high':
+        return [...filtered].sort((a, b) => b.price - a.price)
+      case 'name':
+        return [...filtered].sort((a, b) => a.name.localeCompare(b.name))
+      default:
+        return filtered
+    }
+  }, [products, filterBy, searchQuery, sortBy, fuzzySearch])
+
+  // Memoize search suggestions generation
+  const generateSearchSuggestions = useCallback((query: string) => {
     if (query.length < 1) return []
     
     const suggestions = new Set<string>()
@@ -121,120 +159,33 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
       })
       
       // Category suggestions with fuzzy matching
-      if (fuzzySearch(product.category, query)) {
+      if (fuzzySearch(product.category, query) || product.category.toLowerCase().includes(normalizedQuery)) {
         suggestions.add(product.category)
       }
-      
-      // Description keywords with fuzzy matching
-      const descWords = product.description.toLowerCase().split(' ')
-      descWords.forEach(word => {
-        const normalizedWord = word.replace(/[^a-z0-9]/g, '')
-        if (word.length > 2 && (fuzzySearch(word, query) || normalizedWord.includes(normalizedQuery))) {
-          suggestions.add(word.charAt(0).toUpperCase() + word.slice(1))
-        }
-      })
-      
-      // Brand name suggestions
-      if (fuzzySearch('kolzo', query)) {
-        suggestions.add('Kolzo')
-      }
     })
     
-    // Add common search terms
-    const commonTerms = gender === 'women' 
-      ? ['bag', 'handbag', 'lipstick', 'perfume', 'watch', 'blush', 'compact', 'liner', 'balm']
-      : ['wallet', 'bracelet', 'perfume', 'handbag', 'watch', 'moisturiser', 'facewash', 'sunscreen', 'shaving']
-    commonTerms.forEach(term => {
-      if (fuzzySearch(term, query)) {
-        suggestions.add(term.charAt(0).toUpperCase() + term.slice(1))
-      }
-    })
-    
-    // Check for "Did you mean?" suggestions
-    const typoMap: { [key: string]: string } = gender === 'women' 
-      ? {
-          'lipstik': 'lipstick',
-          'handbag': 'handbag',
-          'perfum': 'perfume',
-          'watche': 'watch',
-          'blushe': 'blush',
-          'compacte': 'compact',
-          'linere': 'liner',
-          'balme': 'balm',
-          'kolzoo': 'kolzo',
-          'kolz': 'kolzo'
-        }
-      : {
-          'wallete': 'wallet',
-          'bracelete': 'bracelet',
-          'perfum': 'perfume',
-          'handbag': 'handbag',
-          'watche': 'watch',
-          'moisturiser': 'moisturiser',
-          'facewash': 'facewash',
-          'sunscreene': 'sunscreen',
-          'shavinge': 'shaving',
-          'kolzoo': 'kolzo',
-          'kolz': 'kolzo'
-        }
-    
-    if (typoMap[query.toLowerCase()]) {
-      setDidYouMean(typoMap[query.toLowerCase()])
-    } else {
-      setDidYouMean('')
-    }
-    
-    return Array.from(suggestions).slice(0, 10)
-  }
+    return Array.from(suggestions).slice(0, 8)
+  }, [products, fuzzySearch])
 
-  // Enhanced filtering and sorting with sophisticated fuzzy search
-  const filteredAndSortedProducts = products
-    .filter(product => {
-      const matchesCategory = filterBy === '' || product.category.toLowerCase() === filterBy.toLowerCase()
-      
-      if (searchQuery === '') return matchesCategory
-      
-      const query = searchQuery.toLowerCase()
-      const productName = product.name.toLowerCase()
-      const productCategory = product.category.toLowerCase()
-      const productDescription = product.description.toLowerCase()
-      
-      // Exact matches get highest priority
-      if (productName === query || productCategory === query) return matchesCategory
-      
-      // Starts with matches
-      if (productName.startsWith(query) || productCategory.startsWith(query)) return matchesCategory
-      
-      // Contains matches
-      if (productName.includes(query) || productCategory.includes(query) || productDescription.includes(query)) return matchesCategory
-      
-      // Fuzzy search matches
-      if (fuzzySearch(productName, query) || fuzzySearch(productCategory, query) || fuzzySearch(productDescription, query)) return matchesCategory
-      
-      // Word boundary matches with fuzzy search
-      const nameWords = productName.split(' ')
-      const categoryWords = productCategory.split(' ')
-      const descWords = productDescription.split(' ')
-      
-      const hasWordMatch = nameWords.some(word => fuzzySearch(word, query)) ||
-                          categoryWords.some(word => fuzzySearch(word, query)) ||
-                          descWords.some(word => fuzzySearch(word, query))
-      
-      return matchesCategory && hasWordMatch
-    })
-    .sort((a, b) => {
-      switch (sortBy) {
-        case 'price-low':
-          return a.price - b.price
-        case 'price-high':
-          return b.price - a.price
-        case 'name':
-          return a.name.localeCompare(b.name)
-        case 'newest':
-        default:
-          return 0 // Keep original order for newest
+  // Debounced search suggestions
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (searchQuery.trim()) {
+        const suggestions = generateSearchSuggestions(searchQuery)
+        setSearchSuggestions(suggestions)
+        setShowSuggestions(suggestions.length > 0)
+      } else {
+        setSearchSuggestions([])
+        setShowSuggestions(false)
       }
-    })
+    }, 300) // 300ms debounce
+
+    return () => clearTimeout(timeoutId)
+  }, [searchQuery, generateSearchSuggestions])
+
+
+
+
 
   const heroImage = gender === 'women' 
     ? 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'

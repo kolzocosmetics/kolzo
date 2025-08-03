@@ -71,7 +71,7 @@ const HeroBanner = () => {
           {/* CTA Button */}
           <div>
             <Link
-              to="/collections/women"
+              to="/collections/women?category=Handbags"
               className="inline-block bg-white text-black px-8 py-4 text-sm font-light tracking-[0.2em] uppercase hover:bg-gray-100 transition-all duration-500 border border-white hover:shadow-lg"
             >
               Shop Now
