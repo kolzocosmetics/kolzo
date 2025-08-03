@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, easeInOut } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
 interface AuthModalProps {
@@ -67,7 +67,7 @@ const AuthModal = ({ isOpen, onClose, onLogin, onSignup }: AuthModalProps) => {
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -77,16 +77,19 @@ const AuthModal = ({ isOpen, onClose, onLogin, onSignup }: AuthModalProps) => {
           
           {/* Modal */}
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ 
               duration: 0.4,
-              ease: [0.25, 0.46, 0.45, 0.94]
+              ease: easeInOut
             }}
           >
-            <div className="bg-white max-w-md w-full p-8">
+                        <div 
+              className="bg-white max-w-md w-full p-8 pointer-events-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
               {/* Header */}
               <div className="text-center mb-8">
                 <h2 className="text-2xl font-light tracking-[0.2em] uppercase mb-2">
@@ -147,8 +150,18 @@ const AuthModal = ({ isOpen, onClose, onLogin, onSignup }: AuthModalProps) => {
                 <motion.button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-black text-white py-4 px-8 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  whileHover={{ scale: isLoading ? 1 : 1.02 }}
+                  className="w-full py-4 px-8 font-light tracking-[0.2em] uppercase transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ 
+                    backgroundColor: '#000000',
+                    color: '#ffffff',
+                    minHeight: '48px',
+                    border: 'none',
+                    borderRadius: '0'
+                  }}
+                  whileHover={{ 
+                    scale: isLoading ? 1 : 1.02,
+                    backgroundColor: '#1f2937'
+                  }}
                   whileTap={{ scale: isLoading ? 1 : 0.98 }}
                 >
                   {isLoading ? (

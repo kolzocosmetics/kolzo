@@ -223,12 +223,14 @@ const Navbar = () => {
                    {/* Cart count badge */}
                    {getCartCount() > 0 && (
                      <motion.div
-                       className="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                       className="absolute -top-0.5 -right-0.5 sm:-top-2 sm:-right-2 bg-black text-white rounded-full w-2.5 h-2.5 sm:w-5 sm:h-5 flex items-center justify-center"
                        initial={{ scale: 0 }}
                        animate={{ scale: 1 }}
                        transition={{ duration: 0.3, ease: "easeOut" }}
                      >
-                       {getCartCount()}
+                       <span className="text-[6px] sm:text-xs font-medium leading-none">
+                         {getCartCount()}
+                       </span>
                      </motion.div>
                    )}
                    <motion.div

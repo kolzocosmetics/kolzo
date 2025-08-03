@@ -466,15 +466,25 @@ const ProductDetail = () => {
                   transition={{ duration: 0.8, delay: 0.6 + (index * 0.1) }}
                 >
                   <Link to={`/product/${relatedProduct.id}`}>
-                    <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative">
+                    <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative" style={{ backgroundColor: '#f9fafb' }}>
                       <img 
                         src={relatedProduct.image}
                         alt={relatedProduct.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        onError={(e) => {
+                          console.error('Image failed to load:', relatedProduct.image);
+                          e.currentTarget.src = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80';
+                        }}
+                        onLoad={() => {
+                          console.log('Image loaded successfully:', relatedProduct.image);
+                        }}
+                        style={{
+                          minHeight: '100%',
+                          minWidth: '100%',
+                          objectFit: 'cover',
+                          display: 'block'
+                        }}
                       />
-                      
-                      {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-500" />
                       
                       {/* Wishlist button */}
                       <motion.button 

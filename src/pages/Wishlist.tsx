@@ -40,25 +40,25 @@ const Wishlist = () => {
               Your wishlist is empty. Start exploring our collection to add items you love.
             </p>
             
-            <motion.div
-              className="space-y-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-                <motion.div
-                  whileHover={luxuryAnimations.button.hover}
-                  whileTap={luxuryAnimations.button.tap}
-                  className="inline-block"
+            <div className="space-y-4">
+                <Link
+                  to="/"
+                  className="inline-block bg-black text-white py-4 px-12 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-500"
+                  style={{ 
+                    position: 'relative', 
+                    zIndex: 9999,
+                    backgroundColor: '#000000',
+                    color: '#ffffff',
+                    display: 'inline-block',
+                    padding: '1rem 3rem',
+                    textDecoration: 'none',
+                    border: 'none',
+                    outline: 'none'
+                  }}
                 >
-                  <Link
-                    to="/"
-                    className="inline-block bg-black text-white py-4 px-12 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-500"
-                  >
-                    Start Shopping
-                  </Link>
-                </motion.div>
-            </motion.div>
+                  Start Shopping
+                </Link>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -101,16 +101,25 @@ const Wishlist = () => {
               whileTap={luxuryAnimations.productCard.tap}
             >
               <Link to={`/product/${item.id}`}>
-                <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative">
-                  <motion.img 
+                <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative" style={{ backgroundColor: '#f9fafb' }}>
+                  <img 
                     src={item.image}
                     alt={item.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    whileHover={luxuryAnimations.image.hover}
+                    onError={(e) => {
+                      console.error('Image failed to load:', item.image);
+                      e.currentTarget.src = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80';
+                    }}
+                    onLoad={() => {
+                      console.log('Image loaded successfully:', item.image);
+                    }}
+                    style={{
+                      minHeight: '100%',
+                      minWidth: '100%',
+                      objectFit: 'cover',
+                      display: 'block'
+                    }}
                   />
-                  
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-500" />
                   
                   {/* Remove from wishlist button */}
                   <motion.button 
