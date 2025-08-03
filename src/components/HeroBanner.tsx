@@ -1,171 +1,84 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { useRef, useState, useEffect } from 'react'
+import { useRef } from 'react'
 import modelWebp from '../assets/homepage/model.webp'
 
 const HeroBanner = () => {
   const ref = useRef(null)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
   
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"]
   })
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100)
-    }
-    
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Preload the image
-  useEffect(() => {
-    const img = new Image()
-    img.onload = () => setImageLoaded(true)
-    img.src = modelWebp
-  }, [])
-
-  // Stationary background with subtle overlay effect
-  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.1, 0.3])
-
   // Logo animation - starts large and moves to navbar
-  const logoScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.08])
-  const logoY = useTransform(scrollYProgress, [0, 0.4], [0, -800])
+  const logoScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.25])
+  const logoY = useTransform(scrollYProgress, [0, 0.4], [0, -400])
+  const logoOpacity = useTransform(scrollYProgress, [0.3, 0.4], [1, 0])
 
   return (
-    <section ref={ref} className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-white" style={{ overflowX: 'hidden' }}>
-      {/* Background Image - Static within hero section only */}
-      <div 
-        className="absolute inset-0 overflow-hidden"
-        style={{ 
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 0,
-          transform: 'none',
-          pointerEvents: 'none',
-          isolation: 'isolate'
-        }}
-      >
+    <section ref={ref} className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-white">
+      {/* Background Image - Completely static */}
+      <div className="absolute inset-0 overflow-hidden">
         <img
           src={modelWebp}
           alt="Luxury model background"
-          className="w-full h-full object-cover object-center"
           style={{
             width: '100%',
             height: '100%',
             objectFit: 'cover',
             objectPosition: 'center',
-            transform: 'none',
-            transition: 'none',
-            willChange: 'auto',
-            contain: 'layout'
+            display: 'block'
           }}
         />
       </div>
       
-      {/* Elegant overlay */}
-      <motion.div 
-        className="absolute inset-0 bg-black"
-        style={{ 
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 1,
-          opacity: overlayOpacity
-        }}
-      />
+      {/* Static overlay */}
+      <div className="absolute inset-0 bg-black opacity-20" />
 
-      {/* Large KOLZO Logo - Simplified positioning */}
+      {/* Large KOLZO Logo - Animated positioning */}
       <motion.div
-        className="absolute top-20 left-1/2 transform -translate-x-1/2 z-20"
+        className="absolute top-20 left-1/2 -translate-x-1/2 z-20"
         style={{
           scale: logoScale,
           y: logoY,
-          position: 'absolute',
-          zIndex: 20
+          opacity: logoOpacity
         }}
       >
-        <motion.h1 
-          className="text-6xl md:text-8xl lg:text-9xl font-light tracking-[0.3em] cursor-pointer text-center whitespace-nowrap"
+        <h1 
+          className="text-6xl md:text-8xl lg:text-9xl font-light tracking-[0.3em] cursor-pointer text-center whitespace-nowrap text-white"
           style={{ 
-            fontFamily: 'Playfair Display, serif',
-            color: isScrolled ? '#000000' : '#ffffff'
+            fontFamily: 'Playfair Display, serif'
           }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ 
-            duration: 0.8, 
-            delay: 0.3,
-            ease: "easeOut"
-          }}
-          whileHover={{ opacity: 0.8 }}
         >
           KOLZO
-        </motion.h1>
+        </h1>
       </motion.div>
       
-      {/* Main Content - Positioned lower and moves up on scroll */}
+      {/* Main Content - Animated positioning */}
       <motion.div
-        className="absolute left-1/2 transform -translate-x-1/2 z-10 text-center text-white px-6 w-full max-w-6xl"
+        className="absolute left-1/2 -translate-x-1/2 z-10 text-center text-white px-6 w-full max-w-6xl"
         style={{
-          bottom: isScrolled ? '32px' : '120px',
-          transition: 'bottom 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-          position: 'absolute',
-          zIndex: 10
-        }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ 
-          duration: 0.8, 
-          delay: 0.8,
-          ease: "easeOut"
+          bottom: useTransform(scrollYProgress, [0, 0.4], ['120px', '32px'])
         }}
       >
         <div className="space-y-8">
           {/* Product Category */}
-          <motion.h2
-            className="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase text-white"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ 
-              duration: 0.6, 
-              delay: 1.0,
-              ease: "easeOut"
-            }}
-          >
+          <h2 className="text-2xl md:text-3xl font-light tracking-[0.3em] uppercase text-white">
             Handbags
-          </motion.h2>
+          </h2>
           
           {/* CTA Button */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ 
-              duration: 0.6, 
-              delay: 1.2,
-              ease: "easeOut"
-            }}
-          >
+          <div>
             <Link
               to="/collections/women"
               className="inline-block bg-white text-black px-8 py-4 text-sm font-light tracking-[0.2em] uppercase hover:bg-gray-100 transition-all duration-500 border border-white hover:shadow-lg"
             >
               Shop Now
             </Link>
-          </motion.div>
+          </div>
         </div>
       </motion.div>
-      
-
     </section>
   )
 }

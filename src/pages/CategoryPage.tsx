@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import productsData from '../data/products.json'
+import productsDataF from '../data/products-f.json'
+import productsDataM from '../data/products-m.json'
 
 interface CategoryPageProps {
   gender: 'women' | 'men'
@@ -19,22 +20,23 @@ interface Product {
 const CategoryPage = ({ gender }: CategoryPageProps) => {
   const [products, setProducts] = useState<Product[]>([])
   const [sortBy, setSortBy] = useState('newest')
-  const [filterBy, setFilterBy] = useState('all')
+  const [filterBy, setFilterBy] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
-    const genderProducts = productsData[gender] || []
-    setProducts(genderProducts)
+    const productsData = gender === 'women' ? productsDataF : productsDataM
+    const allProducts = Object.values(productsData).flat()
+    setProducts(allProducts)
   }, [gender])
 
   const categories = gender === 'women' 
-    ? ['All', 'Handbags', 'Shoes', 'Perfumes', 'Lipstick', 'Blush', 'Compact', 'Lip Balm', 'Wallet']
-    : ['All', 'Fragrance', 'Wallet', 'Belts', 'Face Wash', 'Backpacks', 'Shoes', 'Sunglasses', 'Shaving Kit']
+    ? ['Handbags', 'Lipstick', 'Scarf', 'Blush', 'Lip Balm', 'Perfumes', 'Eye Liner', 'Compact']
+    : ['Wallet', 'Bracelets', 'Perfumes', 'Handbags', 'Watches', 'Moisturiser', 'Face Wash', 'Sunscreen']
 
   // Enhanced filtering and sorting
   const filteredAndSortedProducts = products
     .filter(product => {
-      const matchesCategory = filterBy === 'all' || product.category.toLowerCase() === filterBy.toLowerCase()
+      const matchesCategory = filterBy === '' || product.category.toLowerCase() === filterBy.toLowerCase()
       const matchesSearch = searchQuery === '' || 
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -143,9 +145,8 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
               {categories.map((category) => (
                 <button
                   key={category}
-                  onClick={() => setFilterBy(category === 'All' ? 'all' : category)}
+                  onClick={() => setFilterBy(category)}
                   className={`px-6 py-3 text-sm font-light tracking-wide border transition-all duration-500 ${
-                    (category === 'All' && filterBy === 'all') || 
                     category.toLowerCase() === filterBy.toLowerCase()
                       ? 'bg-transparent text-black border-gray-400'
                       : 'bg-white text-gray-600 border-gray-300 hover:border-gray-600 hover:text-black'
