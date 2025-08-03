@@ -199,7 +199,7 @@
   ],
   "handbags": [
     {
-      "id": "hb-001",
+      "id": "hb-001-m",
       "name": "Kolzo Leather Backpack",
       "price": 1200,
       "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
@@ -207,7 +207,7 @@
       "description": "Premium leather backpack with laptop compartment and organization."
     },
     {
-      "id": "hb-002",
+      "id": "hb-002-m",
       "name": "Kolzo Canvas Backpack",
       "price": 850,
       "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
@@ -215,7 +215,7 @@
       "description": "Durable canvas backpack with leather accents and laptop sleeve."
     },
     {
-      "id": "hb-003",
+      "id": "hb-003-m",
       "name": "Kolzo Messenger Bag",
       "price": 980,
       "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
@@ -223,7 +223,7 @@
       "description": "Professional messenger bag with adjustable strap and multiple pockets."
     },
     {
-      "id": "hb-004",
+      "id": "hb-004-m",
       "name": "Kolzo Duffel Bag",
       "price": 750,
       "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
@@ -231,7 +231,7 @@
       "description": "Weekend duffel bag with leather handles and spacious interior."
     },
     {
-      "id": "hb-005",
+      "id": "hb-005-m",
       "name": "Kolzo Crossbody Bag",
       "price": 680,
       "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
@@ -239,7 +239,7 @@
       "description": "Compact crossbody bag with adjustable strap and essential storage."
     },
     {
-      "id": "hb-006",
+      "id": "hb-006-m",
       "name": "Kolzo Briefcase",
       "price": 1450,
       "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
@@ -247,7 +247,7 @@
       "description": "Professional briefcase with laptop compartment and leather construction."
     },
     {
-      "id": "hb-007",
+      "id": "hb-007-m",
       "name": "Kolzo Tote Bag",
       "price": 920,
       "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
@@ -255,7 +255,7 @@
       "description": "Structured tote bag with leather handles and interior organization."
     },
     {
-      "id": "hb-008",
+      "id": "hb-008-m",
       "name": "Kolzo Gym Bag",
       "price": 580,
       "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",

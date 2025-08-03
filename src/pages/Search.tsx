@@ -26,6 +26,16 @@ const Search = () => {
 
   const [sortBy, setSortBy] = useState('relevance')
 
+  // Generate recommended items when no search results are found
+  const getRecommendedItems = () => {
+    // Get popular items from different categories
+    const recommendations = allProducts
+      .sort(() => Math.random() - 0.5) // Shuffle for variety
+      .slice(0, 8) // Show 8 recommended items
+    
+    return recommendations
+  }
+
   // Fuzzy search function with typo tolerance
   const fuzzySearch = (text: string, query: string): boolean => {
     const normalizedText = text.toLowerCase().replace(/[^a-z0-9]/g, '')
@@ -177,6 +187,8 @@ const Search = () => {
         fuzzySearch(product.description, searchQuery)
       )
 
+
+
       // Apply sorting
       filtered.sort((a, b) => {
         switch (sortBy) {
@@ -230,17 +242,29 @@ const Search = () => {
               placeholder="Search products, categories, or descriptions..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => {
+              onFocus={(e) => {
                 setIsSearchFocused(true)
                 if (searchQuery.trim()) {
                   setShowSuggestions(true)
                 }
+                // Ensure clean border styling on focus
+                const input = e.target as HTMLInputElement
+                input.style.borderBottom = '2px solid #000000'
+                input.style.borderTop = 'none'
+                input.style.borderLeft = 'none'
+                input.style.borderRight = 'none'
               }}
-              onBlur={() => {
+              onBlur={(e) => {
                 setTimeout(() => {
                   setIsSearchFocused(false)
                   setShowSuggestions(false)
                 }, 200)
+                // Reset border styling on blur
+                const input = e.target as HTMLInputElement
+                input.style.borderBottom = '2px solid #e5e7eb'
+                input.style.borderTop = 'none'
+                input.style.borderLeft = 'none'
+                input.style.borderRight = 'none'
               }}
               onKeyDown={(e) => {
                 if (e.key === 'ArrowDown') {
@@ -275,7 +299,16 @@ const Search = () => {
                   setSelectedSuggestionIndex(-1)
                 }
               }}
-              className="w-full px-0 py-6 text-lg font-light tracking-wide border-b-2 border-gray-200 bg-transparent focus:outline-none focus:border-black transition-all duration-500"
+              className="w-full px-0 py-6 text-lg font-light tracking-wide bg-transparent focus:outline-none transition-all duration-500"
+              style={{ 
+                borderTop: 'none', 
+                borderLeft: 'none', 
+                borderRight: 'none',
+                borderBottom: '2px solid #e5e7eb',
+                outline: 'none',
+                boxShadow: 'none',
+                background: 'transparent'
+              }}
               autoFocus
             />
             <div className="absolute right-0 top-1/2 transform -translate-y-1/2 flex items-center space-x-4">
@@ -309,7 +342,7 @@ const Search = () => {
                   transition={{ duration: 0.2 }}
                 >
                   {/* Recent Searches */}
-                  {searchHistory.length > 0 && (
+                  {searchHistory.length > 0 && searchResults.length > 0 && (
                     <div className="p-4 border-b border-gray-100">
                       <h4 className="text-xs font-light tracking-[0.2em] uppercase text-gray-400 mb-3">Recent Searches</h4>
                       <div className="space-y-2">
@@ -330,30 +363,32 @@ const Search = () => {
                   )}
 
                   {/* Search Suggestions */}
-                  <div className="p-4">
-                    <h4 className="text-xs font-light tracking-[0.2em] uppercase text-gray-400 mb-3">Suggestions</h4>
-                    <div className="space-y-2">
-                      {searchSuggestions.map((suggestion, index) => (
-                        <button
-                          key={index}
-                          onClick={() => {
-                            setSearchQuery(suggestion)
-                            setShowSuggestions(false)
-                            if (!searchHistory.includes(suggestion)) {
-                              setSearchHistory(prev => [suggestion, ...prev.slice(0, 4)])
-                            }
-                          }}
-                          className={`block w-full text-left text-sm font-light tracking-wide transition-colors duration-200 ${
-                            index === selectedSuggestionIndex 
-                              ? 'text-black bg-gray-50' 
-                              : 'text-gray-600 hover:text-black'
-                          }`}
-                        >
-                          {suggestion}
-                        </button>
-                      ))}
+                  {searchSuggestions.length > 0 && (
+                    <div className="p-4">
+                      <h4 className="text-xs font-light tracking-[0.2em] uppercase text-gray-400 mb-3">Suggestions</h4>
+                      <div className="space-y-2">
+                        {searchSuggestions.map((suggestion, index) => (
+                          <button
+                            key={index}
+                            onClick={() => {
+                              setSearchQuery(suggestion)
+                              setShowSuggestions(false)
+                              if (!searchHistory.includes(suggestion)) {
+                                setSearchHistory(prev => [suggestion, ...prev.slice(0, 4)])
+                              }
+                            }}
+                            className={`block w-full text-left text-sm font-light tracking-wide transition-colors duration-200 ${
+                              index === selectedSuggestionIndex 
+                                ? 'text-black bg-gray-50' 
+                                : 'text-gray-600 hover:text-black'
+                            }`}
+                          >
+                            {suggestion}
+                          </button>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
@@ -480,53 +515,121 @@ const Search = () => {
               {searchResults.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
                   {searchResults.map((product, index) => (
-                    <motion.div
-                      key={product.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ 
-                        delay: index * 0.1,
-                        duration: 0.4,
-                        ease: [0.25, 0.46, 0.45, 0.94]
-                      }}
-                      className="group"
-                    >
-                      <Link
-                        to={`/product/${product.id}`}
-                        className="block"
+                      <motion.div
+                        key={product.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ 
+                          delay: index * 0.1,
+                          duration: 0.4,
+                          ease: [0.25, 0.46, 0.45, 0.94]
+                        }}
+                        className="group"
                       >
-                        <div className="aspect-square bg-gray-50 mb-6 overflow-hidden">
-                          <img 
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                          />
-                        </div>
-                        
-                        <h4 className="text-sm font-light tracking-wide mb-2 group-hover:text-gray-600 transition-colors duration-500">
-                          {highlightSearchTerm(product.name, searchQuery)}
-                        </h4>
-                        <p className="text-xs text-gray-400 mb-2 font-light tracking-wide">
-                          {highlightSearchTerm(product.category, searchQuery)}
-                        </p>
-                        <p className="font-light">${product.price.toLocaleString()}</p>
-                      </Link>
-                    </motion.div>
-                  ))}
+                        <Link
+                          to={`/product/${product.id}`}
+                          className="block"
+                        >
+                          <div className="aspect-square bg-gray-50 mb-6 overflow-hidden">
+                            <img 
+                              src={product.image}
+                              alt={product.name}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                            />
+                          </div>
+                          
+                          <h4 className="text-sm font-light tracking-wide mb-2 group-hover:text-gray-600 transition-colors duration-500">
+                            {highlightSearchTerm(product.name, searchQuery)}
+                          </h4>
+                          <p className="text-xs text-gray-400 mb-2 font-light tracking-wide">
+                            {highlightSearchTerm(product.category, searchQuery)}
+                          </p>
+                          <p className="font-light">${product.price.toLocaleString()}</p>
+                        </Link>
+                      </motion.div>
+                    ))}
                 </div>
               ) : (
-                <div className="text-center py-20">
-                  <svg className="w-12 h-12 mx-auto text-gray-200 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <h3 className="text-sm font-light tracking-[0.1em] mb-4">No results found</h3>
-                  <p className="text-gray-400 font-light tracking-wide mb-8">Try searching with different keywords</p>
-                  <button
-                    onClick={() => setSearchQuery('')}
-                    className="text-sm font-light tracking-wide text-gray-500 hover:text-black transition-all duration-300"
-                  >
-                    Clear Search
-                  </button>
+                <div className="py-20">
+                  <div className="text-center mb-16">
+                    <svg className="w-12 h-12 mx-auto text-gray-200 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <h3 className="text-sm font-light tracking-[0.1em] mb-4">No results found for "{searchQuery}"</h3>
+                    <p className="text-gray-400 font-light tracking-wide mb-8">Try searching with different keywords or explore our recommendations below</p>
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="text-sm font-light tracking-wide text-gray-500 hover:text-black transition-all duration-300"
+                    >
+                      Clear Search
+                    </button>
+                  </div>
+                  
+                  {/* Recommended Items Section */}
+                  <div className="mb-16">
+                    <h3 className="text-3xl font-light tracking-[0.3em] uppercase mb-8 text-center text-black border-b-2 border-black pb-4 inline-block mx-auto">
+                      Recommended for You
+                    </h3>
+                    <p className="text-base font-light tracking-[0.2em] uppercase text-gray-700 text-center mb-16 max-w-lg mx-auto">
+                      Discover curated pieces from our collection
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                      {getRecommendedItems().map((product, index) => (
+                        <motion.div
+                          key={product.id}
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ 
+                            delay: index * 0.1,
+                            duration: 0.6,
+                            ease: [0.25, 0.46, 0.45, 0.94]
+                          }}
+                          className="group cursor-pointer"
+                        >
+                          <Link to={`/product/${product.id}`}>
+                            <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative" style={{ backgroundColor: '#f9fafb' }}>
+                              <img 
+                                src={product.image}
+                                alt={product.name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                onError={(e) => {
+                                  console.error('Image failed to load:', product.image);
+                                  e.currentTarget.src = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80';
+                                }}
+                                onLoad={() => {
+                                  console.log('Image loaded successfully:', product.image);
+                                }}
+                                style={{
+                                  minHeight: '100%',
+                                  minWidth: '100%',
+                                  objectFit: 'cover',
+                                  display: 'block'
+                                }}
+                              />
+                              
+                              {/* Wishlist button */}
+                              <motion.button 
+                                className="absolute top-4 right-4 p-3 bg-white/90 backdrop-blur-sm rounded-full opacity-0 group-hover:opacity-100 transition-all duration-500 hover:scale-110 shadow-lg"
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                              </motion.button>
+                            </div>
+                            
+                            <div className="text-center">
+                              <h3 className="text-sm font-light tracking-wide mb-3 group-hover:text-gray-600 transition-colors duration-500">
+                                {product.name}
+                              </h3>
+                              <p className="text-lg font-light tracking-[0.1em]">${product.price.toLocaleString()}</p>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               )}
             </motion.div>
