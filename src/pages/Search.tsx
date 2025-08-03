@@ -566,13 +566,25 @@ const Search = () => {
                   </div>
                   
                   {/* Recommended Items Section */}
-                  <div className="mb-16">
-                    <h3 className="text-3xl font-light tracking-[0.3em] uppercase mb-8 text-center text-black border-b-2 border-black pb-4 inline-block mx-auto">
-                      Recommended for You
-                    </h3>
-                    <p className="text-base font-light tracking-[0.2em] uppercase text-gray-700 text-center mb-16 max-w-lg mx-auto">
-                      Discover curated pieces from our collection
-                    </p>
+                  <div className="mb-20">
+                    {/* Decorative line above */}
+                    <div className="flex justify-center mb-8">
+                      <div className="w-16 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
+                    </div>
+                    
+                    {/* Main heading with enhanced styling */}
+                    <div className="text-center mb-12">
+                      <h3 className="text-4xl sm:text-5xl font-light tracking-[0.4em] uppercase mb-6 text-gray-900 relative">
+                        Recommended for You
+                        {/* Decorative underline */}
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent mt-4"></div>
+                      </h3>
+                      
+                      {/* Subtitle with improved typography */}
+                      <p className="text-lg font-light tracking-[0.3em] uppercase text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                        Discover curated pieces from our collection
+                      </p>
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                       {getRecommendedItems().map((product, index) => (
                         <motion.div
