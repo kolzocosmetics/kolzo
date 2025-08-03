@@ -46,17 +46,18 @@ const Wishlist = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <motion.div
-                whileHover={luxuryAnimations.button.hover}
-                whileTap={luxuryAnimations.button.tap}
-              >
-                <Link
-                  to="/"
-                  className="inline-block bg-black text-white py-4 px-12 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-500"
+                <motion.div
+                  whileHover={luxuryAnimations.button.hover}
+                  whileTap={luxuryAnimations.button.tap}
+                  className="inline-block"
                 >
-                  Start Shopping
-                </Link>
-              </motion.div>
+                  <Link
+                    to="/"
+                    className="inline-block bg-black text-white py-4 px-12 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-500"
+                  >
+                    Start Shopping
+                  </Link>
+                </motion.div>
             </motion.div>
           </motion.div>
         </div>
