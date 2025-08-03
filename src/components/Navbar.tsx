@@ -269,7 +269,19 @@ const Navbar = () => {
               <div className="flex flex-col h-full">
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                                     <img src={kolzoLogo} alt="Kolzo" className="h-16 w-auto ml-4 mt-2" />
+                  <div className="flex items-center">
+                    <img 
+                      src={kolzoLogo} 
+                      alt="Kolzo" 
+                      className="h-16 w-auto ml-4 mt-2" 
+                      onError={(e) => {
+                        console.error('Logo failed to load:', e);
+                        console.log('Logo src:', kolzoLogo);
+                      }}
+                      onLoad={() => console.log('Logo loaded successfully:', kolzoLogo)}
+                    />
+                    <span className="ml-2 text-sm text-gray-500">Kolzo</span>
+                  </div>
                   <motion.button
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="p-2 hover:bg-gray-100 rounded-full transition-all duration-300 text-gray-700"
