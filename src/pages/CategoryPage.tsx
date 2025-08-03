@@ -285,7 +285,7 @@ const CategoryPage = ({ gender }: CategoryPageProps) => {
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Search products, categories, or descriptions..."
+                  placeholder="Search collection"
                   value={searchQuery}
                   onChange={(e) => {
                     const value = e.target.value
