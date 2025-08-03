@@ -12,7 +12,7 @@
       "id": "wl-002",
       "name": "Kolzo Men's Bifold Wallet",
       "price": 450,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Wallet",
       "description": "Sleek leather design with multiple compartments and RFID protection."
     },
@@ -20,7 +20,7 @@
       "id": "wl-003",
       "name": "Kolzo Men's Card Holder",
       "price": 320,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Wallet",
       "description": "Minimalist card holder with RFID protection and leather construction."
     },
@@ -28,7 +28,7 @@
       "id": "wl-004",
       "name": "Kolzo Men's Trifold Wallet",
       "price": 580,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Wallet",
       "description": "Classic trifold design with coin pocket and multiple card slots."
     },
@@ -36,7 +36,7 @@
       "id": "wl-005",
       "name": "Kolzo Men's Money Clip Wallet",
       "price": 420,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Wallet",
       "description": "Slim money clip wallet with leather card slots and metal clip."
     },
@@ -44,7 +44,7 @@
       "id": "wl-006",
       "name": "Kolzo Men's Travel Wallet",
       "price": 720,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Wallet",
       "description": "Travel wallet with passport slot and multiple compartments."
     },
@@ -52,7 +52,7 @@
       "id": "wl-007",
       "name": "Kolzo Men's Slim Wallet",
       "price": 380,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Wallet",
       "description": "Ultra-slim wallet with minimal design and essential slots."
     },
@@ -60,7 +60,7 @@
       "id": "wl-008",
       "name": "Kolzo Men's Premium Wallet",
       "price": 850,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Wallet",
       "description": "Premium leather wallet with hand-stitched details and luxury finish."
     }
@@ -78,7 +78,7 @@
       "id": "br-002",
       "name": "Kolzo Sterling Silver Bracelet",
       "price": 450,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Bracelets",
       "description": "925 sterling silver bracelet with polished finish and secure clasp."
     },
@@ -86,7 +86,7 @@
       "id": "br-003",
       "name": "Kolzo Beaded Bracelet",
       "price": 180,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Bracelets",
       "description": "Natural stone beaded bracelet with elastic closure and earthy tones."
     },
@@ -94,7 +94,7 @@
       "id": "br-004",
       "name": "Kolzo Chain Bracelet",
       "price": 320,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Bracelets",
       "description": "Gold-plated chain bracelet with lobster clasp and classic design."
     },
@@ -102,7 +102,7 @@
       "id": "br-005",
       "name": "Kolzo Rope Bracelet",
       "price": 150,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Bracelets",
       "description": "Cotton rope bracelet with adjustable knot closure and casual style."
     },
@@ -110,7 +110,7 @@
       "id": "br-006",
       "name": "Kolzo Stainless Steel Bracelet",
       "price": 380,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Bracelets",
       "description": "Stainless steel bracelet with brushed finish and secure deployment clasp."
     },
@@ -118,7 +118,7 @@
       "id": "br-007",
       "name": "Kolzo Wooden Bracelet",
       "price": 220,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Bracelets",
       "description": "Hand-carved wooden bracelet with natural grain and adjustable fit."
     },
@@ -144,7 +144,7 @@
       "id": "pm-002",
       "name": "Kolzo Cedar Eau de Cologne",
       "price": 520,
-      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Perfumes",
       "description": "Fresh cedar scent with citrus notes for a modern masculine fragrance."
     },
@@ -152,7 +152,7 @@
       "id": "pm-003",
       "name": "Kolzo Ocean Breeze Cologne",
       "price": 480,
-      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Perfumes",
       "description": "Fresh aquatic scent with sea salt and marine notes."
     },
@@ -160,7 +160,7 @@
       "id": "pm-004",
       "name": "Kolzo Amber Nights Parfum",
       "price": 650,
-      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Perfumes",
       "description": "Rich amber with oriental spices and warm base notes."
     },
@@ -168,7 +168,7 @@
       "id": "pm-005",
       "name": "Kolzo Citrus Burst Cologne",
       "price": 420,
-      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Perfumes",
       "description": "Fresh citrus blend with lemon, bergamot, and grapefruit notes."
     },
@@ -184,7 +184,7 @@
       "id": "pm-007",
       "name": "Kolzo Lavender Fields Cologne",
       "price": 460,
-      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Perfumes",
       "description": "Calming lavender with herbal undertones and clean finish."
     },
@@ -192,7 +192,7 @@
       "id": "pm-008",
       "name": "Kolzo Spice Road Parfum",
       "price": 720,
-      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Perfumes",
       "description": "Exotic spice blend with cardamom, cinnamon, and sandalwood."
     }
@@ -210,7 +210,7 @@
       "id": "hb-002",
       "name": "Kolzo Canvas Backpack",
       "price": 850,
-      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Handbags",
       "description": "Durable canvas backpack with leather accents and laptop sleeve."
     },
@@ -218,7 +218,7 @@
       "id": "hb-003",
       "name": "Kolzo Messenger Bag",
       "price": 980,
-      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Handbags",
       "description": "Professional messenger bag with adjustable strap and multiple pockets."
     },
@@ -226,7 +226,7 @@
       "id": "hb-004",
       "name": "Kolzo Duffel Bag",
       "price": 750,
-      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Handbags",
       "description": "Weekend duffel bag with leather handles and spacious interior."
     },
@@ -234,7 +234,7 @@
       "id": "hb-005",
       "name": "Kolzo Crossbody Bag",
       "price": 680,
-      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Handbags",
       "description": "Compact crossbody bag with adjustable strap and essential storage."
     },
@@ -242,7 +242,7 @@
       "id": "hb-006",
       "name": "Kolzo Briefcase",
       "price": 1450,
-      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Handbags",
       "description": "Professional briefcase with laptop compartment and leather construction."
     },
@@ -250,7 +250,7 @@
       "id": "hb-007",
       "name": "Kolzo Tote Bag",
       "price": 920,
-      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Handbags",
       "description": "Structured tote bag with leather handles and interior organization."
     },
@@ -276,7 +276,7 @@
       "id": "wt-002",
       "name": "Kolzo Sport Watch",
       "price": 720,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Watches",
       "description": "Water-resistant sport watch with chronograph functions and rubber strap."
     },
@@ -284,7 +284,7 @@
       "id": "wt-003",
       "name": "Kolzo Dress Watch",
       "price": 1200,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Watches",
       "description": "Elegant dress watch with gold-plated case and crocodile leather strap."
     },
@@ -292,7 +292,7 @@
       "id": "wt-004",
       "name": "Kolzo Aviator Watch",
       "price": 980,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Watches",
       "description": "Pilot-style watch with large dial and luminous hands for visibility."
     },
@@ -300,7 +300,7 @@
       "id": "wt-005",
       "name": "Kolzo Chronograph Watch",
       "price": 1100,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Precision chronograph with multiple sub-dials and tachymeter scale."
     },
@@ -308,7 +308,7 @@
       "id": "wt-006",
       "name": "Kolzo Minimalist Watch",
       "price": 650,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Watches",
       "description": "Ultra-minimalist design with clean dial and mesh bracelet."
     },
@@ -316,7 +316,7 @@
       "id": "wt-007",
       "name": "Kolzo Diver Watch",
       "price": 1350,
-      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Watches",
       "description": "Professional diver watch with 200m water resistance and rotating bezel."
     },
@@ -334,7 +334,7 @@
       "id": "ms-001",
       "name": "Kolzo Daily Moisturizer",
       "price": 85,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Moisturiser",
       "description": "Lightweight daily moisturizer with SPF 30 and non-greasy formula."
     },
@@ -342,7 +342,7 @@
       "id": "ms-002",
       "name": "Kolzo Night Cream",
       "price": 95,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Moisturiser",
       "description": "Rich night cream with retinol and hyaluronic acid for skin renewal."
     },
@@ -350,7 +350,7 @@
       "id": "ms-003",
       "name": "Kolzo Oil Control Moisturizer",
       "price": 78,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Moisturiser",
       "description": "Mattifying moisturizer for oily skin with salicylic acid."
     },
@@ -358,7 +358,7 @@
       "id": "ms-004",
       "name": "Kolzo Anti-Aging Cream",
       "price": 120,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Moisturiser",
       "description": "Advanced anti-aging cream with peptides and vitamin C."
     },
@@ -366,7 +366,7 @@
       "id": "ms-005",
       "name": "Kolzo Sensitive Skin Moisturizer",
       "price": 88,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Moisturiser",
       "description": "Gentle moisturizer for sensitive skin with aloe vera and chamomile."
     },
@@ -374,7 +374,7 @@
       "id": "ms-006",
       "name": "Kolzo Gel Moisturizer",
       "price": 72,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Moisturiser",
       "description": "Lightweight gel moisturizer with cooling sensation and fast absorption."
     },
@@ -382,7 +382,7 @@
       "id": "ms-007",
       "name": "Kolzo Vitamin E Cream",
       "price": 82,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Moisturiser",
       "description": "Nourishing cream with vitamin E and shea butter for deep hydration."
     },
@@ -390,7 +390,7 @@
       "id": "ms-008",
       "name": "Kolzo Multi-Peptide Moisturizer",
       "price": 135,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Moisturiser",
       "description": "Advanced peptide moisturizer for firming and wrinkle reduction."
     }
@@ -400,7 +400,7 @@
       "id": "fw-001",
       "name": "Kolzo Refresh Face Wash",
       "price": 85,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Face Wash",
       "description": "Gentle cleansing for daily use with natural ingredients."
     },
@@ -408,7 +408,7 @@
       "id": "fw-002",
       "name": "Kolzo Deep Clean Face Wash",
       "price": 95,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Face Wash",
       "description": "Deep cleansing formula with activated charcoal for oily skin."
     },
@@ -416,7 +416,7 @@
       "id": "fw-003",
       "name": "Kolzo Exfoliating Face Wash",
       "price": 88,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Face Wash",
       "description": "Gentle exfoliating face wash with microbeads for smooth skin."
     },
@@ -424,7 +424,7 @@
       "id": "fw-004",
       "name": "Kolzo Acne Control Face Wash",
       "price": 92,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Face Wash",
       "description": "Targeted face wash with salicylic acid for acne-prone skin."
     },
@@ -432,7 +432,7 @@
       "id": "fw-005",
       "name": "Kolzo Sensitive Skin Face Wash",
       "price": 78,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Face Wash",
       "description": "Fragrance-free face wash for sensitive skin with calming ingredients."
     },
@@ -440,7 +440,7 @@
       "id": "fw-006",
       "name": "Kolzo Foaming Face Wash",
       "price": 82,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Face Wash",
       "description": "Rich foaming face wash with glycerin for deep cleansing."
     },
@@ -448,7 +448,7 @@
       "id": "fw-007",
       "name": "Kolzo Anti-Aging Face Wash",
       "price": 105,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Face Wash",
       "description": "Anti-aging face wash with peptides and antioxidants."
     },
@@ -456,7 +456,7 @@
       "id": "fw-008",
       "name": "Kolzo Brightening Face Wash",
       "price": 98,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Face Wash",
       "description": "Brightening face wash with vitamin C and niacinamide."
     }
@@ -466,7 +466,7 @@
       "id": "ss-001",
       "name": "Kolzo Daily Sunscreen SPF 50",
       "price": 75,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Sunscreen",
       "description": "Broad-spectrum sunscreen with SPF 50 and lightweight formula."
     },
@@ -474,7 +474,7 @@
       "id": "ss-002",
       "name": "Kolzo Sport Sunscreen SPF 30",
       "price": 68,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Sunscreen",
       "description": "Water-resistant sport sunscreen with sweat-proof formula."
     },
@@ -482,7 +482,7 @@
       "id": "ss-003",
       "name": "Kolzo Moisturizing Sunscreen SPF 30",
       "price": 82,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
       "category": "Sunscreen",
       "description": "Hydrating sunscreen with hyaluronic acid and SPF 30 protection."
     },
@@ -490,7 +490,7 @@
       "id": "ss-004",
       "name": "Kolzo Tinted Sunscreen SPF 40",
       "price": 88,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Sunscreen",
       "description": "Tinted sunscreen with natural coverage and SPF 40 protection."
     },
@@ -498,7 +498,7 @@
       "id": "ss-005",
       "name": "Kolzo Mineral Sunscreen SPF 50",
       "price": 95,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
       "category": "Sunscreen",
       "description": "Mineral-based sunscreen with zinc oxide and titanium dioxide."
     },
@@ -506,7 +506,7 @@
       "id": "ss-006",
       "name": "Kolzo Face Sunscreen SPF 45",
       "price": 78,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Sunscreen",
       "description": "Lightweight face sunscreen with non-greasy formula and SPF 45."
     },
@@ -514,7 +514,7 @@
       "id": "ss-007",
       "name": "Kolzo Anti-Aging Sunscreen SPF 50",
       "price": 105,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
       "category": "Sunscreen",
       "description": "Anti-aging sunscreen with peptides and broad-spectrum protection."
     },
@@ -522,9 +522,75 @@
       "id": "ss-008",
       "name": "Kolzo Sensitive Skin Sunscreen SPF 30",
       "price": 72,
-      "image": "https://images.unsplash.com/photo-1627123425017-8f2af085be90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
       "category": "Sunscreen",
       "description": "Gentle sunscreen for sensitive skin with fragrance-free formula."
+    }
+  ],
+  "shaving kit": [
+    {
+      "id": "sk-001",
+      "name": "Kolzo Premium Shaving Kit",
+      "price": 180,
+      "image": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "category": "Shaving Kit",
+      "description": "Complete shaving kit with razor, brush, and premium shaving cream."
+    },
+    {
+      "id": "sk-002",
+      "name": "Kolzo Electric Shaver",
+      "price": 220,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
+      "category": "Shaving Kit",
+      "description": "Advanced electric shaver with precision blades and ergonomic design."
+    },
+    {
+      "id": "sk-003",
+      "name": "Kolzo Safety Razor",
+      "price": 95,
+      "image": "https://images.unsplash.com/photo-1591561954557-26941169b49e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80",
+      "category": "Shaving Kit",
+      "description": "Classic safety razor with stainless steel construction and replaceable blades."
+    },
+    {
+      "id": "sk-004",
+      "name": "Kolzo Shaving Brush",
+      "price": 65,
+      "image": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Shaving Kit",
+      "description": "Premium badger hair shaving brush with ergonomic handle and soft bristles."
+    },
+    {
+      "id": "sk-005",
+      "name": "Kolzo Shaving Cream",
+      "price": 45,
+      "image": "https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3&auto=format&fit=crop&w=2004&q=80",
+      "category": "Shaving Kit",
+      "description": "Rich lathering shaving cream with moisturizing formula and fresh scent."
+    },
+    {
+      "id": "sk-006",
+      "name": "Kolzo Aftershave Balm",
+      "price": 55,
+      "image": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Shaving Kit",
+      "description": "Soothing aftershave balm with aloe vera and cooling menthol."
+    },
+    {
+      "id": "sk-007",
+      "name": "Kolzo Beard Oil",
+      "price": 75,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Shaving Kit",
+      "description": "Nourishing beard oil with natural ingredients and masculine fragrance."
+    },
+    {
+      "id": "sk-008",
+      "name": "Kolzo Shaving Mirror",
+      "price": 85,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2915&q=80",
+      "category": "Shaving Kit",
+      "description": "Fog-resistant shaving mirror with LED lighting and adjustable angle."
     }
   ]
 } 

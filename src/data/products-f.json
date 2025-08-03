@@ -526,5 +526,71 @@
       "category": "Compact",
       "description": "Translucent setting powder compact to lock makeup in place."
     }
+  ],
+  "watches": [
+    {
+      "id": "wf-001",
+      "name": "Kolzo Classic Women's Watch",
+      "price": 850,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Watches",
+      "description": "Elegant classic watch with leather strap and minimalist dial design."
+    },
+    {
+      "id": "wf-002",
+      "name": "Kolzo Rose Gold Watch",
+      "price": 1200,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Watches",
+      "description": "Sophisticated rose gold watch with crystal accents and mesh bracelet."
+    },
+    {
+      "id": "wf-003",
+      "name": "Kolzo Diamond Watch",
+      "price": 1800,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Watches",
+      "description": "Luxury diamond-encrusted watch with premium leather strap."
+    },
+    {
+      "id": "wf-004",
+      "name": "Kolzo Minimalist Watch",
+      "price": 650,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Watches",
+      "description": "Ultra-minimalist design with clean dial and comfortable strap."
+    },
+    {
+      "id": "wf-005",
+      "name": "Kolzo Pearl Watch",
+      "price": 950,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Watches",
+      "description": "Elegant pearl-embellished watch with mother-of-pearl dial."
+    },
+    {
+      "id": "wf-006",
+      "name": "Kolzo Crystal Watch",
+      "price": 1100,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Watches",
+      "description": "Sparkling crystal watch with Swarovski elements and gold plating."
+    },
+    {
+      "id": "wf-007",
+      "name": "Kolzo Vintage Watch",
+      "price": 1350,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Watches",
+      "description": "Vintage-inspired watch with retro dial and leather strap."
+    },
+    {
+      "id": "wf-008",
+      "name": "Kolzo Smart Watch",
+      "price": 1600,
+      "image": "https://images.unsplash.com/photo-1617137968427-85924c800a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      "category": "Watches",
+      "description": "Premium smartwatch with health tracking and luxury design."
+    }
   ]
 } 

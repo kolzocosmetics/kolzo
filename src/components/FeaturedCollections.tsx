@@ -12,28 +12,28 @@ const collections = [
     name: "Women's Shoulder Bags",
     subtitle: "Timeless elegance",
     image: womensShoulderBags,
-    link: '/collections/women'
+    link: '/collections/women?category=Handbags'
   },
   {
     id: 'womens-lipstick', 
     name: "Women's Lipstick",
     subtitle: "Bold sophistication",
     image: womensLipstick,
-    link: '/collections/women'
+    link: '/collections/women?category=Lipstick'
   },
   {
     id: 'mens-wallet',
     name: "Men's Wallet",
     subtitle: "Refined luxury",
     image: mensWallet,
-    link: '/collections/men'
+    link: '/collections/men?category=Wallet'
   },
   {
     id: 'mens-bracelets',
     name: "Men's Bracelets",
     subtitle: "Sophisticated style",
     image: mensBracelets,
-    link: '/collections/men'
+    link: '/collections/men?category=Bracelets'
   }
 ]
 
