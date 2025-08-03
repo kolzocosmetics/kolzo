@@ -239,7 +239,7 @@ const Search = () => {
           <div className="relative">
             <input
               type="text"
-              placeholder="Search products, categories, or descriptions..."
+              placeholder="Search collection"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={(e) => {
