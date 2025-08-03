@@ -6,6 +6,7 @@ import modelWebp from '../assets/homepage/model.webp'
 const HeroBanner = () => {
   const ref = useRef(null)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -21,6 +22,13 @@ const HeroBanner = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Preload the image
+  useEffect(() => {
+    const img = new Image()
+    img.onload = () => setImageLoaded(true)
+    img.src = modelWebp
+  }, [])
+
   // Stationary background with subtle overlay effect
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.1, 0.3])
 
@@ -30,27 +38,43 @@ const HeroBanner = () => {
 
   return (
     <section ref={ref} className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-white" style={{ overflowX: 'hidden' }}>
-      {/* Background Image - Beautiful luxury model - Fixed position */}
-      <motion.div 
-        className="fixed inset-0 bg-cover bg-center bg-no-repeat"
+      {/* Background Image - Static within hero section only */}
+      <div 
+        className="absolute inset-0 overflow-hidden"
         style={{ 
-          backgroundImage: `url(${modelWebp})`,
-          position: 'fixed',
+          position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          zIndex: 0
+          zIndex: 0,
+          transform: 'none',
+          pointerEvents: 'none',
+          isolation: 'isolate'
         }}
-        initial={{ opacity: 1 }}
-        animate={{ opacity: 1 }}
-      />
+      >
+        <img
+          src={modelWebp}
+          alt="Luxury model background"
+          className="w-full h-full object-cover object-center"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center',
+            transform: 'none',
+            transition: 'none',
+            willChange: 'auto',
+            contain: 'layout'
+          }}
+        />
+      </div>
       
       {/* Elegant overlay */}
       <motion.div 
-        className="fixed inset-0 bg-black"
+        className="absolute inset-0 bg-black"
         style={{ 
-          position: 'fixed',
+          position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
