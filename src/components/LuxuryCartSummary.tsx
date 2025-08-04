@@ -48,6 +48,10 @@ const LuxuryCartSummary = ({ cartItems, onUpdateQuantity, onRemoveItem }: Luxury
                   src={item.image}
                   alt={item.name}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80'
+                  }}
                 />
               </div>
               
@@ -114,24 +118,24 @@ const LuxuryCartSummary = ({ cartItems, onUpdateQuantity, onRemoveItem }: Luxury
         <div className="space-y-3 pt-6 border-t border-gray-200">
           <div className="flex justify-between items-center">
             <span className="text-sm font-light tracking-wide">Subtotal</span>
-            <span className="text-sm font-medium">${subtotal.toLocaleString()}</span>
+            <span className="text-sm font-medium">{formatPrice(subtotal)}</span>
           </div>
           
           <div className="flex justify-between items-center">
             <span className="text-sm font-light tracking-wide">Shipping</span>
             <span className="text-sm font-medium">
-              {shipping === 0 ? 'Free' : `$${shipping}`}
+              {shipping === 0 ? 'Free' : formatPrice(shipping)}
             </span>
           </div>
           
           <div className="flex justify-between items-center">
             <span className="text-sm font-light tracking-wide">Tax</span>
-            <span className="text-sm font-medium">${tax.toFixed(2)}</span>
+            <span className="text-sm font-medium">{formatPrice(tax)}</span>
           </div>
           
           <div className="flex justify-between items-center pt-3 border-t border-gray-200">
             <span className="text-lg font-light tracking-wide">Total</span>
-            <span className="text-lg font-medium">${total.toFixed(2)}</span>
+            <span className="text-lg font-medium">{formatPrice(total)}</span>
           </div>
         </div>
         

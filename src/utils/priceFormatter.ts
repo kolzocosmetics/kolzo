@@ -7,7 +7,10 @@
  * @param price - The price as a number
  * @returns Formatted price string with ₹ symbol
  */
-export const formatPrice = (price: number): string => {
+export const formatPrice = (price: number | undefined | null): string => {
+  if (price === undefined || price === null) {
+    return '₹0';
+  }
   return `₹${price.toLocaleString('en-IN')}`;
 };
 
@@ -16,7 +19,10 @@ export const formatPrice = (price: number): string => {
  * @param price - The price as a number
  * @returns Formatted price string with ₹ symbol and decimal places
  */
-export const formatPriceWithDecimal = (price: number): string => {
+export const formatPriceWithDecimal = (price: number | undefined | null): string => {
+  if (price === undefined || price === null) {
+    return '₹0.00';
+  }
   return `₹${price.toLocaleString('en-IN', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
@@ -28,7 +34,10 @@ export const formatPriceWithDecimal = (price: number): string => {
  * @param usdPrice - Price in USD
  * @returns Price in INR
  */
-export const convertUSDToINR = (usdPrice: number): number => {
+export const convertUSDToINR = (usdPrice: number | undefined | null): number => {
+  if (usdPrice === undefined || usdPrice === null) {
+    return 0;
+  }
   const exchangeRate = 83; // 1 USD = 83 INR (approximate)
   return Math.round(usdPrice * exchangeRate);
 };
@@ -38,7 +47,7 @@ export const convertUSDToINR = (usdPrice: number): number => {
  * @param usdPrice - Price in USD
  * @returns Formatted price string in INR
  */
-export const formatUSDToINR = (usdPrice: number): string => {
+export const formatUSDToINR = (usdPrice: number | undefined | null): string => {
   const inrPrice = convertUSDToINR(usdPrice);
   return formatPrice(inrPrice);
 }; 

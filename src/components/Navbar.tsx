@@ -5,6 +5,7 @@ import scrollCache from '../utils/scrollCache'
 import kolzoLogo from '../assets/kolzo_logo.png'
 import { useAuthStore } from '../store/authStore'
 import { useCartStore } from '../store/cartStore'
+import { useWishlistStore } from '../store/wishlistStore'
 
 import AuthModal from './AuthModal'
 import { luxuryAnimations } from '../utils/luxuryAnimations'
@@ -16,6 +17,7 @@ const Navbar = () => {
   
   const { isAuthenticated, login, signup, logout } = useAuthStore()
   const { getItemCount: getCartCount } = useCartStore()
+  const { getItemCount: getWishlistCount } = useWishlistStore()
 
 
   // Lock body scroll when mobile menu is open
@@ -244,6 +246,8 @@ const Navbar = () => {
 
 
 
+
+
                {/* Mobile Menu Button with sophisticated animation - ALWAYS VISIBLE */}
                <motion.button
                  className="p-2 transition-all duration-700 text-gray-700 hover:text-black group"
@@ -381,7 +385,7 @@ const Navbar = () => {
 
                     {/* Wishlist */}
                     <motion.button 
-                      className="flex flex-col items-center space-y-1 text-gray-700 hover:text-black transition-all duration-300"
+                      className="flex flex-col items-center space-y-1 text-gray-700 hover:text-black transition-all duration-300 relative"
                       onClick={() => {
                         navigate('/wishlist')
                         setIsMobileMenuOpen(false)
@@ -389,9 +393,25 @@ const Navbar = () => {
                       whileHover={luxuryAnimations.button.hover}
                       whileTap={luxuryAnimations.button.tap}
                     >
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                      </svg>
+                      <div className="relative">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                        
+                        {/* Wishlist count badge */}
+                        {getWishlistCount() > 0 && (
+                          <motion.div
+                            className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                          >
+                            <span className="text-[10px] font-medium leading-none">
+                              {getWishlistCount()}
+                            </span>
+                          </motion.div>
+                        )}
+                      </div>
                       <span className="text-xs font-light tracking-wide">Wishlist</span>
                     </motion.button>
                   </div>

@@ -1,17 +1,34 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+// import { useCartStore } from '../store/cartStore' // Temporarily disabled
 import { useWishlistStore } from '../store/wishlistStore'
 import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
 import { formatPrice } from '../utils/priceFormatter'
+// import type { Product } from '../utils/api'
 
+// Temporary Product interface to avoid import issues
 interface Product {
-  id: string
-  name: string
-  price: number
-  image: string
-  category: string
-  description: string
+  _id?: string;
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  originalPrice?: number;
+  category: string;
+  brand?: string;
+  gender?: 'men' | 'women' | 'unisex';
+  image?: string;
+  images?: string[];
+  variants?: any[];
+  tags?: string[];
+  status?: 'active' | 'inactive' | 'draft';
+  averageRating?: number;
+  totalReviews?: number;
+  salesCount?: number;
+  featured?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 interface QuickViewModalProps {
@@ -60,9 +77,9 @@ const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps) => {
 
   // Generate multiple images for the product
   const productImages = [
-    product.image,
-    product.image.replace('?', '?w=800&'),
-    product.image.replace('?', '?w=600&'),
+    product.image || product.images?.[0] || '',
+    (product.image || product.images?.[0] || '').replace('?', '?w=800&'),
+    (product.image || product.images?.[0] || '').replace('?', '?w=600&'),
   ]
 
   return (
@@ -125,25 +142,28 @@ const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps) => {
                                          {/* Wishlist button */}
                      <motion.button 
                        onClick={() => {
-                         if (product && isInWishlist(product.id)) {
-                           removeFromWishlist(product.id)
-                           trackWishlistRemove(product.id, product.name)
-                           alert('Removed from wishlist!')
-                         } else if (product) {
-                           addToWishlist(product)
-                           trackWishlistAdd(product.id, product.name)
-                           alert('Added to wishlist!')
+                         if (product && (product.id || product._id)) {
+                           const productId = product.id || product._id || '';
+                           if (isInWishlist(productId)) {
+                             removeFromWishlist(productId)
+                             trackWishlistRemove(productId, product.name)
+                             alert('Removed from wishlist!')
+                           } else {
+                             addToWishlist(product)
+                             trackWishlistAdd(productId, product.name)
+                             alert('Added to wishlist!')
+                           }
                          }
                        }}
                        className={`absolute top-4 right-4 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 shadow-lg ${
-                         product && isInWishlist(product.id)
+                         product && (product.id || product._id) && isInWishlist(product.id || product._id || '')
                            ? 'bg-red-50 hover:bg-red-100'
                            : 'bg-white/90 backdrop-blur-sm hover:bg-gray-100'
                        }`}
                        whileHover={{ scale: 1.1 }}
                        whileTap={{ scale: 0.95 }}
                      >
-                       <svg className={`w-5 h-5 ${product && isInWishlist(product.id) ? 'text-red-500 fill-current' : 'text-gray-700 fill-none'}`} stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                       <svg className={`w-5 h-5 ${product && (product.id || product._id) && isInWishlist(product.id || product._id || '') ? 'text-red-500 fill-current' : 'text-gray-700 fill-none'}`} stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                        </svg>
                      </motion.button>
@@ -293,37 +313,40 @@ const QuickViewModal = ({ product, isOpen, onClose }: QuickViewModalProps) => {
                     
                     <motion.button
                       onClick={() => {
-                        if (product && isInWishlist(product.id)) {
-                          removeFromWishlist(product.id)
-                          trackWishlistRemove(product.id, product.name)
-                          alert('Removed from wishlist!')
-                        } else if (product) {
-                          addToWishlist(product)
-                          trackWishlistAdd(product.id, product.name)
-                          alert('Added to wishlist!')
+                        if (product && (product.id || product._id)) {
+                          const productId = product.id || product._id || '';
+                          if (isInWishlist(productId)) {
+                            removeFromWishlist(productId)
+                            trackWishlistRemove(productId, product.name)
+                            alert('Removed from wishlist!')
+                          } else {
+                            addToWishlist(product)
+                            trackWishlistAdd(productId, product.name)
+                            alert('Added to wishlist!')
+                          }
                         }
                       }}
                       className={`w-full border-2 py-4 px-8 font-light tracking-[0.2em] uppercase transition-all duration-500 flex items-center justify-center shadow-lg ${
-                        product && isInWishlist(product.id)
+                        product && (product.id || product._id) && isInWishlist(product.id || product._id || '')
                           ? 'border-red-500 bg-red-50 text-red-600 hover:bg-red-100'
                           : 'border-black hover:bg-black hover:text-white'
                       }`}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       style={{
-                        backgroundColor: product && isInWishlist(product.id) ? '#FEF2F2' : '#FFFFFF',
-                        color: product && isInWishlist(product.id) ? '#DC2626' : '#000000',
-                        borderColor: product && isInWishlist(product.id) ? '#EF4444' : '#000000'
+                        backgroundColor: product && (product.id || product._id) && isInWishlist(product.id || product._id || '') ? '#FEF2F2' : '#FFFFFF',
+                        color: product && (product.id || product._id) && isInWishlist(product.id || product._id || '') ? '#DC2626' : '#000000',
+                        borderColor: product && (product.id || product._id) && isInWishlist(product.id || product._id || '') ? '#EF4444' : '#000000'
                       }}
                     >
-                      <svg className={`w-5 h-5 mr-3 ${product && isInWishlist(product.id) ? 'fill-current' : 'fill-none'}`} stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <svg className={`w-5 h-5 mr-3 ${product && (product.id || product._id) && isInWishlist(product.id || product._id || '') ? 'fill-current' : 'fill-none'}`} stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                       </svg>
-                      {product && isInWishlist(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                      {product && (product.id || product._id) && isInWishlist(product.id || product._id || '') ? 'Remove from Wishlist' : 'Add to Wishlist'}
                     </motion.button>
                     
                     <Link
-                      to={`/product/${product.id}`}
+                      to={`/product/${product.id || product._id}`}
                       className="block text-center text-sm font-light tracking-[0.2em] uppercase hover:text-gray-600 transition-all duration-300"
                       onClick={onClose}
                     >

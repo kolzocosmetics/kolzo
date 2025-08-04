@@ -1,20 +1,48 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import api from '../utils/api'
 import newsletterBg from '../assets/homepage/newsletter.webp'
 
 const Newsletter = () => {
   const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Placeholder for newsletter signup
-    console.log('Newsletter signup:', email)
-    setIsSubmitted(true)
-    setTimeout(() => {
-      setIsSubmitted(false)
-      setEmail('')
-    }, 3000)
+    setIsLoading(true)
+    setError('')
+
+    try {
+      const response = await api.subscribeToNewsletter({
+        email,
+        firstName: firstName || undefined,
+        lastName: lastName || undefined,
+        source: 'footer',
+        consent: true
+      })
+
+      if (response.success) {
+        setIsSubmitted(true)
+        setEmail('')
+        setFirstName('')
+        setLastName('')
+        
+        // Reset after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false)
+        }, 3000)
+      } else {
+        setError(response.message || 'Failed to subscribe')
+      }
+    } catch (error: any) {
+      setError(error.message || 'Failed to subscribe to newsletter')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -67,31 +95,66 @@ const Newsletter = () => {
             ease: [0.25, 0.46, 0.45, 0.94]
           }}
         >
-          <div className="flex flex-col sm:flex-row gap-4 mb-8">
+          <div className="flex flex-col gap-4 mb-8">
+            {/* Name Fields */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="First Name"
+                className="flex-1 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all duration-500 font-light tracking-wide rounded-none"
+                disabled={isLoading || isSubmitted}
+              />
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Last Name"
+                className="flex-1 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all duration-500 font-light tracking-wide rounded-none"
+                disabled={isLoading || isSubmitted}
+              />
+            </div>
+            
+            {/* Email Field */}
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
-              className="flex-1 px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all duration-500 font-light tracking-wide rounded-none"
+              className="w-full px-6 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-white/40 focus:bg-white/15 transition-all duration-500 font-light tracking-wide rounded-none"
               required
-              disabled={isSubmitted}
+              disabled={isLoading || isSubmitted}
             />
+            
             <motion.button
               type="submit"
-              className={`px-8 py-4 bg-transparent text-white font-light tracking-[0.2em] uppercase transition-all duration-500 border border-white hover:bg-white/10 hover:text-white ${
+              className={`w-full px-8 py-4 bg-transparent text-white font-light tracking-[0.2em] uppercase transition-all duration-500 border border-white hover:bg-white/10 hover:text-white ${
                 isSubmitted 
                   ? 'bg-green-500 text-white cursor-not-allowed border-green-500' 
+                  : isLoading
+                  ? 'opacity-50 cursor-not-allowed'
                   : ''
               }`}
-              whileHover={!isSubmitted ? { scale: 1.02, y: -2 } : {}}
-              whileTap={!isSubmitted ? { scale: 0.98 } : {}}
-              disabled={isSubmitted}
+              whileHover={!isSubmitted && !isLoading ? { scale: 1.02, y: -2 } : {}}
+              whileTap={!isSubmitted && !isLoading ? { scale: 0.98 } : {}}
+              disabled={isLoading || isSubmitted}
               style={{ color: isSubmitted ? '#ffffff' : '#ffffff' }}
             >
-              {isSubmitted ? 'Subscribed!' : 'Subscribe'}
+              {isLoading ? 'Subscribing...' : isSubmitted ? 'Subscribed!' : 'Subscribe'}
             </motion.button>
           </div>
+
+          {/* Error Message */}
+          {error && (
+            <motion.div
+              className="text-red-400 text-sm mb-4"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              {error}
+            </motion.div>
+          )}
         </motion.form>
 
         <motion.div

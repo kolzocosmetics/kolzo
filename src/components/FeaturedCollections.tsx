@@ -1,15 +1,17 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useProductStore } from '../store/productStore'
 import womensShoulderBags from '../assets/homepage/womens_shoulder_bags.webp'
 import womensLipstick from '../assets/homepage/womens_lipstick.webp'
 import mensWallet from '../assets/homepage/mens_wallet.webp'
 import mensBracelets from '../assets/homepage/mens_bracelets.webp'
 
-const collections = [
+// Fallback collections in case backend is not available
+const fallbackCollections = [
   {
     id: 'womens-shoulder-bags',
-    name: "Women's Shoulder Bags",
+    name: "Women's Handbags",
     subtitle: "Timeless elegance",
     image: womensShoulderBags,
     link: '/collections/women?category=Handbags'
@@ -29,16 +31,24 @@ const collections = [
     link: '/collections/men?category=Wallet'
   },
   {
-    id: 'mens-bracelets',
-    name: "Men's Bracelets",
+    id: 'mens-perfumes',
+    name: "Men's Perfumes",
     subtitle: "Sophisticated style",
     image: mensBracelets,
-    link: '/collections/men?category=Bracelets'
+    link: '/collections/men?category=Perfumes'
   }
 ]
 
 const FeaturedCollections = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const { fetchFeaturedProducts } = useProductStore()
+
+  useEffect(() => {
+    fetchFeaturedProducts()
+  }, [fetchFeaturedProducts])
+
+  // Always use fallback collections for consistent curated experience
+  const collections = fallbackCollections
 
   return (
     <section className="py-32 px-8 max-w-7xl mx-auto bg-white">
@@ -60,7 +70,7 @@ const FeaturedCollections = () => {
           <div className="w-16 h-px bg-gray-300 ml-6"></div>
         </div>
         <p className="text-gray-500 font-light tracking-wide max-w-2xl mx-auto text-sm">
-                          Since 2025, each piece embodies the essence of timeless luxury
+          Since 2025, each piece embodies the essence of timeless luxury
         </p>
       </motion.div>
 
@@ -77,7 +87,7 @@ const FeaturedCollections = () => {
               delay: index * 0.15,
               ease: [0.25, 0.46, 0.45, 0.94]
             }}
-            onHoverStart={() => setHoveredItem(collection.id)}
+            onHoverStart={() => setHoveredItem(collection.id || '')}
             onHoverEnd={() => setHoveredItem(null)}
           >
             <Link to={collection.link}>

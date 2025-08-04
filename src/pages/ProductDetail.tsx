@@ -11,6 +11,9 @@ import { luxuryAnimations } from '../utils/luxuryAnimations'
 import { trackWishlistAdd, trackWishlistRemove } from '../utils/analytics'
 import SEOHead from '../components/SEOHead'
 import { formatPrice } from '../utils/priceFormatter'
+import ProductReviews from '../components/ProductReviews'
+import RecentlyViewed from '../components/RecentlyViewed'
+import { useNotifications } from '../components/NotificationSystem'
 
 interface Product {
   id: string
@@ -26,6 +29,7 @@ const ProductDetail = () => {
   const navigate = useNavigate()
   const { addItem } = useCartStore()
   const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlistStore()
+  const { addNotification } = useNotifications()
   const [selectedTab, setSelectedTab] = useState('details')
   const [quantity, setQuantity] = useState(1)
   const [selectedColor, setSelectedColor] = useState('Black')
@@ -37,6 +41,7 @@ const ProductDetail = () => {
   const [showAllRecommendations, setShowAllRecommendations] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const [isImageLoading, setIsImageLoading] = useState(true)
 
   useEffect(() => {
     setIsLoading(true)
@@ -102,7 +107,7 @@ const ProductDetail = () => {
   }, [id])
 
   if (isLoading) {
-    return <LuxuryLoadingSpinner size="large" text="Loading Product..." />
+    return <LuxuryLoadingSpinner size="lg" text="Loading Product..." />
   }
 
   if (!product) {
@@ -140,16 +145,21 @@ const ProductDetail = () => {
       name: product.name,
       price: product.price,
       image: product.image,
-      size: selectedSize,
-      color: selectedColor
-    })
+      description: product.description,
+      category: product.category
+    }, quantity, selectedSize, selectedColor)
     
     // Show success feedback
     setTimeout(() => {
       setIsAddingToCart(false)
-      // Show success message
-      alert(`${product.name} added to cart!`) // Simple feedback for now
-    }, 1000)
+      // Show success notification
+      addNotification({
+        type: 'success',
+        title: 'Added to Cart',
+        message: `${product.name} has been added to your cart`,
+        duration: 3000
+      })
+    }, 800) // Reduced for better UX
   }
 
   const variants = {
@@ -219,12 +229,22 @@ const ProductDetail = () => {
             <div className="space-y-8">
               {/* Main Image */}
               <div className="aspect-square bg-gray-50 overflow-hidden group relative">
+                {isImageLoading && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <LuxuryLoadingSpinner size="md" text="Loading image..." />
+                  </div>
+                )}
                 <motion.img 
                   src={productImages[selectedImage]}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
+                  className={`w-full h-full object-cover ${
+                    isImageLoading ? 'opacity-0' : 'opacity-100'
+                  }`}
                   loading="eager"
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  onLoad={() => setIsImageLoading(false)}
+                  onError={() => setIsImageLoading(false)}
                 />
                 
                 {/* Wishlist button */}
@@ -396,33 +416,43 @@ const ProductDetail = () => {
                 
                 <motion.button 
                   onClick={() => {
-                    if (isInWishlist(product.id)) {
-                      removeFromWishlist(product.id)
-                      trackWishlistRemove(product.id, product.name)
-                      alert('Removed from wishlist!')
-                    } else {
-                      addToWishlist(product)
-                      trackWishlistAdd(product.id, product.name)
-                      alert('Added to wishlist!')
-                    }
+                                                                                                                                 if (isInWishlist(product.id)) {
+                                                                   removeFromWishlist(product.id)
+                                                                   trackWishlistRemove(product.id, product.name)
+                                                                   addNotification({
+                                                                     type: 'success',
+                                                                     title: 'Removed from Wishlist',
+                                                                     message: `${product.name} has been removed from your wishlist`,
+                                                                     duration: 3000
+                                                                   })
+                                                                 } else {
+                                                                   addToWishlist(product)
+                                                                   trackWishlistAdd(product.id, product.name)
+                                                                   addNotification({
+                                                                     type: 'success',
+                                                                     title: 'Added to Wishlist',
+                                                                     message: `${product.name} has been added to your wishlist`,
+                                                                     duration: 3000
+                                                                   })
+                                                                 }
                   }}
                   className={`w-full border-2 py-6 px-8 font-light tracking-[0.3em] uppercase transition-all duration-500 flex items-center justify-center text-lg shadow-lg ${
-                    isInWishlist(product.id)
+                                                                                       isInWishlist(product.id)
                       ? 'border-red-500 bg-red-50 text-red-600 hover:bg-red-100'
                       : 'border-black hover:bg-black hover:text-white'
                   }`}
                   whileHover={luxuryAnimations.button.hover}
                   whileTap={luxuryAnimations.button.tap}
-                  style={{
-                    backgroundColor: isInWishlist(product.id) ? '#FEF2F2' : '#FFFFFF',
-                    color: isInWishlist(product.id) ? '#DC2626' : '#000000',
-                    borderColor: isInWishlist(product.id) ? '#EF4444' : '#000000'
-                  }}
+                                        style={{
+                        backgroundColor: isInWishlist(product.id) ? '#FEF2F2' : '#FFFFFF',
+                        color: isInWishlist(product.id) ? '#DC2626' : '#000000',
+                        borderColor: isInWishlist(product.id) ? '#EF4444' : '#000000'
+                      }}
                 >
-                  <svg className={`w-6 h-6 mr-4 ${isInWishlist(product.id) ? 'fill-current' : 'fill-none'}`} stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                                                                             <svg className={`w-6 h-6 mr-4 ${isInWishlist(product.id) ? 'fill-current' : 'fill-none'}`} stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                   </svg>
-                  {isInWishlist(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                                                                             {isInWishlist(product.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
                 </motion.button>
               </div>
 
@@ -624,6 +654,26 @@ const ProductDetail = () => {
             )}
           </motion.section>
         )}
+
+        {/* Product Reviews Section */}
+        {product && (
+          <motion.section
+            className="py-16 border-t border-gray-200"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <ProductReviews
+              productId={product.id}
+              productName={product.name}
+              averageRating={4.5}
+              totalReviews={12}
+            />
+          </motion.section>
+        )}
+
+        {/* Recently Viewed Products */}
+        <RecentlyViewed maxItems={4} title="Recently Viewed" />
         </div>
       </div>
     </>

@@ -1,3 +1,4 @@
+import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useWishlistStore } from '../store/wishlistStore'
@@ -6,7 +7,22 @@ import { formatPrice } from '../utils/priceFormatter'
 import { trackWishlistRemove } from '../utils/analytics'
 
 const Wishlist = () => {
-  const { items, removeItem, clearWishlist, getItemCount } = useWishlistStore()
+  const { items, removeItem, clearWishlist, getItemCount, migrateWishlistData } = useWishlistStore()
+  
+  // Migrate wishlist data on component mount
+  React.useEffect(() => {
+    migrateWishlistData()
+  }, [migrateWishlistData])
+  
+  // Debug: Log wishlist items
+  console.log('Wishlist items:', items.map(item => ({
+    id: item.product?.id,
+    name: item.product?.name,
+    price: item.product?.price,
+    priceType: typeof item.product?.price,
+    originalPrice: item.product?.originalPrice,
+    fullProduct: item.product
+  })))
 
   const handleRemoveItem = (id: string, name: string) => {
     trackWishlistRemove(id, name)
@@ -93,7 +109,7 @@ const Wishlist = () => {
         >
           {items.map((item, index) => (
             <motion.div
-              key={item.id}
+              key={item.product?.id || `wishlist-item-${index}`}
               className="group cursor-pointer"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -101,18 +117,18 @@ const Wishlist = () => {
               whileHover={luxuryAnimations.productCard.hover}
               whileTap={luxuryAnimations.productCard.tap}
             >
-              <Link to={`/product/${item.id}`}>
+                              <Link to={`/product/${item.product?.id || item.product?._id || ''}`}>
                 <div className="aspect-square bg-gray-50 mb-6 overflow-hidden relative" style={{ backgroundColor: '#f9fafb' }}>
                   <img 
-                    src={item.image}
-                    alt={item.name}
+                    src={item.product?.image || 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80'}
+                    alt={item.product?.name || 'Product'}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     onError={(e) => {
-                      console.error('Image failed to load:', item.image);
+                      console.error('Image failed to load:', item.product?.image);
                       e.currentTarget.src = 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80';
                     }}
                     onLoad={() => {
-                      console.log('Image loaded successfully:', item.image);
+                      console.log('Image loaded successfully:', item.product?.image);
                     }}
                     style={{
                       minHeight: '100%',
@@ -130,7 +146,7 @@ const Wishlist = () => {
                     onClick={(e) => {
                       e.preventDefault()
                       e.stopPropagation()
-                      handleRemoveItem(item.id, item.name)
+                      handleRemoveItem(item.product?.id || '', item.product?.name || 'Product')
                     }}
                   >
                     <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,9 +157,13 @@ const Wishlist = () => {
                 
                 <div className="text-center">
                   <h3 className="text-sm font-light tracking-wide mb-3 group-hover:text-gray-600 transition-colors duration-500">
-                    {item.name}
+                    {item.product?.name || 'Product'}
                   </h3>
-                  <p className="text-lg font-light tracking-[0.1em]">{formatPrice(item.price)}</p>
+                  <p className="text-lg font-light tracking-[0.1em]">
+                    {item.product?.price !== undefined && item.product?.price !== null 
+                      ? formatPrice(item.product.price) 
+                      : 'Price not available'}
+                  </p>
                 </div>
               </Link>
             </motion.div>
