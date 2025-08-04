@@ -29,7 +29,7 @@ const ScrollToTopButton = () => {
       {isVisible && (
         <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 p-4 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+          className="fixed bottom-8 right-8 z-40 p-4 bg-red-500 text-black rounded-full shadow-lg hover:bg-red-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -37,22 +37,9 @@ const ScrollToTopButton = () => {
           whileTap={{ scale: 0.9 }}
           aria-label="Scroll to top"
           title="Scroll to top"
-        >
-          <svg 
-            className="w-5 h-5" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M5 10l7-7m0 0l7 7m-7-7v18" 
-            />
-          </svg>
-        </motion.button>
+                 >
+
+         </motion.button>
       )}
     </AnimatePresence>
   )

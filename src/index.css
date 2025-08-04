@@ -300,3 +300,11 @@ img.loaded {
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
+
+/* Modal scroll lock */
+body.modal-open {
+  overflow: hidden !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+}

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -18,6 +18,20 @@ const AuthModal = ({ isOpen, onClose, onLogin, onSignup }: AuthModalProps) => {
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [isLoading, setIsLoading] = useState(false)
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open')
+    } else {
+      document.body.classList.remove('modal-open')
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('modal-open')
+    }
+  }, [isOpen])
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -90,6 +104,7 @@ const AuthModal = ({ isOpen, onClose, onLogin, onSignup }: AuthModalProps) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          onClick={handleClose}
         >
           <motion.div
             className="bg-white max-w-md w-full p-8 rounded-lg shadow-2xl"
@@ -97,6 +112,7 @@ const AuthModal = ({ isOpen, onClose, onLogin, onSignup }: AuthModalProps) => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl font-light tracking-[0.2em] uppercase">
@@ -186,6 +202,7 @@ const AuthModal = ({ isOpen, onClose, onLogin, onSignup }: AuthModalProps) => {
                 type="submit"
                 disabled={isLoading}
                 className="w-full bg-black text-white py-3 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ backgroundColor: '#000000', color: '#ffffff' }}
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center space-x-2">
@@ -201,7 +218,8 @@ const AuthModal = ({ isOpen, onClose, onLogin, onSignup }: AuthModalProps) => {
             <div className="mt-8 text-center">
               <button
                 onClick={() => setIsLogin(!isLogin)}
-                className="text-sm text-gray-600 font-light hover:text-black transition-colors"
+                className="text-sm text-black font-light hover:text-gray-700 transition-colors"
+                style={{ color: '#000000' }}
               >
                 {isLogin ? "Don't have an account? Sign up" : 'Already have an account? Sign in'}
               </button>
