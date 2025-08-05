@@ -100,8 +100,8 @@ function AppLayout() {
         showOnce={true}
       />
       <NewsletterTrigger 
-        triggerType="time-delay" 
-        delay={60000} // 1 minute
+        triggerType="scroll" 
+        scrollPercentage={80} // Only show after 80% scroll
         source="homepage" 
         showOnce={true}
       />

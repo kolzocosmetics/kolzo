@@ -45,6 +45,9 @@ const Newsletter = () => {
           }
         }
         
+        // Mark as recently subscribed to prevent unwanted popups
+        localStorage.setItem('kolzo-newsletter-subscribed', Date.now().toString())
+        
         // Show appropriate notification
         addNotification({
           type: 'success',

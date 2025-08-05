@@ -58,18 +58,25 @@ const NewsletterPopup = ({ isOpen, onClose, source = 'homepage' }: NewsletterPop
       })
 
       if (response.success) {
-        // Send welcome email
-        try {
-          await sendWelcomeEmail(email, firstName)
-        } catch (welcomeError) {
-          console.error('Failed to send welcome email:', welcomeError)
+        // Send welcome email only for new subscriptions
+        if (response.isNewSubscription) {
+          try {
+            await sendWelcomeEmail(email, firstName)
+          } catch (welcomeError) {
+            console.error('Failed to send welcome email:', welcomeError)
+          }
         }
         
-        // Show success notification
+        // Mark as recently subscribed to prevent unwanted popups
+        localStorage.setItem('kolzo-newsletter-subscribed', Date.now().toString())
+        
+        // Show appropriate notification
         addNotification({
           type: 'success',
-          title: 'Welcome to KOLZO!',
-          message: 'Thank you for joining our exclusive community. Check your email for your welcome gift.',
+          title: response.isNewSubscription ? 'Successfully Subscribed!' : 'Subscription Updated!',
+          message: response.isNewSubscription 
+            ? 'Welcome to the House of KOLZO. Check your email for exclusive updates.'
+            : 'Your subscription preferences have been updated.',
           duration: 5000
         })
         
@@ -220,7 +227,14 @@ const NewsletterPopup = ({ isOpen, onClose, source = 'homepage' }: NewsletterPop
                 
                 <motion.button
                   type="submit"
-                  className="w-full bg-black text-white py-4 font-light tracking-[0.2em] uppercase transition-all duration-500 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-black text-white py-4 font-light tracking-[0.2em] uppercase transition-all duration-500 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed relative z-10 block"
+                  style={{
+                    display: 'block',
+                    visibility: 'visible',
+                    opacity: isLoading ? 0.5 : 1,
+                    position: 'relative',
+                    zIndex: 10
+                  }}
                   whileHover={!isLoading ? { scale: 1.02 } : {}}
                   whileTap={!isLoading ? { scale: 0.98 } : {}}
                   disabled={isLoading}

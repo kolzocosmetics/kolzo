@@ -36,6 +36,18 @@ const NewsletterTrigger = ({
 
   const showPopup = () => {
     if (hasShown || hasShownBefore()) return
+    
+    // Check if user has already subscribed (check localStorage for recent subscription)
+    const recentSubscription = localStorage.getItem('kolzo-newsletter-subscribed')
+    if (recentSubscription) {
+      const subscriptionTime = parseInt(recentSubscription)
+      const now = Date.now()
+      // If subscribed within last 24 hours, don't show popup
+      if (now - subscriptionTime < 24 * 60 * 60 * 1000) {
+        return
+      }
+    }
+    
     setIsPopupOpen(true)
     markAsShown()
   }
