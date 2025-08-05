@@ -359,8 +359,14 @@ const LuxuryChatbot = () => {
             
             if (response.success) {
               addMessage(
-                '🎉 Welcome to the KOLZO family! You\'re now part of our exclusive community.\n\n' +
-                'Check your email for a special welcome gift and stay tuned for luxury updates!',
+                '🎉 **Successfully Subscribed!**\n\n' +
+                'Welcome to the KOLZO family! You\'re now part of our exclusive community.\n\n' +
+                '✅ You\'ll receive:\n' +
+                '• Early access to new collections\n' +
+                '• Exclusive member-only sales\n' +
+                '• VIP event invitations\n' +
+                '• Personalized style recommendations\n\n' +
+                'Check your email for a special welcome gift!',
                 'bot',
                 [
                   { text: '🏠 Main Menu', action: 'back_to_main' }
@@ -374,18 +380,25 @@ const LuxuryChatbot = () => {
               })
             } else {
               addMessage(
-                response.message || 'Something went wrong. Please try again.',
+                '❌ **Subscription Failed**\n\n' +
+                (response.message || 'Something went wrong. Please try again.') + '\n\n' +
+                'Please check your email address and try again.',
                 'bot',
                 [
+                  { text: '🔄 Try Again', action: 'newsletter_email' },
                   { text: '🔙 Back', action: 'newsletter' }
                 ]
               )
             }
           } catch (error) {
             addMessage(
-              'Sorry, there was an error. Please try again or contact our support team.',
+              '❌ **Error Occurred**\n\n' +
+              'Sorry, there was an error processing your subscription.\n\n' +
+              'Please try again or contact our support team.',
               'bot',
               [
+                { text: '🔄 Try Again', action: 'newsletter_email' },
+                { text: '💬 WhatsApp Support', action: 'whatsapp' },
                 { text: '🔙 Back', action: 'newsletter' }
               ]
             )
@@ -396,7 +409,8 @@ const LuxuryChatbot = () => {
       } else {
         await simulateTyping(() => {
           addMessage(
-            'Please enter a valid email address:',
+            '❌ **Invalid Email**\n\n' +
+            'Please enter a valid email address (e.g., yourname@example.com):',
             'bot',
             [
               { text: '🔙 Back', action: 'newsletter' }
@@ -427,6 +441,54 @@ const LuxuryChatbot = () => {
       handleUserInput(e.currentTarget.value.trim())
       e.currentTarget.value = ''
     }
+  }
+
+  // Function to render clickable links in message content
+  const renderMessageContent = (content: string) => {
+    // Convert markdown-style links to clickable links
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g
+    const parts = content.split(linkRegex)
+    
+    if (parts.length === 1) {
+      // No links found, return as plain text
+      return <span>{content}</span>
+    }
+    
+    const elements: React.ReactElement[] = []
+    for (let i = 0; i < parts.length; i += 3) {
+      if (i + 2 < parts.length) {
+        // Add text before link
+        if (parts[i]) {
+          elements.push(<span key={`text-${i}`}>{parts[i]}</span>)
+        }
+        // Add clickable link
+        const linkText = parts[i + 1]
+        const linkUrl = parts[i + 2]
+        elements.push(
+          <a
+            key={`link-${i}`}
+            href={linkUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline hover:text-blue-800"
+            style={{
+              color: '#2563eb',
+              textDecoration: 'underline',
+              cursor: 'pointer'
+            }}
+          >
+            {linkText}
+          </a>
+        )
+      } else {
+        // Add remaining text
+        if (parts[i]) {
+          elements.push(<span key={`text-${i}`}>{parts[i]}</span>)
+        }
+      }
+    }
+    
+    return <>{elements}</>
   }
 
   return (
@@ -538,7 +600,7 @@ const LuxuryChatbot = () => {
                           color: message.type === 'user' ? '#ffffff' : '#1f2937'
                         }}
                       >
-                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                        <p className="text-sm whitespace-pre-wrap">{renderMessageContent(message.content)}</p>
                       </div>
                     </motion.div>
                   ))}
