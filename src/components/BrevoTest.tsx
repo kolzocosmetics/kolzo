@@ -1,147 +1,97 @@
 import { useState } from 'react'
-import { addToNewsletter, getNewsletterStats, validateEmailFormat, checkIfRegistered } from '../utils/brevo'
+import { addToNewsletter, checkIfRegistered } from '../utils/brevo'
 import { useNotifications } from './NotificationSystem'
 
 const BrevoTest = () => {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [stats, setStats] = useState<any>(null)
+  const [apiStatus, setApiStatus] = useState<string>('')
   const { addNotification } = useNotifications()
 
-  const handleTestSubscription = async () => {
-    if (!validateEmailFormat(email)) {
-      addNotification({
-        type: 'error',
-        title: 'Invalid Email',
-        message: 'Please enter a valid email address',
-        duration: 3000
-      })
-      return
-    }
-
+  const testApiConnection = async () => {
     setIsLoading(true)
+    setApiStatus('Testing API connection...')
+    
     try {
-      const result = await addToNewsletter({
-        email,
-        firstName: 'Test',
-        lastName: 'User',
-        source: 'test',
-        consent: true
-      })
-
-      if (result.success) {
+      // Test with a dummy email to check if API key is working
+      const response = await checkIfRegistered('test@example.com')
+      console.log('API Test Response:', response)
+      
+      if (response.success !== undefined) {
+        setApiStatus('✅ API connection successful!')
         addNotification({
           type: 'success',
-          title: result.isNewSubscription ? 'Test Successful!' : 'Test Updated!',
-          message: result.isNewSubscription 
-            ? 'Contact added to Brevo successfully'
-            : 'Contact updated in Brevo successfully',
-          duration: 5000
-        })
-        setEmail('')
-      } else if (result.isAlreadyRegistered) {
-        addNotification({
-          type: 'info',
-          title: 'Already Registered',
-          message: result.message || 'This email is already registered',
+          title: 'API Test',
+          message: 'Brevo API connection is working',
           duration: 5000
         })
       } else {
+        setApiStatus('❌ API connection failed')
         addNotification({
           type: 'error',
-          title: 'Test Failed',
-          message: result.message || 'Failed to add contact',
+          title: 'API Test',
+          message: 'Brevo API connection failed',
           duration: 5000
         })
       }
     } catch (error: any) {
+      console.error('API Test Error:', error)
+      setApiStatus(`❌ API Error: ${error.message}`)
+      addNotification({
+        type: 'error',
+        title: 'API Test Error',
+        message: error.message || 'Unknown error',
+        duration: 5000
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const testNewsletterSubscription = async () => {
+    if (!email) {
       addNotification({
         type: 'error',
         title: 'Test Error',
-        message: error.message || 'An error occurred',
-        duration: 5000
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleCheckRegistration = async () => {
-    if (!validateEmailFormat(email)) {
-      addNotification({
-        type: 'error',
-        title: 'Invalid Email',
-        message: 'Please enter a valid email address',
+        message: 'Please enter an email address',
         duration: 3000
       })
       return
     }
 
     setIsLoading(true)
+    
     try {
-      const result = await checkIfRegistered(email)
-      
-      if (result.success) {
-        if (result.exists) {
-          addNotification({
-            type: 'info',
-            title: 'Already Registered',
-            message: 'This email is already registered in our newsletter',
-            duration: 5000
-          })
-        } else {
-          addNotification({
-            type: 'success',
-            title: 'Not Registered',
-            message: 'This email is not yet registered. You can subscribe!',
-            duration: 5000
-          })
-        }
-      } else {
-        addNotification({
-          type: 'error',
-          title: 'Check Failed',
-          message: result.message || 'Failed to check registration status',
-          duration: 5000
-        })
-      }
-    } catch (error: any) {
-      addNotification({
-        type: 'error',
-        title: 'Check Error',
-        message: error.message || 'An error occurred',
-        duration: 5000
+      console.log('Testing newsletter subscription for:', email)
+      const response = await addToNewsletter({
+        email,
+        source: 'test',
+        consent: true
       })
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handleGetStats = async () => {
-    setIsLoading(true)
-    try {
-      const result = await getNewsletterStats()
-      if (result.success) {
-        setStats(result.data)
+      
+      console.log('Newsletter Test Response:', response)
+      
+      if (response.success) {
         addNotification({
           type: 'success',
-          title: 'Stats Retrieved',
-          message: 'Newsletter statistics loaded successfully',
-          duration: 3000
+          title: 'Newsletter Test',
+          message: 'Successfully subscribed to newsletter!',
+          duration: 5000
         })
       } else {
         addNotification({
-          type: 'error',
-          title: 'Stats Error',
-          message: result.message || 'Failed to get statistics',
+          type: response.isAlreadyRegistered ? 'info' : 'error',
+          title: 'Newsletter Test',
+          message: response.message,
           duration: 5000
         })
       }
     } catch (error: any) {
+      console.error('Newsletter Test Error:', error)
       addNotification({
         type: 'error',
-        title: 'Stats Error',
-        message: error.message || 'An error occurred',
+        title: 'Newsletter Test Error',
+        message: error.message || 'Unknown error',
         duration: 5000
       })
     } finally {
@@ -150,59 +100,49 @@ const BrevoTest = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-      <h3 className="text-lg font-light tracking-[0.2em] uppercase mb-4">
-        Brevo Integration Test
-      </h3>
+    <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-light mb-6 text-center">Brevo API Test</h2>
       
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-light tracking-wide text-gray-700 mb-2">
-            Test Email
-          </label>
+          <h3 className="text-lg font-medium mb-2">API Connection Test</h3>
+          <button
+            onClick={testApiConnection}
+            disabled={isLoading}
+            className="w-full bg-black text-white py-3 px-4 rounded-lg hover:bg-gray-800 disabled:opacity-50 transition-colors"
+          >
+            {isLoading ? 'Testing...' : 'Test API Connection'}
+          </button>
+          {apiStatus && (
+            <p className="mt-2 text-sm text-gray-600">{apiStatus}</p>
+          )}
+        </div>
+
+        <div>
+          <h3 className="text-lg font-medium mb-2">Newsletter Subscription Test</h3>
           <input
             type="email"
+            placeholder="Enter test email..."
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter test email"
-            className="w-full px-4 py-3 border border-gray-300 focus:border-black transition-all duration-300 font-light tracking-wide"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black mb-3"
           />
-        </div>
-
-        <div className="grid grid-cols-2 gap-3">
           <button
-            onClick={handleTestSubscription}
+            onClick={testNewsletterSubscription}
             disabled={isLoading || !email}
-            className="bg-black text-white py-3 font-light tracking-[0.2em] uppercase transition-all duration-500 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-black text-white py-3 px-4 rounded-lg hover:bg-gray-800 disabled:opacity-50 transition-colors"
           >
-            {isLoading ? 'Testing...' : 'Test Subscription'}
-          </button>
-
-          <button
-            onClick={handleCheckRegistration}
-            disabled={isLoading || !email}
-            className="bg-gray-200 text-black py-3 font-light tracking-[0.2em] uppercase transition-all duration-500 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? 'Checking...' : 'Check Status'}
+            {isLoading ? 'Testing...' : 'Test Newsletter Subscription'}
           </button>
         </div>
 
-        <button
-          onClick={handleGetStats}
-          disabled={isLoading}
-          className="w-full bg-blue-600 text-white py-3 font-light tracking-[0.2em] uppercase transition-all duration-500 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? 'Loading...' : 'Get Stats'}
-        </button>
-
-        {stats && (
-          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-            <h4 className="text-sm font-medium mb-2">Newsletter Statistics:</h4>
-            <pre className="text-xs text-gray-600 overflow-auto">
-              {JSON.stringify(stats, null, 2)}
-            </pre>
+        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+          <h4 className="font-medium mb-2">Environment Variables:</h4>
+          <div className="text-sm space-y-1">
+            <p>API Key: {import.meta.env.VITE_BREVO_API_KEY ? '✅ Set' : '❌ Not Set'}</p>
+            <p>List ID: {import.meta.env.VITE_BREVO_LIST_ID || 'Not Set'}</p>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

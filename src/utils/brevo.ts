@@ -56,8 +56,7 @@ class BrevoClient {
     updateEnabled?: boolean
   }) {
     try {
-      // First, check if contact already exists
-      const existingContact = await this.getContact(contactData.email)
+      console.log('Brevo: Adding contact with data:', contactData)
       
       const response = await this.client.post('/contacts', {
         email: contactData.email,
@@ -68,20 +67,17 @@ class BrevoClient {
           SUBSCRIBED_AT: new Date().toISOString(),
           ...contactData.attributes
         },
-        listIds: contactData.listIds || [parseInt(import.meta.env.VITE_BREVO_LIST_ID || '1')],
+        listIds: contactData.listIds || [parseInt(import.meta.env.VITE_BREVO_LIST_ID || '3')],
         updateEnabled: contactData.updateEnabled !== false
       })
 
-      // Determine if this is a new subscription or update
-      const isNewSubscription = !existingContact.success
+      console.log('Brevo: Contact added successfully:', response.data)
 
       return {
         success: true,
         data: response.data,
-        message: isNewSubscription 
-          ? 'Contact added successfully' 
-          : 'Subscription updated successfully',
-        isNewSubscription
+        message: 'Contact added successfully',
+        isNewSubscription: true
       }
     } catch (error: any) {
       console.error('Brevo API Error:', error.response?.data || error.message)
@@ -97,13 +93,20 @@ class BrevoClient {
       if (error.response?.status === 401) {
         return {
           success: false,
-          message: 'Brevo API authentication failed'
+          message: 'Brevo API authentication failed - please check your API key'
+        }
+      }
+      
+      if (error.response?.status === 404) {
+        return {
+          success: false,
+          message: 'Brevo API endpoint not found'
         }
       }
       
       return {
         success: false,
-        message: 'Failed to add contact to newsletter'
+        message: `Failed to add contact to newsletter: ${error.message || 'Unknown error'}`
       }
     }
   }
@@ -287,8 +290,22 @@ export const addToNewsletter = async (data: {
   isAlreadyRegistered?: boolean
 }> => {
   try {
+    console.log('Newsletter: Starting subscription for:', data.email)
+    console.log('Newsletter: API Key available:', !!import.meta.env.VITE_BREVO_API_KEY)
+    console.log('Newsletter: List ID:', import.meta.env.VITE_BREVO_LIST_ID)
+    
+    // Check if API key is available
+    if (!import.meta.env.VITE_BREVO_API_KEY) {
+      console.error('Newsletter: API key not found')
+      return {
+        success: false,
+        message: 'Newsletter service not configured - please check API settings'
+      }
+    }
+
     // Check if contact already exists
     const existingContact = await brevoClient.checkContactExists(data.email)
+    console.log('Newsletter: Existing contact check:', existingContact)
     
     if (existingContact.success && existingContact.exists) {
       return {
@@ -299,7 +316,8 @@ export const addToNewsletter = async (data: {
     }
 
     // Determine which list to use based on source
-    const listId = data.listId || (data.source === 'chatbot' ? 2 : parseInt(import.meta.env.VITE_BREVO_LIST_ID || '1'))
+    const listId = data.listId || (data.source === 'chatbot' ? 3 : parseInt(import.meta.env.VITE_BREVO_LIST_ID || '3'))
+    console.log('Newsletter: Using list ID:', listId)
     
     const response = await brevoClient.addContact({
       email: data.email,
@@ -311,6 +329,8 @@ export const addToNewsletter = async (data: {
       },
       listIds: [listId]
     })
+
+    console.log('Newsletter: API response:', response)
 
     if (response.success) {
       return {

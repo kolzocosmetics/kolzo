@@ -345,17 +345,23 @@ const LuxuryChatbot = () => {
     
     // Handle newsletter flow
     if (state.currentFlow === 'newsletter') {
+      console.log('Chatbot: Processing newsletter input:', input)
+      
       if (validateEmailFormat(input)) {
+        console.log('Chatbot: Email format is valid')
         setState(prev => ({ ...prev, userEmail: input }))
         setIsSubmitting(true)
         
         await simulateTyping(async () => {
           try {
+            console.log('Chatbot: Calling Brevo API...')
             const response = await addToNewsletter({
               email: input,
               source: 'chatbot',
               consent: true
             })
+            
+            console.log('Chatbot: Brevo API response:', response)
             
             if (response.success) {
               addMessage(
@@ -379,6 +385,7 @@ const LuxuryChatbot = () => {
                 duration: 5000
               })
             } else {
+              console.log('Chatbot: Subscription failed:', response.message)
               addMessage(
                 '❌ **Subscription Failed**\n\n' +
                 (response.message || 'Something went wrong. Please try again.') + '\n\n' +
@@ -390,10 +397,12 @@ const LuxuryChatbot = () => {
                 ]
               )
             }
-          } catch (error) {
+          } catch (error: any) {
+            console.error('Chatbot: Newsletter error:', error)
             addMessage(
               '❌ **Error Occurred**\n\n' +
               'Sorry, there was an error processing your subscription.\n\n' +
+              'Error details: ' + (error.message || 'Unknown error') + '\n\n' +
               'Please try again or contact our support team.',
               'bot',
               [
@@ -407,6 +416,7 @@ const LuxuryChatbot = () => {
           }
         })
       } else {
+        console.log('Chatbot: Invalid email format:', input)
         await simulateTyping(() => {
           addMessage(
             '❌ **Invalid Email**\n\n' +
