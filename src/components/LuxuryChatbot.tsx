@@ -20,7 +20,6 @@ interface ChatbotState {
   isMinimized: boolean
   currentFlow: string | null
   userEmail: string
-  orderId: string
   selectedGender: string
   selectedCategory: string
 }
@@ -31,7 +30,6 @@ const LuxuryChatbot = () => {
     isMinimized: false,
     currentFlow: null,
     userEmail: '',
-    orderId: '',
     selectedGender: '',
     selectedCategory: ''
   })
@@ -46,13 +44,13 @@ const LuxuryChatbot = () => {
         { text: '🛍️ Product Guidance', action: 'product_guidance' },
         { text: '❓ FAQ & Help', action: 'faq' },
         { text: '📧 Newsletter', action: 'newsletter' },
-        { text: '📦 Order Tracking', action: 'order_tracking' },
         { text: '💬 WhatsApp Support', action: 'whatsapp' }
       ]
     }
   ])
   
   const [isTyping, setIsTyping] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { addNotification } = useNotifications()
 
@@ -133,7 +131,21 @@ const LuxuryChatbot = () => {
         break
 
       case 'redirect_to_collection':
-        window.location.href = `/${state.selectedGender}/${state.selectedCategory.toLowerCase().replace(/[^\w]/g, '')}`
+        // Map categories to actual routes
+        const categoryMap: { [key: string]: string } = {
+          '💄 Lipstick': '/category/women',
+          '👜 Handbag': '/category/women',
+          '👗 Dress': '/category/women',
+          '👠 Shoes': '/category/women',
+          '💍 Jewelry': '/category/women',
+          '👔 Shirt': '/category/men',
+          '👖 Pants': '/category/men',
+          '👟 Shoes': '/category/men',
+          '💼 Wallet': '/category/men',
+          '⌚ Watch': '/category/men'
+        }
+        const route = categoryMap[state.selectedCategory] || '/category/women'
+        window.location.href = route
         break
 
       case 'faq':
@@ -167,7 +179,7 @@ const LuxuryChatbot = () => {
             '• Items must be unworn, unwashed, and in original packaging\n' +
             '• Free return shipping for orders above ₹5000\n' +
             '• Refunds processed within 3-5 business days\n\n' +
-            '[📋 Read Full Policy](https://kolzo.in/returns)',
+            '[📋 Read Full Policy](https://kolzo.in/care-repair)',
             'bot',
             [
               { text: '🔙 Back to FAQ', action: 'faq' },
@@ -222,7 +234,7 @@ const LuxuryChatbot = () => {
           addMessage(
             '📞 **Contact Information**\n\n' +
             '• WhatsApp: +91 9097999898\n' +
-            '• Email: hello@kolzo.in\n' +
+            '• Email: cosmetics@kolzo.in\n' +
             '• Customer Service: Mon-Sat, 9 AM - 8 PM\n' +
             '• Live Chat: Available on website\n\n' +
             'Need immediate help? Click WhatsApp below!',
@@ -267,19 +279,6 @@ const LuxuryChatbot = () => {
         })
         break
 
-      case 'order_tracking':
-        setState(prev => ({ ...prev, currentFlow: 'order_tracking' }))
-        await simulateTyping(() => {
-          addMessage(
-            'I can help you track your order! Please enter your order ID or email address:',
-            'bot',
-            [
-              { text: '🔙 Back', action: 'back_to_main' }
-            ]
-          )
-        })
-        break
-
       case 'whatsapp':
         window.open('https://wa.me/919097999898?text=Hi! I need help with KOLZO.', '_blank')
         break
@@ -290,8 +289,7 @@ const LuxuryChatbot = () => {
           currentFlow: null, 
           selectedGender: '', 
           selectedCategory: '',
-          userEmail: '',
-          orderId: ''
+          userEmail: ''
         }))
         await simulateTyping(() => {
           addMessage(
@@ -301,7 +299,6 @@ const LuxuryChatbot = () => {
               { text: '🛍️ Product Guidance', action: 'product_guidance' },
               { text: '❓ FAQ & Help', action: 'faq' },
               { text: '📧 Newsletter', action: 'newsletter' },
-              { text: '📦 Order Tracking', action: 'order_tracking' },
               { text: '💬 WhatsApp Support', action: 'whatsapp' }
             ]
           )
@@ -346,10 +343,12 @@ const LuxuryChatbot = () => {
   const handleUserInput = async (input: string) => {
     addMessage(input, 'user')
     
-    // Handle different flows based on current state
+    // Handle newsletter flow
     if (state.currentFlow === 'newsletter') {
       if (validateEmailFormat(input)) {
         setState(prev => ({ ...prev, userEmail: input }))
+        setIsSubmitting(true)
+        
         await simulateTyping(async () => {
           try {
             const response = await addToNewsletter({
@@ -390,6 +389,8 @@ const LuxuryChatbot = () => {
                 { text: '🔙 Back', action: 'newsletter' }
               ]
             )
+          } finally {
+            setIsSubmitting(false)
           }
         })
       } else {
@@ -403,20 +404,6 @@ const LuxuryChatbot = () => {
           )
         })
       }
-    } else if (state.currentFlow === 'order_tracking') {
-      setState(prev => ({ ...prev, orderId: input }))
-      await simulateTyping(() => {
-        addMessage(
-          `I'm looking up your order "${input}"...\n\n` +
-          'For detailed tracking, please visit our order tracking page or contact our support team.',
-          'bot',
-          [
-            { text: '📦 Track Order', action: 'redirect_tracking' },
-            { text: '💬 WhatsApp Support', action: 'whatsapp' },
-            { text: '🔙 Back', action: 'back_to_main' }
-          ]
-        )
-      })
     } else {
       // Handle general text input
       await simulateTyping(() => {
@@ -436,7 +423,7 @@ const LuxuryChatbot = () => {
   }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && e.currentTarget.value.trim()) {
+    if (e.key === 'Enter' && e.currentTarget.value.trim() && !isSubmitting) {
       handleUserInput(e.currentTarget.value.trim())
       e.currentTarget.value = ''
     }
@@ -444,9 +431,9 @@ const LuxuryChatbot = () => {
 
   return (
     <>
-      {/* Chatbot Toggle Button */}
+      {/* Chatbot Toggle Button - Minimal Design */}
       <motion.button
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-black text-white rounded-full shadow-2xl hover:bg-gray-800 transition-all duration-300 flex items-center justify-center"
+        className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-black text-white rounded-full shadow-lg hover:bg-gray-800 transition-all duration-300 flex items-center justify-center"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setState(prev => ({ ...prev, isOpen: !prev.isOpen, isMinimized: false }))}
@@ -456,14 +443,14 @@ const LuxuryChatbot = () => {
           border: 'none',
           borderRadius: '50%',
           cursor: 'pointer',
-          fontSize: '24px',
+          fontSize: '18px',
           fontWeight: '300',
-          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          width: '64px',
-          height: '64px',
+          width: '48px',
+          height: '48px',
           position: 'fixed',
           bottom: '24px',
           right: '24px',
@@ -477,7 +464,7 @@ const LuxuryChatbot = () => {
       <AnimatePresence>
         {state.isOpen && (
           <motion.div
-            className="fixed bottom-24 right-6 z-40 w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col"
+            className="fixed bottom-20 right-6 z-40 w-96 h-[500px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col"
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -492,7 +479,7 @@ const LuxuryChatbot = () => {
               width: '384px',
               height: '500px',
               position: 'fixed',
-              bottom: '96px',
+              bottom: '80px',
               right: '24px',
               zIndex: 40
             }}
@@ -604,18 +591,15 @@ const LuxuryChatbot = () => {
                 )}
 
                 {/* Input Area */}
-                {(state.currentFlow === 'newsletter' || state.currentFlow === 'order_tracking') && (
+                {state.currentFlow === 'newsletter' && (
                   <div className="p-4 border-t border-gray-200">
                     <div className="flex space-x-2">
                       <input
                         type="text"
-                        placeholder={
-                          state.currentFlow === 'newsletter' 
-                            ? 'Enter your email...' 
-                            : 'Enter order ID or email...'
-                        }
+                        placeholder="Enter your email..."
                         className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
                         onKeyPress={handleKeyPress}
+                        disabled={isSubmitting}
                         style={{
                           flex: 1,
                           padding: '8px',
@@ -626,28 +610,37 @@ const LuxuryChatbot = () => {
                         }}
                       />
                       <motion.button
-                        className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                        className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
+                        whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                        whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                         onClick={() => {
                           const input = document.querySelector('input') as HTMLInputElement
-                          if (input?.value.trim()) {
+                          if (input?.value.trim() && !isSubmitting) {
                             handleUserInput(input.value.trim())
                             input.value = ''
                           }
                         }}
+                        disabled={isSubmitting}
                         style={{
                           backgroundColor: '#000000',
                           color: '#ffffff',
                           border: 'none',
                           borderRadius: '8px',
-                          cursor: 'pointer',
+                          cursor: isSubmitting ? 'not-allowed' : 'pointer',
                           padding: '8px 16px',
                           fontSize: '14px',
-                          fontWeight: '300'
+                          fontWeight: '300',
+                          opacity: isSubmitting ? 0.5 : 1
                         }}
                       >
-                        Send
+                        {isSubmitting ? (
+                          <div className="flex items-center space-x-1">
+                            <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></div>
+                            <span>Sending...</span>
+                          </div>
+                        ) : (
+                          'Send'
+                        )}
                       </motion.button>
                     </div>
                   </div>
