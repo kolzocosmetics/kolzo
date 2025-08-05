@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { useCartStore } from './cartStore'
 
 // Temporary interfaces to avoid import issues
 interface Product {
@@ -233,13 +234,11 @@ export const useWishlistStore = create<WishlistState>()(
         
         if (item) {
           // Import cart store dynamically to avoid circular dependency
-          import('./cartStore').then(({ useCartStore }) => {
-            const { addItem } = useCartStore.getState()
-            addItem(item.product, 1)
-            
-            // Remove from wishlist
-            get().removeItem(productId)
-          })
+          const { addItem } = useCartStore.getState()
+          addItem(item.product, 1)
+          
+          // Remove from wishlist
+          get().removeItem(productId)
         }
       },
 

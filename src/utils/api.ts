@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosResponse } from 'axios';
+import { addToNewsletter, removeFromNewsletter, getNewsletterStats, sendWelcomeEmail } from './brevo'
 
 // API Configuration
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -650,6 +651,97 @@ class ApiClient {
       method: 'GET',
       url: '/newsletter/stats',
     });
+  }
+
+  // Brevo Integration Methods
+  async addToBrevoNewsletter(data: {
+    email: string;
+    firstName?: string;
+    lastName?: string;
+    source?: string;
+    consent?: boolean;
+  }): Promise<ApiResponse<{ email: string; subscriberId: string }>> {
+    try {
+      const response = await addToNewsletter(data);
+      
+      return {
+        success: response.success,
+        message: response.message,
+        data: response.success ? { email: data.email, subscriberId: Date.now().toString() } : undefined
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message || 'Failed to subscribe to newsletter'
+      };
+    }
+  }
+
+  async removeFromBrevoNewsletter(email: string): Promise<ApiResponse> {
+    try {
+      const response = await removeFromNewsletter(email);
+      
+      return {
+        success: response.success,
+        message: response.message
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message || 'Failed to unsubscribe from newsletter'
+      };
+    }
+  }
+
+  async getBrevoNewsletterStats(): Promise<ApiResponse<{
+    totalSubscribers: number;
+    openRate: number;
+    clickRate: number;
+  }>> {
+    try {
+      const response = await getNewsletterStats();
+      
+      if (response.success && response.data) {
+        // Extract stats from Brevo response
+        const lists = response.data.lists || [];
+        const totalSubscribers = lists.reduce((sum: number, list: any) => sum + (list.uniqueSubscribers || 0), 0);
+        
+        return {
+          success: true,
+          data: {
+            totalSubscribers,
+            openRate: 0, // Would need to calculate from email campaigns
+            clickRate: 0  // Would need to calculate from email campaigns
+          }
+        };
+      }
+      
+      return {
+        success: false,
+        message: 'Failed to get newsletter statistics'
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message || 'Failed to get newsletter statistics'
+      };
+    }
+  }
+
+  async sendBrevoWelcomeEmail(email: string, firstName?: string): Promise<ApiResponse> {
+    try {
+      const response = await sendWelcomeEmail(email, firstName);
+      
+      return {
+        success: response.success,
+        message: response.message
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message || 'Failed to send welcome email'
+      };
+    }
   }
 
   // Admin endpoints (only for admin users)

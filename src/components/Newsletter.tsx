@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import api from '../utils/api'
+import { addToNewsletter, validateEmailFormat, sendWelcomeEmail } from '../utils/brevo'
 import newsletterBg from '../assets/homepage/newsletter.webp'
+import { useNotifications } from './NotificationSystem'
 
 const Newsletter = () => {
   const [email, setEmail] = useState('')
@@ -10,14 +11,23 @@ const Newsletter = () => {
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const { addNotification } = useNotifications()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     setError('')
 
+    // Validate email format
+    if (!validateEmailFormat(email)) {
+      setError('Please enter a valid email address')
+      setIsLoading(false)
+      return
+    }
+
     try {
-      const response = await api.subscribeToNewsletter({
+      // Add to Brevo newsletter
+      const response = await addToNewsletter({
         email,
         firstName: firstName || undefined,
         lastName: lastName || undefined,
@@ -26,20 +36,73 @@ const Newsletter = () => {
       })
 
       if (response.success) {
-        setIsSubmitted(true)
+        // Send welcome email only for new subscriptions
+        if (response.isNewSubscription) {
+          try {
+            await sendWelcomeEmail(email, firstName)
+          } catch (welcomeError) {
+            console.error('Failed to send welcome email:', welcomeError)
+          }
+        }
+        
+        // Show appropriate notification
+        addNotification({
+          type: 'success',
+          title: response.isNewSubscription ? 'Successfully Subscribed!' : 'Subscription Updated!',
+          message: response.isNewSubscription 
+            ? 'Welcome to the House of KOLZO. Check your email for exclusive updates.'
+            : 'Your subscription preferences have been updated.',
+          duration: 5000
+        })
+        
+        // Clear form
         setEmail('')
         setFirstName('')
         setLastName('')
         
-        // Reset after 3 seconds
+        // Reset after 5 seconds
         setTimeout(() => {
+          setIsSubmitted(false)
+        }, 5000)
+      } else if (response.isAlreadyRegistered) {
+        // Handle already registered case
+        setError(response.message || 'Email already registered')
+        addNotification({
+          type: 'info',
+          title: 'Already Registered',
+          message: response.message || 'This email is already registered for our newsletter',
+          duration: 5000
+        })
+        
+        // Show success state for already registered users
+        setIsSubmitted(true)
+        
+        // Clear form after showing message
+        setTimeout(() => {
+          setEmail('')
+          setFirstName('')
+          setLastName('')
+          setError('')
           setIsSubmitted(false)
         }, 3000)
       } else {
         setError(response.message || 'Failed to subscribe')
+        addNotification({
+          type: 'error',
+          title: 'Subscription Failed',
+          message: response.message || 'Failed to subscribe to newsletter',
+          duration: 5000
+        })
       }
     } catch (error: any) {
-      setError(error.message || 'Failed to subscribe to newsletter')
+      const errorMessage = error.message || 'Failed to subscribe to newsletter'
+      setError(errorMessage)
+      addNotification({
+        type: 'error',
+        title: 'Subscription Failed',
+        message: errorMessage,
+        duration: 5000
+      })
     } finally {
       setIsLoading(false)
     }

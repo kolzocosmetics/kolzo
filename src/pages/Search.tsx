@@ -1,9 +1,14 @@
-import { useSearchParams, useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import { useProductStore } from '../store/productStore'
 import ProductCard from '../components/ProductCard'
 import LuxuryLoadingSpinner from '../components/LuxuryLoadingSpinner'
+
+// Import product data statically
+import productsData from '../data/products.json'
+import productsDataF from '../data/products-f.json'
+import productsDataM from '../data/products-m.json'
 
 
 // Temporary interfaces to avoid import issues
@@ -197,18 +202,13 @@ const Search = () => {
         'handbags': ['hb-001', 'hb-002', 'hb-003', 'hb-004', 'hb-005', 'hb-006', 'hb-007', 'hb-008', 'hb-001-m', 'hb-002-m', 'hb-003-m', 'hb-004-m', 'hb-005-m', 'hb-006-m', 'hb-007-m', 'hb-008-m']
       }
       
-      // Import product data for suggestions
-      const productsData = await import('../data/products.json')
-      const productsDataF = await import('../data/products-f.json')
-      const productsDataM = await import('../data/products-m.json')
-      
       // Combine all products
       const allProducts = [
-        ...(productsData.default.featured || []),
-        ...(productsData.default.women || []),
-        ...(productsData.default.men || []),
-        ...Object.values(productsDataF.default).flat(),
-        ...Object.values(productsDataM.default).flat()
+        ...(productsData.featured || []),
+        ...(productsData.women || []),
+        ...(productsData.men || []),
+        ...Object.values(productsDataF).flat(),
+        ...Object.values(productsDataM).flat()
       ]
       
       // Generate suggestions based on ID mapping

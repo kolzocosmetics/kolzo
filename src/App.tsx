@@ -1,7 +1,6 @@
-import { Suspense, lazy, useEffect } from 'react'
+import { useEffect } from 'react'
 import { createBrowserRouter, RouterProvider, useLocation, Outlet } from 'react-router-dom'
 
-import LuxuryLoadingSpinner from './components/LuxuryLoadingSpinner'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import SEOHead from './components/SEOHead'
@@ -9,23 +8,25 @@ import LiveChat from './components/LiveChat'
 import ScrollToTopButton from './components/ScrollToTopButton'
 import LuxuryErrorBoundary from './components/LuxuryErrorBoundary'
 import { NotificationProvider } from './components/NotificationSystem'
+import NewsletterTrigger from './components/NewsletterTrigger'
 
-// Lazy load pages for better performance
-const Home = lazy(() => import('./pages/Home'))
-const CategoryPage = lazy(() => import('./pages/CategoryPage'))
-const ProductDetail = lazy(() => import('./pages/ProductDetail'))
-const Cart = lazy(() => import('./pages/Cart'))
-const Checkout = lazy(() => import('./pages/Checkout'))
-const Wishlist = lazy(() => import('./pages/Wishlist'))
-const Search = lazy(() => import('./pages/Search'))
-const MyOrder = lazy(() => import('./pages/MyOrder'))
-const OrderSuccess = lazy(() => import('./pages/OrderSuccess'))
-const AboutKolzo = lazy(() => import('./pages/AboutKolzo'))
-const Sustainability = lazy(() => import('./pages/Sustainability'))
-const SizeGuide = lazy(() => import('./pages/SizeGuide'))
-const CareRepair = lazy(() => import('./pages/CareRepair'))
-const FAQs = lazy(() => import('./pages/FAQs'))
-const ProductComparisonPage = lazy(() => import('./pages/ProductComparison'))
+// Import all pages directly (no lazy loading)
+import Home from './pages/Home'
+import CategoryPage from './pages/CategoryPage'
+import ProductDetail from './pages/ProductDetail'
+import Cart from './pages/Cart'
+import Checkout from './pages/Checkout'
+import Wishlist from './pages/Wishlist'
+import Search from './pages/Search'
+import MyOrder from './pages/MyOrder'
+import OrderSuccess from './pages/OrderSuccess'
+import AboutKolzo from './pages/AboutKolzo'
+import Sustainability from './pages/Sustainability'
+import SizeGuide from './pages/SizeGuide'
+import CareRepair from './pages/CareRepair'
+import FAQs from './pages/FAQs'
+import ProductComparisonPage from './pages/ProductComparison'
+import BrevoTestPage from './pages/BrevoTestPage'
 
 // Backend initializer component
 const BackendInitializer = () => {
@@ -69,6 +70,7 @@ const router = createBrowserRouter([
       { path: "/care-repair", element: <CareRepair /> },
       { path: "/faqs", element: <FAQs /> },
       { path: "/product-comparison", element: <ProductComparisonPage /> },
+      { path: "/brevo-test", element: <BrevoTestPage /> },
     ],
   },
 ])
@@ -84,14 +86,25 @@ function AppLayout() {
       <Navbar />
       
       <main>
-        <Suspense fallback={<LuxuryLoadingSpinner />}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </main>
       
       <Footer />
       <LiveChat />
       <ScrollToTopButton />
+      
+      {/* Newsletter Triggers */}
+      <NewsletterTrigger 
+        triggerType="exit-intent" 
+        source="homepage" 
+        showOnce={true}
+      />
+      <NewsletterTrigger 
+        triggerType="time-delay" 
+        delay={60000} // 1 minute
+        source="homepage" 
+        showOnce={true}
+      />
     </div>
   )
 }

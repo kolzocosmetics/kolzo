@@ -320,7 +320,12 @@ const ProductReviews = ({ averageRating, totalReviews }: ProductReviewsProps) =>
                 })
               }
             }}
-            className="bg-black text-white px-6 py-3 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-300 w-full sm:w-auto border border-gray-300"
+            className="bg-black text-white px-6 py-3 font-light tracking-[0.2em] uppercase hover:bg-gray-800 transition-all duration-300 w-full sm:w-auto border-2 border-black shadow-lg hover:shadow-xl"
+            style={{
+              backgroundColor: '#000000',
+              color: '#FFFFFF',
+              borderColor: '#000000'
+            }}
           >
             Write a Review
           </button>
