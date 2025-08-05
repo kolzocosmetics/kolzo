@@ -227,15 +227,30 @@ const NewsletterPopup = ({ isOpen, onClose, source = 'homepage' }: NewsletterPop
                 
                 <motion.button
                   type="submit"
-                  className="w-full bg-black text-white py-4 font-light tracking-[0.2em] uppercase transition-all duration-500 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed relative z-10 block"
+                  className="newsletter-subscribe-btn w-full py-4 font-light tracking-[0.2em] uppercase transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed relative z-10 block"
                   style={{
                     display: 'block',
                     visibility: 'visible',
                     opacity: isLoading ? 0.5 : 1,
                     position: 'relative',
-                    zIndex: 10
+                    zIndex: 10,
+                    backgroundColor: '#000000',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '0',
+                    cursor: isLoading ? 'not-allowed' : 'pointer',
+                    fontSize: '14px',
+                    fontWeight: '300',
+                    letterSpacing: '0.2em',
+                    textTransform: 'uppercase',
+                    padding: '16px',
+                    width: '100%',
+                    transition: 'all 0.5s ease'
                   }}
-                  whileHover={!isLoading ? { scale: 1.02 } : {}}
+                  whileHover={!isLoading ? { 
+                    scale: 1.02,
+                    backgroundColor: '#1f2937'
+                  } : {}}
                   whileTap={!isLoading ? { scale: 0.98 } : {}}
                   disabled={isLoading}
                 >

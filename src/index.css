@@ -182,6 +182,66 @@ section.bg-black button.bg-green-500 {
   background: #9ca3af;
 }
 
+/* Newsletter popup button - high specificity override */
+.newsletter-subscribe-btn,
+.newsletter-subscribe-btn:hover,
+.newsletter-subscribe-btn:focus,
+.newsletter-subscribe-btn:active {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  padding: 16px !important;
+  width: 100% !important;
+  transition: all 0.5s ease !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Override global button styling for newsletter button */
+button.newsletter-subscribe-btn {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  padding: 16px !important;
+  width: 100% !important;
+  transition: all 0.5s ease !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.newsletter-subscribe-btn:hover {
+  background-color: #1f2937 !important;
+  transform: scale(1.02) !important;
+}
+
+.newsletter-subscribe-btn:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* Ensure newsletter popup button is always visible */
+.newsletter-subscribe-btn * {
+  color: #ffffff !important;
+}
+
 /* Fast image loading - no lazy loading */
 img {
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
