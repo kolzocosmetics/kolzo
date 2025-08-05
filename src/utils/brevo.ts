@@ -279,38 +279,58 @@ export const addToNewsletter = async (data: {
   lastName?: string
   source?: string
   consent?: boolean
+  listId?: number
 }): Promise<{
   success: boolean
   message: string
   isNewSubscription?: boolean
   isAlreadyRegistered?: boolean
-  existingData?: any
-  data?: any
 }> => {
-  // First check if contact already exists
-  const existingCheck = await brevoClient.checkContactExists(data.email)
-  
-  if (existingCheck.success && existingCheck.exists) {
+  try {
+    // Check if contact already exists
+    const existingContact = await brevoClient.checkContactExists(data.email)
+    
+    if (existingContact.success && existingContact.exists) {
+      return {
+        success: false,
+        message: 'This email is already registered for our newsletter',
+        isAlreadyRegistered: true
+      }
+    }
+
+    // Determine which list to use based on source
+    const listId = data.listId || (data.source === 'chatbot' ? 2 : parseInt(import.meta.env.VITE_BREVO_LIST_ID || '1'))
+    
+    const response = await brevoClient.addContact({
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      attributes: {
+        source: data.source || 'website',
+        consent: data.consent || true
+      },
+      listIds: [listId]
+    })
+
+    if (response.success) {
+      return {
+        success: true,
+        message: 'Successfully subscribed to newsletter',
+        isNewSubscription: true
+      }
+    } else {
+      return {
+        success: false,
+        message: response.message || 'Failed to subscribe to newsletter'
+      }
+    }
+  } catch (error: any) {
+    console.error('Newsletter subscription error:', error)
     return {
       success: false,
-      message: 'This email is already registered for our newsletter',
-      isAlreadyRegistered: true,
-      existingData: existingCheck.data
+      message: error.message || 'Failed to subscribe to newsletter'
     }
   }
-  
-  const formattedData = brevoClient.formatContactData(data)
-  const result = await brevoClient.addContact(formattedData)
-  
-  // Add isNewSubscription flag for successful additions
-  if (result.success) {
-    return {
-      ...result,
-      isNewSubscription: true
-    }
-  }
-  
-  return result
 }
 
 export const removeFromNewsletter = async (email: string) => {

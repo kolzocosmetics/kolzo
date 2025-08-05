@@ -1,5 +1,5 @@
+import { createBrowserRouter, RouterProvider, Outlet, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
-import { createBrowserRouter, RouterProvider, useLocation, Outlet } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -9,6 +9,7 @@ import ScrollToTopButton from './components/ScrollToTopButton'
 import LuxuryErrorBoundary from './components/LuxuryErrorBoundary'
 import { NotificationProvider } from './components/NotificationSystem'
 import NewsletterTrigger from './components/NewsletterTrigger'
+import LuxuryChatbot from './components/LuxuryChatbot'
 
 // Import all pages directly (no lazy loading)
 import Home from './pages/Home'
@@ -105,6 +106,9 @@ function AppLayout() {
         source="homepage" 
         showOnce={true}
       />
+
+      {/* Luxury Chatbot */}
+      <LuxuryChatbot />
     </div>
   )
 }
