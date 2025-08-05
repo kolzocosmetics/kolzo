@@ -1,7 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
-import { addToNewsletter, validateEmailFormat } from '../utils/brevo'
-import { useNotifications } from './NotificationSystem'
 
 interface Message {
   id: string
@@ -20,7 +18,6 @@ interface ChatbotState {
   isMinimized: boolean
   currentFlow: string | null
   userEmail: string
-  selectedGender: string
   selectedCategory: string
 }
 
@@ -30,7 +27,6 @@ const LuxuryChatbot = () => {
     isMinimized: false,
     currentFlow: null,
     userEmail: '',
-    selectedGender: '',
     selectedCategory: ''
   })
   
@@ -38,21 +34,20 @@ const LuxuryChatbot = () => {
     {
       id: '1',
       type: 'bot',
-      content: 'Welcome to KOLZO 💫\nYour luxury fashion assistant is here. What can I help you with today?',
+      content: 'Welcome to KOLZO 💎\nYour luxury fashion concierge is here to help!\n\nWhat would you like to know about?',
       timestamp: new Date(),
       buttons: [
-        { text: '🛍️ Product Guidance', action: 'product_guidance' },
+        { text: '🛍️ Browse Products', action: 'inventory' },
+        { text: '📏 Size Guide', action: 'size_guide' },
         { text: '❓ FAQ & Help', action: 'faq' },
-        { text: '📧 Newsletter', action: 'newsletter' },
-        { text: '💬 WhatsApp Support', action: 'whatsapp' }
+        { text: '💬 WhatsApp Support', action: 'whatsapp' },
+        { text: '🏢 About KOLZO', action: 'about' }
       ]
     }
   ])
   
   const [isTyping, setIsTyping] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const { addNotification } = useNotifications()
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -80,200 +75,92 @@ const LuxuryChatbot = () => {
     callback()
   }
 
-  const handleButtonClick = async (action: string, value?: string) => {
+  const handleButtonClick = async (action: string) => {
     switch (action) {
-      case 'product_guidance':
-        setState(prev => ({ ...prev, currentFlow: 'product_guidance' }))
+      case 'inventory':
+        setState(prev => ({ ...prev, currentFlow: 'inventory' }))
         await simulateTyping(() => {
           addMessage(
-            'Great! Are you shopping for 👩 Women or 👨 Men?',
+            '🛍️ **Browse Our Collections**\n\n' +
+            'Discover our luxury fashion collections:\n\n' +
+            '• [👩 Women\'s Collection](https://kolzo.in/category/women)\n' +
+            '• [👨 Men\'s Collection](https://kolzo.in/category/men)\n' +
+            '• [💄 Beauty & Cosmetics](https://kolzo.in/category/women)\n' +
+            '• [👜 Bags & Accessories](https://kolzo.in/category/women)\n\n' +
+            'Need personalized recommendations? Chat with our stylist!',
             'bot',
             [
-              { text: '👩 Women', action: 'select_gender', value: 'women' },
-              { text: '👨 Men', action: 'select_gender', value: 'men' },
+              { text: '💬 WhatsApp Stylist', action: 'whatsapp_stylist' },
+              { text: '📏 Size Guide', action: 'size_guide' },
               { text: '🔙 Back', action: 'back_to_main' }
             ]
           )
         })
         break
 
-      case 'select_gender':
-        setState(prev => ({ ...prev, selectedGender: value || '' }))
+      case 'size_guide':
         await simulateTyping(() => {
-          const categories = value === 'women' 
-            ? ['💄 Lipstick', '👜 Handbag', '👗 Dress', '👠 Shoes', '💍 Jewelry']
-            : ['👔 Shirt', '👖 Pants', '👟 Shoes', '💼 Wallet', '⌚ Watch']
-          
           addMessage(
-            `Perfect! What type of item are you interested in?`,
+            '📏 **Size Guide**\n\n' +
+            'Find your perfect fit with our comprehensive size guides:\n\n' +
+            '• [👗 Women\'s Clothing Sizes](https://kolzo.in/size-guide)\n' +
+            '• [👔 Men\'s Clothing Sizes](https://kolzo.in/size-guide)\n' +
+            '• [👠 Women\'s Shoes](https://kolzo.in/size-guide)\n' +
+            '• [👟 Men\'s Shoes](https://kolzo.in/size-guide)\n' +
+            '• [💍 Jewelry Sizing](https://kolzo.in/size-guide)\n\n' +
+            'Still unsure? Our stylist can help you find the perfect size!',
             'bot',
             [
-              ...categories.map(cat => ({ text: cat, action: 'select_category', value: cat })),
-              { text: '🔙 Back', action: 'back_to_gender' }
+              { text: '💬 WhatsApp Stylist', action: 'whatsapp_stylist' },
+              { text: '🔙 Back', action: 'back_to_main' }
             ]
           )
         })
-        break
-
-      case 'select_category':
-        setState(prev => ({ ...prev, selectedCategory: value || '' }))
-        await simulateTyping(() => {
-          addMessage(
-            `I've found some amazing ${value} for you! Would you like to view our bestsellers?`,
-            'bot',
-            [
-              { text: '✅ Yes, show me!', action: 'redirect_to_collection' },
-              { text: '💬 Chat with stylist', action: 'whatsapp' },
-              { text: '🔙 Back', action: 'back_to_category' }
-            ]
-          )
-        })
-        break
-
-      case 'redirect_to_collection':
-        // Map categories to actual routes
-        const categoryMap: { [key: string]: string } = {
-          '💄 Lipstick': '/category/women',
-          '👜 Handbag': '/category/women',
-          '👗 Dress': '/category/women',
-          '👠 Shoes': '/category/women',
-          '💍 Jewelry': '/category/women',
-          '👔 Shirt': '/category/men',
-          '👖 Pants': '/category/men',
-          '👟 Shoes': '/category/men',
-          '💼 Wallet': '/category/men',
-          '⌚ Watch': '/category/men'
-        }
-        const route = categoryMap[state.selectedCategory] || '/category/women'
-        window.location.href = route
         break
 
       case 'faq':
         setState(prev => ({ ...prev, currentFlow: 'faq' }))
         await simulateTyping(() => {
           addMessage(
-            'I can help with common questions! What would you like to know?\n\n' +
-            '• Returns & Exchanges\n' +
-            '• Shipping & Delivery\n' +
-            '• Size Guide\n' +
-            '• Payment Methods\n' +
-            '• Contact Information',
-            'bot',
-            [
-              { text: '📦 Returns Policy', action: 'faq_returns' },
-              { text: '🚚 Shipping Info', action: 'faq_shipping' },
-              { text: '📏 Size Guide', action: 'faq_size' },
-              { text: '💳 Payment', action: 'faq_payment' },
-              { text: '📞 Contact', action: 'faq_contact' },
-              { text: '🔙 Back', action: 'back_to_main' }
-            ]
-          )
-        })
-        break
-
-      case 'faq_returns':
-        await simulateTyping(() => {
-          addMessage(
-            '🔄 **KOLZO Returns Policy**\n\n' +
-            '• Returns accepted within 7 days of delivery\n' +
-            '• Items must be unworn, unwashed, and in original packaging\n' +
-            '• Free return shipping for orders above ₹5000\n' +
-            '• Refunds processed within 3-5 business days\n\n' +
-            '[📋 Read Full Policy](https://kolzo.in/care-repair)',
-            'bot',
-            [
-              { text: '🔙 Back to FAQ', action: 'faq' },
-              { text: '🏠 Main Menu', action: 'back_to_main' }
-            ]
-          )
-        })
-        break
-
-      case 'faq_shipping':
-        await simulateTyping(() => {
-          addMessage(
-            '🚚 **Shipping Information**\n\n' +
-            '• Free shipping on orders above ₹3000\n' +
-            '• Standard delivery: 3-5 business days\n' +
-            '• Express delivery: 1-2 business days (+₹200)\n' +
-            '• International shipping available\n' +
-            '• Real-time tracking provided',
-            'bot',
-            [
-              { text: '🔙 Back to FAQ', action: 'faq' },
-              { text: '🏠 Main Menu', action: 'back_to_main' }
-            ]
-          )
-        })
-        break
-
-      case 'faq_size':
-        window.location.href = '/size-guide'
-        break
-
-      case 'faq_payment':
-        await simulateTyping(() => {
-          addMessage(
-            '💳 **Payment Methods**\n\n' +
-            '• Credit/Debit Cards (Visa, MasterCard, Amex)\n' +
-            '• UPI (Google Pay, PhonePe, Paytm)\n' +
-            '• Net Banking\n' +
-            '• EMI available on orders above ₹3000\n' +
-            '• Cash on Delivery (limited areas)',
-            'bot',
-            [
-              { text: '🔙 Back to FAQ', action: 'faq' },
-              { text: '🏠 Main Menu', action: 'back_to_main' }
-            ]
-          )
-        })
-        break
-
-      case 'faq_contact':
-        await simulateTyping(() => {
-          addMessage(
-            '📞 **Contact Information**\n\n' +
-            '• WhatsApp: +91 9097999898\n' +
-            '• Email: cosmetics@kolzo.in\n' +
-            '• Customer Service: Mon-Sat, 9 AM - 8 PM\n' +
-            '• Live Chat: Available on website\n\n' +
-            'Need immediate help? Click WhatsApp below!',
+            '❓ **Frequently Asked Questions**\n\n' +
+            'Quick answers to common questions:\n\n' +
+            '• [📦 Returns & Exchanges](https://kolzo.in/care-repair)\n' +
+            '• [🚚 Shipping & Delivery](https://kolzo.in/care-repair)\n' +
+            '• [💳 Payment Methods](https://kolzo.in/care-repair)\n' +
+            '• [📏 Size Guide](https://kolzo.in/size-guide)\n' +
+            '• [📞 Contact Support](https://kolzo.in/care-repair)\n\n' +
+            'Can\'t find what you\'re looking for? Chat with us!',
             'bot',
             [
               { text: '💬 WhatsApp Support', action: 'whatsapp' },
-              { text: '🔙 Back to FAQ', action: 'faq' },
-              { text: '🏠 Main Menu', action: 'back_to_main' }
-            ]
-          )
-        })
-        break
-
-      case 'newsletter':
-        setState(prev => ({ ...prev, currentFlow: 'newsletter' }))
-        await simulateTyping(() => {
-          addMessage(
-            'Want exclusive early access to new drops and VIP events? 💎\n\n' +
-            'Join our luxury community for:\n' +
-            '• Early access to new collections\n' +
-            '• Exclusive member-only sales\n' +
-            '• VIP event invitations\n' +
-            '• Personalized style recommendations',
-            'bot',
-            [
-              { text: '✅ Yes, I want access!', action: 'newsletter_email' },
               { text: '🔙 Back', action: 'back_to_main' }
             ]
           )
         })
         break
 
-      case 'newsletter_email':
+      case 'about':
         await simulateTyping(() => {
           addMessage(
-            'Perfect! Please enter your email address to join our exclusive community:',
+            '🏢 **About KOLZO**\n\n' +
+            'KOLZO is India\'s premier luxury fashion destination, curating the finest collections from around the world.\n\n' +
+            '**Our Story:**\n' +
+            'Founded with a vision to bring luxury fashion to every Indian home, KOLZO combines global trends with local sensibilities.\n\n' +
+            '**What We Offer:**\n' +
+            '• Curated luxury collections\n' +
+            '• Expert styling advice\n' +
+            '• Premium customer service\n' +
+            '• Authentic products\n\n' +
+            '**Learn More:**\n' +
+            '• [📖 Our Story](https://kolzo.in/about)\n' +
+            '• [🌱 Sustainability](https://kolzo.in/sustainability)\n' +
+            '• [💎 Luxury Promise](https://kolzo.in/about)\n\n' +
+            'Ready to experience luxury? Chat with our team!',
             'bot',
             [
-              { text: '🔙 Back', action: 'newsletter' }
+              { text: '💬 WhatsApp Team', action: 'whatsapp' },
+              { text: '🛍️ Browse Collections', action: 'inventory' },
+              { text: '🔙 Back', action: 'back_to_main' }
             ]
           )
         })
@@ -283,56 +170,27 @@ const LuxuryChatbot = () => {
         window.open('https://wa.me/919097999898?text=Hi! I need help with KOLZO.', '_blank')
         break
 
+      case 'whatsapp_stylist':
+        window.open('https://wa.me/919097999898?text=Hi! I\'d like to speak with a KOLZO stylist for personalized recommendations.', '_blank')
+        break
+
       case 'back_to_main':
         setState(prev => ({ 
           ...prev, 
           currentFlow: null, 
-          selectedGender: '', 
           selectedCategory: '',
           userEmail: ''
         }))
         await simulateTyping(() => {
           addMessage(
-            'Welcome to KOLZO 💫\nYour luxury fashion assistant is here. What can I help you with today?',
+            'Welcome to KOLZO 💎\nYour luxury fashion concierge is here to help!\n\nWhat would you like to know about?',
             'bot',
             [
-              { text: '🛍️ Product Guidance', action: 'product_guidance' },
+              { text: '🛍️ Browse Products', action: 'inventory' },
+              { text: '📏 Size Guide', action: 'size_guide' },
               { text: '❓ FAQ & Help', action: 'faq' },
-              { text: '📧 Newsletter', action: 'newsletter' },
-              { text: '💬 WhatsApp Support', action: 'whatsapp' }
-            ]
-          )
-        })
-        break
-
-      case 'back_to_gender':
-        setState(prev => ({ ...prev, selectedCategory: '' }))
-        await simulateTyping(() => {
-          addMessage(
-            'Great! Are you shopping for 👩 Women or 👨 Men?',
-            'bot',
-            [
-              { text: '👩 Women', action: 'select_gender', value: 'women' },
-              { text: '👨 Men', action: 'select_gender', value: 'men' },
-              { text: '🔙 Back', action: 'back_to_main' }
-            ]
-          )
-        })
-        break
-
-      case 'back_to_category':
-        setState(prev => ({ ...prev, selectedCategory: '' }))
-        await simulateTyping(() => {
-          const categories = state.selectedGender === 'women' 
-            ? ['💄 Lipstick', '👜 Handbag', '👗 Dress', '👠 Shoes', '💍 Jewelry']
-            : ['👔 Shirt', '👖 Pants', '👟 Shoes', '💼 Wallet', '⌚ Watch']
-          
-          addMessage(
-            `Perfect! What type of item are you interested in?`,
-            'bot',
-            [
-              ...categories.map(cat => ({ text: cat, action: 'select_category', value: cat })),
-              { text: '🔙 Back', action: 'back_to_gender' }
+              { text: '💬 WhatsApp Support', action: 'whatsapp' },
+              { text: '🏢 About KOLZO', action: 'about' }
             ]
           )
         })
@@ -343,111 +201,23 @@ const LuxuryChatbot = () => {
   const handleUserInput = async (input: string) => {
     addMessage(input, 'user')
     
-    // Handle newsletter flow
-    if (state.currentFlow === 'newsletter') {
-      console.log('Chatbot: Processing newsletter input:', input)
-      
-      if (validateEmailFormat(input)) {
-        console.log('Chatbot: Email format is valid')
-        setState(prev => ({ ...prev, userEmail: input }))
-        setIsSubmitting(true)
-        
-        await simulateTyping(async () => {
-          try {
-            console.log('Chatbot: Calling Brevo API...')
-            const response = await addToNewsletter({
-              email: input,
-              source: 'chatbot',
-              consent: true
-            })
-            
-            console.log('Chatbot: Brevo API response:', response)
-            
-            if (response.success) {
-              addMessage(
-                '🎉 **Successfully Subscribed!**\n\n' +
-                'Welcome to the KOLZO family! You\'re now part of our exclusive community.\n\n' +
-                '✅ You\'ll receive:\n' +
-                '• Early access to new collections\n' +
-                '• Exclusive member-only sales\n' +
-                '• VIP event invitations\n' +
-                '• Personalized style recommendations\n\n' +
-                'Check your email for a special welcome gift!',
-                'bot',
-                [
-                  { text: '🏠 Main Menu', action: 'back_to_main' }
-                ]
-              )
-              addNotification({
-                type: 'success',
-                title: 'Newsletter Subscription',
-                message: 'Successfully subscribed to KOLZO newsletter!',
-                duration: 5000
-              })
-            } else {
-              console.log('Chatbot: Subscription failed:', response.message)
-              addMessage(
-                '❌ **Subscription Failed**\n\n' +
-                (response.message || 'Something went wrong. Please try again.') + '\n\n' +
-                'Please check your email address and try again.',
-                'bot',
-                [
-                  { text: '🔄 Try Again', action: 'newsletter_email' },
-                  { text: '🔙 Back', action: 'newsletter' }
-                ]
-              )
-            }
-          } catch (error: any) {
-            console.error('Chatbot: Newsletter error:', error)
-            addMessage(
-              '❌ **Error Occurred**\n\n' +
-              'Sorry, there was an error processing your subscription.\n\n' +
-              'Error details: ' + (error.message || 'Unknown error') + '\n\n' +
-              'Please try again or contact our support team.',
-              'bot',
-              [
-                { text: '🔄 Try Again', action: 'newsletter_email' },
-                { text: '💬 WhatsApp Support', action: 'whatsapp' },
-                { text: '🔙 Back', action: 'newsletter' }
-              ]
-            )
-          } finally {
-            setIsSubmitting(false)
-          }
-        })
-      } else {
-        console.log('Chatbot: Invalid email format:', input)
-        await simulateTyping(() => {
-          addMessage(
-            '❌ **Invalid Email**\n\n' +
-            'Please enter a valid email address (e.g., yourname@example.com):',
-            'bot',
-            [
-              { text: '🔙 Back', action: 'newsletter' }
-            ]
-          )
-        })
-      }
-    } else {
-      // Handle general text input
-      await simulateTyping(() => {
-        addMessage(
-          'I understand you\'re asking about "' + input + '". Let me help you better!\n\n' +
-          'Please use the buttons below or type "help" for assistance.',
-          'bot',
-          [
-            { text: '🛍️ Product Guidance', action: 'product_guidance' },
-            { text: '❓ FAQ & Help', action: 'faq' },
-            { text: '💬 WhatsApp Support', action: 'whatsapp' },
-            { text: '🔙 Back to Main', action: 'back_to_main' }
-          ]
-        )
-      })
-    }
+    // Handle general text input
+    await simulateTyping(() => {
+      addMessage(
+        'I understand you\'re asking about "' + input + '". Let me help you better!\n\n' +
+        'For personalized assistance, I recommend chatting with our team on WhatsApp. They can provide detailed answers and help you find exactly what you\'re looking for.',
+        'bot',
+        [
+          { text: '💬 WhatsApp Support', action: 'whatsapp' },
+          { text: '🛍️ Browse Products', action: 'inventory' },
+          { text: '🔙 Back to Main', action: 'back_to_main' }
+        ]
+      )
+    })
   }
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && e.currentTarget.value.trim() && !isSubmitting) {
+    if (e.key === 'Enter' && e.currentTarget.value.trim()) {
       handleUserInput(e.currentTarget.value.trim())
       e.currentTarget.value = ''
     }
@@ -573,8 +343,8 @@ const LuxuryChatbot = () => {
                   <span className="text-black text-lg">💎</span>
                 </div>
                 <div>
-                  <h3 className="font-light tracking-wide">KOLZO Assistant</h3>
-                  <p className="text-xs text-gray-300">Luxury Fashion Concierge</p>
+                  <h3 className="font-light tracking-wide">KOLZO Concierge</h3>
+                  <p className="text-xs text-gray-300">Luxury Fashion Assistant</p>
                 </div>
               </div>
               <button
@@ -644,7 +414,7 @@ const LuxuryChatbot = () => {
                           className="p-2 text-xs bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-lg transition-colors"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          onClick={() => handleButtonClick(button.action, button.value)}
+                          onClick={() => handleButtonClick(button.action)}
                           style={{
                             padding: '8px',
                             fontSize: '12px',
@@ -662,61 +432,49 @@ const LuxuryChatbot = () => {
                   </div>
                 )}
 
-                {/* Input Area */}
-                {state.currentFlow === 'newsletter' && (
-                  <div className="p-4 border-t border-gray-200">
-                    <div className="flex space-x-2">
-                      <input
-                        type="text"
-                        placeholder="Enter your email..."
-                        className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
-                        onKeyPress={handleKeyPress}
-                        disabled={isSubmitting}
-                        style={{
-                          flex: 1,
-                          padding: '8px',
-                          border: '1px solid #d1d5db',
-                          borderRadius: '8px',
-                          outline: 'none',
-                          fontSize: '14px'
-                        }}
-                      />
-                      <motion.button
-                        className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50"
-                        whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                        whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-                        onClick={() => {
-                          const input = document.querySelector('input') as HTMLInputElement
-                          if (input?.value.trim() && !isSubmitting) {
-                            handleUserInput(input.value.trim())
-                            input.value = ''
-                          }
-                        }}
-                        disabled={isSubmitting}
-                        style={{
-                          backgroundColor: '#000000',
-                          color: '#ffffff',
-                          border: 'none',
-                          borderRadius: '8px',
-                          cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                          padding: '8px 16px',
-                          fontSize: '14px',
-                          fontWeight: '300',
-                          opacity: isSubmitting ? 0.5 : 1
-                        }}
-                      >
-                        {isSubmitting ? (
-                          <div className="flex items-center space-x-1">
-                            <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></div>
-                            <span>Sending...</span>
-                          </div>
-                        ) : (
-                          'Send'
-                        )}
-                      </motion.button>
-                    </div>
+                {/* Input Area for General Questions */}
+                <div className="p-4 border-t border-gray-200">
+                  <div className="flex space-x-2">
+                    <input
+                      type="text"
+                      placeholder="Ask me anything..."
+                      className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                      onKeyPress={handleKeyPress}
+                      style={{
+                        flex: 1,
+                        padding: '8px',
+                        border: '1px solid #d1d5db',
+                        borderRadius: '8px',
+                        outline: 'none',
+                        fontSize: '14px'
+                      }}
+                    />
+                    <motion.button
+                      className="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => {
+                        const input = document.querySelector('input') as HTMLInputElement
+                        if (input?.value.trim()) {
+                          handleUserInput(input.value.trim())
+                          input.value = ''
+                        }
+                      }}
+                      style={{
+                        backgroundColor: '#000000',
+                        color: '#ffffff',
+                        border: 'none',
+                        borderRadius: '8px',
+                        cursor: 'pointer',
+                        padding: '8px 16px',
+                        fontSize: '14px',
+                        fontWeight: '300'
+                      }}
+                    >
+                      Send
+                    </motion.button>
                   </div>
-                )}
+                </div>
               </>
             )}
           </motion.div>
